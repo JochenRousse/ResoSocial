@@ -31,4 +31,13 @@ class UserController extends Controller
             return Redirect::route('login');
         }
     }
+
+    public function search(Request $request){
+        $q = $request->input('q');
+
+        $user = User::where('prenom','LIKE','%'.$q.'%')->orWhere('nom', 'LIKE', '%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->orWhere('username', 'LIKE', '%'.$q.'%')->get();
+        if(count($user) > 0)
+            return view('search')->with('users', $user)->with ('query', $q);
+        else return view ('search')->with('message', 'Pas de résultats !');
+    }
 }
