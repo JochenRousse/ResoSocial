@@ -17,4 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::delete('/delete/{id}', 'UserController@destroy')->name('delete');
+
+
+Route::get('user/profil', function() {
+    return redirect()->route('user.profil', ['id' => Auth::user()->id]);
+});
+
+Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
