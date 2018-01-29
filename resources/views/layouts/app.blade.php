@@ -60,13 +60,13 @@
                         </li>
                         <li>
                             <a href="{{ route('delete', ['id' => Auth::user()->id]) }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('delete-form').submit();">
+                               onclick="event.preventDefault(); if(confirmDelete()){document.getElementById('delete-form').submit();}                                                     ">
                                 Supprimer votre compte
                             </a>
-                            <form id="delete-form" action="{{ route('delete', ['id' => Auth::user()->id]) }}"
+                            <form id="delete-form"
+                                  action="{{ route('delete', ['id' => Auth::user()->id, 'onsubmit' => 'return ConfirmDelete()']) }}"
                                   method="POST" style="display: none;">
-                                <input type="hidden" name="_method" value="delete" />
+                                <input type="hidden" name="_method" value="delete"/>
                                 {{ csrf_field() }}
                             </form>
                         </li>
@@ -81,5 +81,16 @@
 
 <!-- Scripts -->
 <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+<script>
+
+    function confirmDelete() {
+        var x = confirm("Are you sure you want to delete?");
+        if (x)
+            return true;
+        else
+            return false;
+    }
+
+</script>
 </body>
 </html>
