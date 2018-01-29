@@ -20,7 +20,7 @@ class UserController extends Controller
     }
 
     public function index($id){
-        return view('home');
+        return view('profil');
     }
 
     public function destroy($id)
