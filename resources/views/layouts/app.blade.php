@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/starter-template.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/css/font-awesome.min.css') }}"/>
 </head>
 <body>
 <div id="app">
@@ -58,25 +60,58 @@
                                 {{ csrf_field() }}
                             </form>
                         </li>
-                        <li>
-                            <a href="{{ route('delete', ['id' => Auth::user()->id]) }}"
-                               onclick="event.preventDefault(); if(confirmDelete()){document.getElementById('delete-form').submit();}                                                     ">
-                                Supprimer votre compte
-                            </a>
-                            <form id="delete-form"
-                                  action="{{ route('delete', ['id' => Auth::user()->id, 'onsubmit' => 'return ConfirmDelete()']) }}"
-                                  method="POST" style="display: none;">
-                                <input type="hidden" name="_method" value="delete"/>
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
                     @endguest
                 </ul>
             </div>
         </div>
     </nav>
+    @auth
+    <div class="col-md-12 nopadding">
+        <div class="col-md-2 navbar-default sidebar">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="{{ url('/') }}"><i class="fa fa-home fa-fw"></i> Profil</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-comments-o fa-fw"></i> ENN'Chat</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-user fa-fw"></i> Amis</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-group fa-fw"></i> Groupes</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-calendar fa-fw"></i> Evenements</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('user.params', ['id' => Auth::user()->id]) }}"><i class="fa fa-gear fa-fw"></i> Paramètres</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
 
-    @yield('content')
+        @yield('content')
+
+    </div>
+    @else
+
+        @yield('content')
+
+    @endauth
 </div>
 
 <!-- Scripts -->

@@ -28,7 +28,14 @@ class UserController extends Controller
         if(Auth::user()->id==$id) {
             $user = User::find($id);
             $user->delete();
-            return Redirect::route('login');
+            return Redirect::route('/');
+        }
+    }
+
+    public function params($id)
+    {
+        if(Auth::user()->id==$id) {
+            return view('params');
         }
     }
 }
