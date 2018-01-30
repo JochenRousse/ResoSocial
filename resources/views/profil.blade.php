@@ -13,6 +13,7 @@
             <h1>Mes posts</h1>
             <p>Ici la liste de mes posts... + commentaires</p>
         </div>
+
     </div>
 
 @endsection
