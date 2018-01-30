@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Notifications\Notification;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -20,7 +19,8 @@ class UserController extends Controller
     }
 
     public function index($id){
-        return view('profil');
+        $user = User::find($id);
+        return view('users.index')->with('user', $user);
     }
 
     public function destroy($id)

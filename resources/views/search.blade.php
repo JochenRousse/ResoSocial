@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @if(isset($users))
-            <p> The Search results for your query <b> {{ $query }} </b> are :</p>
+            <p> Voici la liste des utilisateurs correspondant à votre recherche (<b> {{ $query }} </b>) :</p>
             <h2>Sample User details</h2>
             <table class="table table-striped">
                 <thead>
@@ -17,7 +17,7 @@
                 <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <td>{{$user->username}}</td>
+                        <td><a href="{{ route('user.profil', ['id' => $user->id]) }}">{{$user->username}}</a></td>
                         <td>{{$user->nom}}</td>
                         <td>{{$user->prenom}}</td>
                         <td>{{$user->email}}</td>
