@@ -38,4 +38,32 @@ class UserController extends Controller
             return view('params');
         }
     }
+
+    public function ennchat($id)
+    {
+        if(Auth::user()->id==$id) {
+            return view('ennchat');
+        }
+    }
+
+    public function friends($id)
+    {
+        if(Auth::user()->id==$id) {
+            return view('friends');
+        }
+    }
+
+    public function groups($id)
+    {
+        if(Auth::user()->id==$id) {
+            return view('groups');
+        }
+    }
+
+    public function events($id)
+    {
+        if(Auth::user()->id==$id) {
+            return view('events');
+        }
+    }
 }

@@ -28,5 +28,26 @@ Route::get('user/params', function() {
     return redirect()->route('user.params', ['id' => Auth::user()->id]);
 });
 
+Route::get('user/ennchat', function() {
+    return redirect()->route('user.ennchat', ['id' => Auth::user()->id]);
+});
+
+Route::get('user/friends', function() {
+    return redirect()->route('user.friends', ['id' => Auth::user()->id]);
+});
+
+Route::get('user/groups', function() {
+    return redirect()->route('user.groups', ['id' => Auth::user()->id]);
+});
+
+Route::get('user/events', function() {
+    return redirect()->route('user.events', ['id' => Auth::user()->id]);
+});
+
+
 Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
 Route::get('user/{id}/params', 'UserController@params')->name('user.params');
+Route::get('user/{id}/ennchat', 'UserController@ennchat')->name('user.ennchat');
+Route::get('user/{id}/friends', 'UserController@friends')->name('user.friends');
+Route::get('user/{id}/groups', 'UserController@groups')->name('user.groups');
+Route::get('user/{id}/events', 'UserController@events')->name('user.events');
