@@ -22,24 +22,20 @@ Route::get('user/profil', function() {
     return redirect()->route('user.profil', ['id' => Auth::user()->id]);
 });
 Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
+Route::get('user/{id}/params', 'UserController@params')->name('user.params');
 Route::delete('/user/{id}', 'UserController@destroy')->name('delete');
 Route::post('/search', 'UserController@search')->name('search');
 
 /**
  * Friend-requests
  */
-Route::get('friend-requests', 'FriendRequestController@index');
-
 Route::post('friend-requests', 'FriendRequestController@store')->name('friend.requests.store');
-
-Route::delete('friend-requests', 'FriendRequestController@destroy');
+Route::delete('friend-requests', 'FriendRequestController@destroy')->name('friend.requests.delete');
 
 
 /**
  * Friends
  */
-Route::get('friends', 'FriendController@index');
-
-Route::post('friends', 'FriendController@store')->name('friend.store');
-
+Route::get('user/{id}/friends', 'FriendController@index')->name('user.friends');
+Route::post('friends', 'FriendController@create')->name('friend.create');
 Route::delete('friends', 'FriendController@destroy')->name('friend.destroy');

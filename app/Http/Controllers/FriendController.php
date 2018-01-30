@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Friend;
 use App\FriendRequest;
 use App\User;
 use App\Repositories\User\UserRepository;
+use App\Repositories\FriendRequest\FriendRequestRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -22,13 +22,14 @@ class FriendController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(UserRepository $repository)
+    public function index(FriendRequestRepository $friendRequestRepository, UserRepository $userRepository)
     {
         $user = Auth::user();
+        $friends = $userRepository->findByIdWithFriends(Auth::user()->id);
+        $requesterIds = $friendRequestRepository->getIdsThatSentRequestToCurrentUser($user->id);
+        $usersWhoRequested = $userRepository->findManyById($requesterIds);
 
-        $friends = $repository->findByIdWithFriends(Auth::user()->id);
-
-        return view('friends.index', compact('friends', 'user'));
+        return view('friends.index', compact('friends', 'user', 'usersWhoRequested'));
     }
 
     public function create(Request $request){
@@ -43,13 +44,13 @@ class FriendController extends Controller
         {
             Auth::user()->createFriendShipWith($request->userId);
 
-            User::find($request->userId)->createFriendShipWith(Auth::user()>id);
+            User::find($request->userId)->createFriendShipWith(Auth::user()->id);
 
-            FriendRequest::where('user_id', Auth::user()->id)->where('requester_id', $request->userId)->delete();
+            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->delete();
 
             $friendRequestCount = Auth::user()->friendRequests()->count();
 
-            return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'Friend request accepted.']);
+            return view('friends.index')->with('user', Auth::user())->with('response', 'success')->with('message', 'Friend request accepted')->with('count', $friendRequestCount);
         }
     }
 

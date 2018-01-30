@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/starter-template.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/css/font-awesome.min.css') }}"/>
 </head>
 <body>
 <div id="app">
@@ -58,24 +60,12 @@
                                 {{ csrf_field() }}
                             </form>
                         </li>
-                        <li>
-                            <a href="{{ route('delete', ['id' => Auth::user()->id]) }}"
-                               onclick="event.preventDefault(); if(confirmDelete()){document.getElementById('delete-form').submit();}                                                     ">
-                                Supprimer votre compte
-                            </a>
-                            <form id="delete-form"
-                                  action="{{ route('delete', ['id' => Auth::user()->id, 'onsubmit' => 'return ConfirmDelete()']) }}"
-                                  method="POST" style="display: none;">
-                                <input type="hidden" name="_method" value="delete"/>
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
                     @endguest
                 </ul>
             </div>
         </div>
     </nav>
-
+    @include('users.partials.sidebar')
     @yield('content')
 </div>
 

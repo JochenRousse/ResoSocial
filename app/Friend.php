@@ -21,6 +21,6 @@ class Friend extends \Jenssegers\Mongodb\Eloquent\Model implements
      *
      * @var array
      */
-    protected $fillable = ['id_demandeur', 'id_demandé', 'accepté'];
+    protected $fillable = ['id_demandeur', 'id_demandé'];
 
 }

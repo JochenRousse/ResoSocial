@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Friend;
 use App\FriendRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\FriendRequest\FriendRequestRepository;
-use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,19 +18,6 @@ class FriendRequestController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    public function index(FriendRequestRepository $friendRequestRepository, UserRepository $userRepository)
-    {
-        $user = Auth::user();
-
-        $requesterIds = $friendRequestRepository->getIdsThatSentRequestToCurrentUser($user->id);
-
-        $userObjects = $userRepository->findManyById($requesterIds);
-
-        $usersWhoRequested = $userObjects;
-
-        return view('friend-requests.index', compact('user', 'usersWhoRequested'));
     }
 
     /**
@@ -58,8 +42,7 @@ class FriendRequestController extends Controller
 
             $requestedUser->friendRequests()->save($friendRequest);
 
-            return response()->json(['response' => 'success', 'message' => 'Friend request submitted']);
-
+            return view('users.index')->with('user', $requestedUser)->with('response', 'success')->with('message', 'Friend request submitted');
         }
     }
 
@@ -78,11 +61,11 @@ class FriendRequestController extends Controller
         if ($validator->fails()) {
             return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
         } else {
-            FriendRequest::where('user_id', $this->currentUser->id)->where('requester_id', $request->userId)->delete();
+            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->delete();
 
-            $friendRequestCount = $this->currentUser->friendRequests()->count();
+            $friendRequestCount = Auth::user()->friendRequests()->count();
 
-            return response()->json(['response' => 'success', 'count' => $friendRequestCount, 'message' => 'friend request removed']);
+            return view('friends.index')->with('user', Auth::user())->with('response', 'success')->with('message', 'friend request removed')->with('count', $friendRequestCount);
         }
 
     }

@@ -8,8 +8,9 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Jenssegers\Mongodb\Eloquent\Model;
 
-class User extends \Jenssegers\Mongodb\Eloquent\Model implements
+class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
@@ -33,7 +34,7 @@ class User extends \Jenssegers\Mongodb\Eloquent\Model implements
     ];
 
     /**
-     * A User can have many friend requests.
+     * A user can have many friend requests.
      *
      * @return collection
      */
@@ -45,12 +46,12 @@ class User extends \Jenssegers\Mongodb\Eloquent\Model implements
     /**
      * A user can have many friends.
      *
-     * @return Collection
+     * @return collection
      *
      */
     public function friends()
     {
-        return $this->belongsToMany(Self::class, null, 'id_demandé', 'id_demandeur')->withTimestamps();
+        return $this->belongsToMany(Self::class, 'friends', 'id_demandé', 'id_demandeur')->withTimestamps();
     }
 
     /**
@@ -62,7 +63,11 @@ class User extends \Jenssegers\Mongodb\Eloquent\Model implements
      */
     public function createFriendShipWith($id_demandeur)
     {
-        return $this->friends()->attach($id_demandeur, ['id_demandé' => $this->id, 'id_demandeur' => $id_demandeur]);
+        $friend = new Friend(['id_demandé' => $this->id, 'id_demandeur' => $id_demandeur]);
+        $this->friends()->attach($friend);
+
+        return $this->save();
+
     }
 
     /**
@@ -114,7 +119,7 @@ class User extends \Jenssegers\Mongodb\Eloquent\Model implements
      */
     public function receivedFriendRequestFrom($otherUserId)
     {
-        $friendRequestsReceivedByCurrentUser = FriendRequest::where('id_demandé', $this->id)->pluck('id_demandeur')->toArray();
+        $friendRequestsReceivedByCurrentUser = FriendRequest::where('user_id', $this->id)->pluck('id_demandeur')->toArray();
 
         return in_array($otherUserId, $friendRequestsReceivedByCurrentUser);
     }
