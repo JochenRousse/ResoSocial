@@ -72,7 +72,8 @@ class RegisterController extends Controller
             'nom' => $data['nom'],
             'prenom' => $data['prenom'],
             'ddn' => $data['ddn'],
-            'genre' => $data['genre']
+            'genre' => $data['genre'],
+            'user_ids' => array()
         ]);
     }
 }
