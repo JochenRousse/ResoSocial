@@ -42,7 +42,7 @@ class FriendRequestController extends Controller
 
             $requestedUser->friendRequests()->save($friendRequest);
 
-            return view('users.index')->with('user', $requestedUser)->with('response', 'success')->with('message', 'Friend request submitted');
+            return back()->with('response', 'success')->with('message', 'Friend request submitted');
         }
     }
 
@@ -65,7 +65,7 @@ class FriendRequestController extends Controller
 
             $friendRequestCount = Auth::user()->friendRequests()->count();
 
-            return view('friends.index')->with('user', Auth::user())->with('response', 'success')->with('message', 'friend request removed')->with('count', $friendRequestCount);
+            return back()->with('response', 'success')->with('message', 'friend request removed')->with('count', $friendRequestCount);
         }
 
     }

@@ -23,7 +23,7 @@ class UserController extends Controller
         return view('users.index')->with('user', $user);
     }
 
-    public function params($id)
+    public function params()
     {
         return view('params.index');
     }

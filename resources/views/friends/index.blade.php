@@ -13,8 +13,19 @@
                                             href="{{ route('user.profil', ['id' => $friend['_id']]) }}">{{ $friend['prenom'] }} {{ $friend['nom'] }}</a>
                                 </h4>
                                 <div class="pull-right">
-                                    <a href="#" data-method="delete" data-userid="{{ $friend['_id'] }}"
-                                       class="btn btn-primary btn-sm" role="button">Unfriend</a>
+                                    <a href="{{ route('friend.delete') }}"
+                                       class="btn btn-primary btn-sm"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('delete-friend').submit();">
+                                        Unfriend
+                                    </a>
+                                    <form id="delete-friend" action="{{ route('friend.delete') }}"
+                                          method="POST"
+                                          style="display: none;">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <input type="hidden" name="userId" value="{{$friend['_id']}}"/>
+                                        {{ csrf_field() }}
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +45,7 @@
                                 <h4 class="media-heading">{{ $user->prenom }} {{ $user->nom }}</h4>
                                 <div class="pull-right">
                                     <a href="{{ route('friend.create') }}"
-                                       class="btn btn-primary add-friend-button btn-sm"
+                                       class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
                                                      document.getElementById('add-friend').submit();">
                                         Accept
@@ -45,7 +56,7 @@
                                         {{ csrf_field() }}
                                     </form>
                                     <a href="{{ route('friend.requests.delete') }}"
-                                       class="btn btn-primary add-friend-button btn-sm"
+                                       class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
                                                      document.getElementById('delete-friend-request').submit();">
                                         Delete

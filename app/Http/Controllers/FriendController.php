@@ -43,14 +43,13 @@ class FriendController extends Controller
         else
         {
             Auth::user()->createFriendShipWith($request->userId);
-
             User::find($request->userId)->createFriendShipWith(Auth::user()->id);
 
             FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->delete();
 
             $friendRequestCount = Auth::user()->friendRequests()->count();
 
-            return view('friends.index')->with('user', Auth::user())->with('response', 'success')->with('message', 'Friend request accepted')->with('count', $friendRequestCount);
+            return back()->with('response', 'success')->with('message', 'Friend request accepted')->with('count', $friendRequestCount);
         }
     }
 
@@ -64,15 +63,12 @@ class FriendController extends Controller
         }
         else
         {
-            $currentUser = Auth::user();
-            $otherUser = User::find($request->userId);
-
-            $currentUser->finishFriendshipWith($request->userId);
-            $otherUser->finishFriendshipWith(Auth::user()->id);
+            Auth::user()->finishFriendshipWith($request->userId);
+            User::find($request->userId)->finishFriendshipWith(Auth::user()->id);
 
             $friendsCount = Auth::user()->friends()->count();
 
-            return response()->json(['response' => 'success', 'count' => $friendsCount, 'message' => 'This friend has been removed']);
+            return back()->with('response', 'success')->with('message', 'This friend has been removed')->with('count', $friendsCount);
         }
     }
 }

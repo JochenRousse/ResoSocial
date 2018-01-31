@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Jenssegers\Mongodb\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateFriendRequestsTable extends Migration
 {
@@ -15,8 +16,8 @@ class CreateFriendRequestsTable extends Migration
     {
         Schema::create('friends_requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_demandé')->index();
-            $table->foreign('id_demandé')->references('id')->on('users')->onDelete('cascade');
+            $table->string('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('id_demandeur')->index();
             $table->boolean('accepté');
             $table->timestamps();
@@ -30,6 +31,6 @@ class CreateFriendRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friends_requests');
+        DB::collection('friends_requests')->delete();
     }
 }

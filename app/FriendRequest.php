@@ -24,11 +24,6 @@ class FriendRequest extends \Jenssegers\Mongodb\Eloquent\Model implements
     protected $fillable = ['id_demandeur'];
 
 
-    /**
-     * A feed belongs to a User.
-     *
-     * @return User
-     */
     public function user()
     {
         return $this->belongsTo('App\User');

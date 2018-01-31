@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\DB;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 class User extends Model implements
@@ -33,25 +34,15 @@ class User extends Model implements
         'password', 'remember_token',
     ];
 
-    /**
-     * A user can have many friend requests.
-     *
-     * @return collection
-     */
+
     public function friendRequests()
     {
         return $this->hasMany('App\FriendRequest');
     }
 
-    /**
-     * A user can have many friends.
-     *
-     * @return collection
-     *
-     */
     public function friends()
     {
-        return $this->belongsToMany(Self::class, 'friends', 'id_demandé', 'id_demandeur')->withTimestamps();
+        return $this->belongsToMany('App\User');
     }
 
     /**
@@ -63,10 +54,7 @@ class User extends Model implements
      */
     public function createFriendShipWith($id_demandeur)
     {
-        $friend = new Friend(['id_demandé' => $this->id, 'id_demandeur' => $id_demandeur]);
-        $this->friends()->attach($friend);
-
-        return $this->save();
+        return $this->friends()->attach($id_demandeur);
 
     }
 
@@ -79,7 +67,7 @@ class User extends Model implements
      */
     public function finishFriendshipWith($id_demandeur)
     {
-        return $this->friends()->detach($id_demandeur, ['id_demandé' => $this->id, 'id_demandeur' => $id_demandeur]);
+        return $this->friends()->detach($id_demandeur);
     }
 
     /**
@@ -91,9 +79,8 @@ class User extends Model implements
      */
     public function isFriendsWith($otherUserId)
     {
-        $currentUserFriends = Friend::where('id_demandeur', $this->id)->pluck('id_demandé')->toArray();
-
-        return in_array($otherUserId, $currentUserFriends);
+        $friends = $this->user_ids;
+        return in_array($otherUserId, $friends);
     }
 
     /**

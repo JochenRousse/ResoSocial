@@ -37,8 +37,6 @@ class EloquentUserRepository implements UserRepository
 			'friends' => function($query){ 
 			$query->orderBy('prenom', 'desc');
 		}])->findOrFail($userId)->toArray();
-        //var_dump($user);
-        //exit();
 		return $user['friends'];
 	}
 	

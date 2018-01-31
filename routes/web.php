@@ -38,4 +38,4 @@ Route::delete('friend-requests', 'FriendRequestController@destroy')->name('frien
  */
 Route::get('user/{id}/friends', 'FriendController@index')->name('user.friends');
 Route::post('friends', 'FriendController@create')->name('friend.create');
-Route::delete('friends', 'FriendController@destroy')->name('friend.destroy');
+Route::delete('friends', 'FriendController@destroy')->name('friend.delete');

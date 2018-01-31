@@ -11,13 +11,14 @@
             <p>Ici la liste de mes posts... + commentaires</p>
             @if ($user->id != Auth::user()->id)
                 @if(Auth::user()->isFriendsWith($user->id))
-                    <a href="{{ route('friend.destroy') }}" class="btn btn-primary add-friend-button btn-sm"
+                    <a href="{{ route('friend.delete') }}" class="btn btn-primary btn-sm"
                        onclick="event.preventDefault();
                                                      document.getElementById('delete-friend').submit();">
                         Unfriend
                     </a>
-                    <form id="delete-friend" action="{{ route('friend.destroy') }}" method="POST"
+                    <form id="delete-friend" action="{{ route('friend.delete') }}" method="POST"
                           style="display: none;">
+                        <input type="hidden" name="_method" value="delete"/>
                         <input type="hidden" name="userId" value="{{$user->id}}"/>
                         {{ csrf_field() }}
                     </form>
@@ -26,7 +27,7 @@
                         <button class="btn btn-primary btn-sm" disabled="disabled" type="submit">Requested
                         </button>
                     @elseif(Auth::user()->receivedFriendRequestFrom($user->id))
-                        <a href="{{ route('friend.create') }}" class="btn btn-primary add-friend-button btn-sm"
+                        <a href="{{ route('friend.create') }}" class="btn btn-primary btn-sm"
                            onclick="event.preventDefault();
                                                      document.getElementById('add-friend').submit();">
                             Accept invitation
@@ -38,7 +39,7 @@
                         </form>
                     @else
                         <a href="{{ route('friend.requests.store') }}"
-                           class="btn btn-primary add-friend-button btn-sm"
+                           class="btn btn-primary btn-sm"
                            onclick="event.preventDefault();
                                                      document.getElementById('send-friend-request').submit();">
                             Add a friend
