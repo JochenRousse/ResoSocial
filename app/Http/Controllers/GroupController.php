@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Group;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Repositories\Group\GroupRepository;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+
+class GroupController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index(GroupRepository $groupRepository)
+    {
+        $user = Auth::user();
+        $groups = $groupRepository->getAllGroups($user->id);
+        $groupsAdmin = $groupRepository->getGroupsAdmin($user->id);
+
+        return view('groups.index', compact('groups', 'user', 'groupsAdmin'));
+    }
+
+    public function page($id)
+    {
+        $group = Group::where('_id', $id)->first();
+        $user = Auth::user();
+
+        return view('groups.page', compact('group', 'user'));
+    }
+
+    public function create(Request $request)
+    {
+        $validator = Validator::make($request->all(), ['group_name' => 'required', 'userId' => 'required']);
+
+        if ($validator->fails()) {
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
+        } else {
+            Group::create(['name' => $request['group_name'], 'admin_id' => $request['userId'], 'members' => array(0 => $request['userId'])]);
+
+            $notification = array(
+                'message' => 'Ce groupe a bien été créé',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification);
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        $validator = Validator::make($request->all(), ['id' => 'required']);
+
+        if ($validator->fails()) {
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
+        } else {
+            Group::where('_id', $request->id)->delete();
+
+            $notification = array(
+                'message' => 'Ce groupe a bien été supprimé',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification);
+        }
+    }
+}

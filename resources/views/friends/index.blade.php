@@ -9,8 +9,8 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">Nom</th>
                             <th scope="col">Prénom</th>
+                            <th scope="col">Nom</th>
                             <th scope="col">Lien</th>
                             <th scope="col"></th>
                         </tr>
@@ -52,8 +52,8 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">Nom</th>
                             <th scope="col">Prénom</th>
+                            <th scope="col">Nom</th>
                             <th scope="col">Lien</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -108,8 +108,8 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">Nom</th>
                             <th scope="col">Prénom</th>
+                            <th scope="col">Nom</th>
                             <th scope="col">Lien</th>
                             <th scope="col"></th>
                             <th scope="col"></th>

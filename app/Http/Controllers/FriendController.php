@@ -25,7 +25,8 @@ class FriendController extends Controller
     public function index(FriendRequestRepository $friendRequestRepository, UserRepository $userRepository)
     {
         $user = Auth::user();
-        $friends = $userRepository->findByIdWithFriends(Auth::user()->id);
+        $friends = $userRepository->findByIdWithFriends($user->id);
+
         $requesterIds = $friendRequestRepository->getIdsThatSentRequestToCurrentUser($user->id);
         $usersWhoRequested = $userRepository->findManyById($requesterIds);
 

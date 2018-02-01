@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -19,7 +20,8 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index($id){
+    public function index($id)
+    {
         $user = User::find($id);
         return view('users.index')->with('user', $user);
     }
@@ -31,7 +33,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        if(Auth::user()->id==$id) {
+        if (Auth::user()->id == $id) {
             $user = User::find($id);
             $user->delete();
             $notification = array(
@@ -42,12 +44,26 @@ class UserController extends Controller
         }
     }
 
-    public function search(Request $request){
-        $q = $request->input('q');
+    public function search(Request $request)
+    {
 
-        $user = User::where('prenom','LIKE','%'.$q.'%')->orWhere('nom', 'LIKE', '%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->orWhere('username', 'LIKE', '%'.$q.'%')->get();
-        if(count($user) > 0)
-            return view('search')->with('users', $user)->with ('query', $q);
-        else return view ('search')->with('message', 'Pas de résultats !');
+        $validator = Validator::make($request->all(), ['q' => 'required']);
+
+        if ($validator->fails()) {
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
+        } else {
+            $q = $request->input('q');
+
+            $user = User::where('prenom', 'LIKE', '%' . $q . '%')->orWhere('nom', 'LIKE', '%' . $q . '%')->orWhere('email', 'LIKE', '%' . $q . '%')->orWhere('username', 'LIKE', '%' . $q . '%')->get();
+            if (count($user) > 0)
+                return view('search')->with('users', $user)->with('query', $q);
+
+            else return view('search')->with('message', 'Pas de résultats !');
+        }
     }
 }

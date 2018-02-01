@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="view-container container">
         @if(isset($users))
-            <p> Voici la liste des utilisateurs correspondant à votre recherche (<b> {{ $query }} </b>) :</p>
-            <h2>Sample User details</h2>
+            <h2>Utilisateurs correspondant à votre recherche (<b> {{ $query }} </b>)</h2>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Username</th>
+                    <th>Nom d'utilisateur</th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Email</th>
@@ -28,5 +27,28 @@
         @else
             <p>{{ $message }}</p>
         @endif
+
+        @if(isset($groups))
+            <h2>Groupes correspondant à votre recherche (<b> {{ $query }} </b>)</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nom du groupe</th>
+                    <th>Administrateur</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($groups as $group)
+                    <tr>
+                        <td><a href="{{-- route('group.page', ['id' => $group->id]) --}}">{{$group->name}}</a></td>
+                        <td>{{$group->admin}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        @else
+            <p>{{ $message }}</p>
+        @endif
+
     </div>
 @endsection

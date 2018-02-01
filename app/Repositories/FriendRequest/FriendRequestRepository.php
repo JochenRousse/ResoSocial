@@ -1,6 +1,6 @@
-<?php namespace App\Repositories\FriendRequest;
+<?php
 
-use App\User;
+namespace App\Repositories\FriendRequest;
 
 interface FriendRequestRepository
 {
