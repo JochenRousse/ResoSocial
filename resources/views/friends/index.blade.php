@@ -42,8 +42,8 @@
                     </table>
                 </div>
             @else
-                <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> You don't
-                    have any friends.
+                <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Vous
+                    n'avez pas d'amis.
                 </div>
             @endif
             <h1>Demandes d'amis en attente</h1>
@@ -98,14 +98,39 @@
                     </table>
                 </div>
             @else
-                <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> You don't
-                    have any friend requests.
+                <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Vous
+                    n'avez pas de demandes d'amis en attente.
                 </div>
             @endif
             <h1>Demandes refusées</h1>
-            <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> You don't
-                have any deleted friend requests.
-            </div>
+            @if(!empty($usersDeletedRequests))
+                <div class="users-list">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Lien</th>
+                        </tr>
+                        </thead>
+                        @foreach($usersDeletedRequests as $user)
+                            <tbody>
+                            <tr>
+                                <td>{{ $user['prenom'] }}</td>
+                                <td>{{ $user['nom'] }}</td>
+                                <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
+                                        profil</a></td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                    </table>
+                </div>
+            @else
+                <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Aucune de
+                    vos demandes d'amis n'a été refusée.
+                </div>
+            @endif
+
         </div>
     </div>
 @stop

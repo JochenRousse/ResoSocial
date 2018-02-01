@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -33,7 +34,11 @@ class UserController extends Controller
         if(Auth::user()->id==$id) {
             $user = User::find($id);
             $user->delete();
-            return Redirect::route('login');
+            $notification = array(
+                'message' => 'Votre compte a été supprimé.',
+                'alert-type' => 'success'
+            );
+            return Redirect::route('login')->with($notification);
         }
     }
 

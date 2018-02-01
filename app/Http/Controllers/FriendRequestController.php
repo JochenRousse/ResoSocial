@@ -32,7 +32,13 @@ class FriendRequestController extends Controller
         $validator = Validator::make($request->all(), ['userId' => 'required']);
 
         if ($validator->fails()) {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
+
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
         } else {
             $requestedUser = User::find($request->userId);
 
@@ -42,7 +48,12 @@ class FriendRequestController extends Controller
 
             $requestedUser->friendRequests()->save($friendRequest);
 
-            return back()->with('response', 'success')->with('message', 'Friend request submitted');
+            $notification = array(
+                'message' => 'Demande d\'ami envoyée',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification);
         }
     }
 
@@ -59,13 +70,25 @@ class FriendRequestController extends Controller
         $validator = Validator::make($request->all(), ['userId' => 'required']);
 
         if ($validator->fails()) {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
+
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
         } else {
-            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->delete();
 
-            $friendRequestCount = Auth::user()->friendRequests()->count();
+            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->update(['deleted' => true]);
 
-            return back()->with('response', 'success')->with('message', 'friend request removed')->with('count', $friendRequestCount);
+            $friendRequestCount = Auth::user()->friendRequests()->where('deleted', false)->count();
+
+            $notification = array(
+                'message' => 'Demande d\'ami supprimée',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification)->with('count', $friendRequestCount);
         }
 
     }

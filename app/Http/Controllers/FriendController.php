@@ -29,7 +29,10 @@ class FriendController extends Controller
         $requesterIds = $friendRequestRepository->getIdsThatSentRequestToCurrentUser($user->id);
         $usersWhoRequested = $userRepository->findManyById($requesterIds);
 
-        return view('friends.index', compact('friends', 'user', 'usersWhoRequested'));
+        $requesterIdsDeletedRequests = $friendRequestRepository->getIdsDeletedRequests($user->id);
+        $usersDeletedRequests = $userRepository->findManyById($requesterIdsDeletedRequests);
+
+        return view('friends.index', compact('friends', 'user', 'usersWhoRequested', 'usersDeletedRequests'));
     }
 
     public function create(Request $request){
@@ -38,18 +41,25 @@ class FriendController extends Controller
 
         if($validator->fails())
         {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
         }
         else
         {
             Auth::user()->createFriendShipWith($request->userId);
             User::find($request->userId)->createFriendShipWith(Auth::user()->id);
 
-            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->delete();
+            $friendRequestCount = Auth::user()->friendRequests()->where('deleted', false)->count();
 
-            $friendRequestCount = Auth::user()->friendRequests()->count();
+            $notification = array(
+                'message' => 'Demande d\'ami acceptée',
+                'alert-type' => 'success'
+            );
 
-            return back()->with('response', 'success')->with('message', 'Friend request accepted')->with('count', $friendRequestCount);
+            return back()->with($notification)->with('count', $friendRequestCount);
         }
     }
 
@@ -59,7 +69,12 @@ class FriendController extends Controller
 
         if($validator->fails())
         {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
         }
         else
         {
@@ -68,7 +83,12 @@ class FriendController extends Controller
 
             $friendsCount = Auth::user()->friends()->count();
 
-            return back()->with('response', 'success')->with('message', 'This friend has been removed')->with('count', $friendsCount);
+            $notification = array(
+                'message' => 'Cet ami a bien été supprimé',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification)->with('count', $friendsCount);
         }
     }
 }

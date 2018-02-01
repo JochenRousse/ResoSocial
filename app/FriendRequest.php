@@ -21,7 +21,7 @@ class FriendRequest extends \Jenssegers\Mongodb\Eloquent\Model implements
      *
      * @var array
      */
-    protected $fillable = ['id_demandeur'];
+    protected $fillable = ['id_demandeur', 'deleted'];
 
 
     public function user()
@@ -39,7 +39,8 @@ class FriendRequest extends \Jenssegers\Mongodb\Eloquent\Model implements
      */
     public static function prepareFriendRequest($id_demandeur)
     {
-        $FriendRequest = new static(compact('id_demandeur'));
+        $deleted = false;
+        $FriendRequest = new static(compact('id_demandeur', 'deleted'));
 
         return $FriendRequest;
     }

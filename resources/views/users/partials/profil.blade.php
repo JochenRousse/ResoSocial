@@ -1,7 +1,7 @@
 @auth
     <div class="col-md-10">
         <div class="view-container container">
-            <h1>{{$user->nom}} {{$user->prenom}}</h1>
+            <h1>{{$user->prenom}} {{$user->nom}}</h1>
             <hr/>
             <p>{{$user->genre}}</p>
             <p>{{$user->ddn}}</p>

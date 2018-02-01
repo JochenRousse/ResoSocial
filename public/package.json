@@ -18,6 +18,7 @@
   "homepage": "https://github.com/JohannCarfantan/ResoSocial#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "toastr": "^2.1.4"
   }
 }

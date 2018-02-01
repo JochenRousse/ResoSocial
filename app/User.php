@@ -92,7 +92,7 @@ class User extends Model implements
      */
     public function sentFriendRequestTo($otherUserId)
     {
-        $friendRequestedByCurrentUser = FriendRequest::where('id_demandeur', $this->id)->pluck('user_id')->toArray();
+        $friendRequestedByCurrentUser = FriendRequest::where('id_demandeur', $this->id)->where('deleted', false)->pluck('user_id')->toArray();
 
         return in_array($otherUserId, $friendRequestedByCurrentUser);
     }
@@ -106,7 +106,7 @@ class User extends Model implements
      */
     public function receivedFriendRequestFrom($otherUserId)
     {
-        $friendRequestsReceivedByCurrentUser = FriendRequest::where('user_id', $this->id)->pluck('id_demandeur')->toArray();
+        $friendRequestsReceivedByCurrentUser = FriendRequest::where('user_id', $this->id)->where('deleted', false)->pluck('id_demandeur')->toArray();
 
         return in_array($otherUserId, $friendRequestsReceivedByCurrentUser);
     }
