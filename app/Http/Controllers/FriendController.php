@@ -32,7 +32,10 @@ class FriendController extends Controller
         $requesterIdsDeletedRequests = $friendRequestRepository->getIdsDeletedRequests($user->id);
         $usersDeletedRequests = $userRepository->findManyById($requesterIdsDeletedRequests);
 
-        return view('friends.index', compact('friends', 'user', 'usersWhoRequested', 'usersDeletedRequests'));
+        $pendingRequesterIds = $friendRequestRepository->getIdsPendingRequests($user->id);
+        $usersPendingRequests = $userRepository->findManyById($pendingRequesterIds);
+
+        return view('friends.index', compact('friends', 'user', 'usersWhoRequested', 'usersDeletedRequests', 'usersPendingRequests'));
     }
 
     public function create(Request $request){
@@ -51,6 +54,8 @@ class FriendController extends Controller
         {
             Auth::user()->createFriendShipWith($request->userId);
             User::find($request->userId)->createFriendShipWith(Auth::user()->id);
+
+            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->update(['accepted' => true]);
 
             $friendRequestCount = Auth::user()->friendRequests()->where('deleted', false)->count();
 

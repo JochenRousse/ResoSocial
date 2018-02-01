@@ -14,7 +14,7 @@
                     <a href="{{ route('friend.delete') }}" class="btn btn-primary btn-sm"
                        onclick="event.preventDefault();
                                                      document.getElementById('delete-friend').submit();">
-                        Unfriend
+                        Supprimer cet ami
                     </a>
                     <form id="delete-friend" action="{{ route('friend.delete') }}" method="POST"
                           style="display: none;">
@@ -24,13 +24,13 @@
                     </form>
                 @else
                     @if( Auth::user()->sentFriendRequestTo($user->id))
-                        <button class="btn btn-primary btn-sm" disabled="disabled" type="submit">Requested
+                        <button class="btn btn-primary btn-sm" disabled="disabled" type="submit">Demande envoyée
                         </button>
                     @elseif(Auth::user()->receivedFriendRequestFrom($user->id))
                         <a href="{{ route('friend.create') }}" class="btn btn-primary btn-sm"
                            onclick="event.preventDefault();
                                                      document.getElementById('add-friend').submit();">
-                            Accept invitation
+                            Accepter la demande d'ami
                         </a>
                         <form id="add-friend" action="{{ route('friend.create') }}" method="POST"
                               style="display: none;">
@@ -42,7 +42,7 @@
                            class="btn btn-primary btn-sm"
                            onclick="event.preventDefault();
                                                      document.getElementById('send-friend-request').submit();">
-                            Add a friend
+                            Ajouter un ami
                         </a>
                         <form id="send-friend-request" action="{{ route('friend.requests.store') }}" method="POST"
                               style="display: none;">
