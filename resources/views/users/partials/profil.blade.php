@@ -37,6 +37,19 @@
                             <input type="hidden" name="userId" value="{{$user->id}}"/>
                             {{ csrf_field() }}
                         </form>
+                        <a href="{{ route('friend.requests.decline') }}"
+                           class="btn btn-primary btn-sm"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('decline-friend-request').submit();">
+                            Décliner la demande d'ami
+                        </a>
+                        <form id="decline-friend-request" action="{{ route('friend.requests.decline') }}"
+                              method="POST"
+                              style="display: none;">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <input type="hidden" name="userId" value="{{$user->id}}"/>
+                            {{ csrf_field() }}
+                        </form>
                     @else
                         <a href="{{ route('friend.requests.store') }}"
                            class="btn btn-primary btn-sm"

@@ -34,7 +34,8 @@ Route::post('/search', 'UserController@search')->name('search');
  * Friend-requests
  */
 Route::post('friend-requests', 'FriendRequestController@store')->name('friend.requests.store');
-Route::delete('friend-requests', 'FriendRequestController@destroy')->name('friend.requests.delete');
+Route::delete('friend-requests/decline', 'FriendRequestController@decline')->name('friend.requests.decline');
+Route::delete('friend-requests/erase', 'FriendRequestController@erase')->name('friend.requests.erase');
 
 
 /**

@@ -24,10 +24,4 @@ class Group extends \Jenssegers\Mongodb\Eloquent\Model implements
      */
     protected $fillable = ['name', 'admin_id', 'members'];
 
-
-    public function user()
-    {
-        return $this->belongsToMany('App\User');
-    }
-
 }

@@ -33,7 +33,6 @@ class User extends Model implements
         'password', 'remember_token',
     ];
 
-
     public function friendRequests()
     {
         return $this->hasMany('App\FriendRequest');
@@ -42,11 +41,6 @@ class User extends Model implements
     public function friends()
     {
         return $this->belongsToMany('App\User');
-    }
-
-    public function groups()
-    {
-        return $this->belongsToMany('App\Group');
     }
 
     /**
@@ -96,7 +90,7 @@ class User extends Model implements
      */
     public function sentFriendRequestTo($otherUserId)
     {
-        $friendRequestedByCurrentUser = FriendRequest::where('id_demandeur', $this->id)->where('deleted', false)->pluck('user_id')->toArray();
+        $friendRequestedByCurrentUser = FriendRequest::where('id_demandeur', $this->id)->where('declined', false)->pluck('user_id')->toArray();
 
         return in_array($otherUserId, $friendRequestedByCurrentUser);
     }
@@ -110,7 +104,7 @@ class User extends Model implements
      */
     public function receivedFriendRequestFrom($otherUserId)
     {
-        $friendRequestsReceivedByCurrentUser = FriendRequest::where('user_id', $this->id)->where('deleted', false)->pluck('id_demandeur')->toArray();
+        $friendRequestsReceivedByCurrentUser = FriendRequest::where('user_id', $this->id)->where('declined', false)->pluck('id_demandeur')->toArray();
 
         return in_array($otherUserId, $friendRequestsReceivedByCurrentUser);
     }

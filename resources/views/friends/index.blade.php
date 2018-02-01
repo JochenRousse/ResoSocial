@@ -74,21 +74,21 @@
                                     </a>
                                     <form id="add-friend" action="{{ route('friend.create') }}" method="POST"
                                           style="display: none;">
-                                        <input type="hidden" name="userId" value="{{$user->id}}"/>
+                                        <input type="hidden" name="userId" value="{{$user['_id']}}"/>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
-                                <td><a href="{{ route('friend.requests.delete') }}"
+                                <td><a href="{{ route('friend.requests.decline') }}"
                                        class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('delete-friend-request').submit();">
+                                                     document.getElementById('decline-friend-request').submit();">
                                         Décliner
                                     </a>
-                                    <form id="delete-friend-request" action="{{ route('friend.requests.delete') }}"
+                                    <form id="decline-friend-request" action="{{ route('friend.requests.decline') }}"
                                           method="POST"
                                           style="display: none;">
                                         <input type="hidden" name="_method" value="delete"/>
-                                        <input type="hidden" name="userId" value="{{$user->id}}"/>
+                                        <input type="hidden" name="userId" value="{{$user['_id']}}"/>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
@@ -141,6 +141,7 @@
                             <th scope="col">Nom</th>
                             <th scope="col">Prénom</th>
                             <th scope="col">Lien</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         @foreach($usersDeletedRequests as $user)
@@ -150,6 +151,20 @@
                                 <td>{{ $user['nom'] }}</td>
                                 <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
                                         profil</a></td>
+                                <td><a href="{{ route('friend.requests.erase') }}"
+                                       class="btn btn-primary btn-sm"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('erase-friend-request').submit();">
+                                        Effacer
+                                    </a>
+                                    <form id="erase-friend-request" action="{{ route('friend.requests.erase') }}"
+                                          method="POST"
+                                          style="display: none;">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <input type="hidden" name="userId" value="{{$user['_id']}}"/>
+                                        {{ csrf_field() }}
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>

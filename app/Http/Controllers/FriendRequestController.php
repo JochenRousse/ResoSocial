@@ -58,14 +58,14 @@ class FriendRequestController extends Controller
     }
 
     /**
-     * Remove a friend request.
+     * Decline a friend request.
      *
      * @param Request $request
      *
      *
      * @return Response
      */
-    public function destroy(Request $request)
+    public function decline(Request $request)
     {
         $validator = Validator::make($request->all(), ['userId' => 'required']);
 
@@ -79,12 +79,41 @@ class FriendRequestController extends Controller
             return back()->with($notification);
         } else {
 
-            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->update(['deleted' => true]);
+            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->update(['declined' => true]);
 
-            $friendRequestCount = Auth::user()->friendRequests()->where('deleted', false)->count();
+            $friendRequestCount = Auth::user()->friendRequests()->where('declined', false)->count();
 
             $notification = array(
-                'message' => 'Demande d\'ami supprimée',
+                'message' => 'Demande d\'ami refusée',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification)->with('count', $friendRequestCount);
+        }
+
+    }
+
+
+    public function erase(Request $request)
+    {
+        $validator = Validator::make($request->all(), ['userId' => 'required']);
+
+        if ($validator->fails()) {
+
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
+        } else {
+
+            FriendRequest::where('id_demandeur', Auth::user()->id)->where('user_id', $request->userId)->delete();
+
+            $friendRequestCount = Auth::user()->friendRequests()->where('declined', false)->count();
+
+            $notification = array(
+                'message' => 'Demande d\'ami effacée',
                 'alert-type' => 'success'
             );
 
