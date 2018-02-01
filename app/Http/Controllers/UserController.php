@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -59,11 +60,22 @@ class UserController extends Controller
         } else {
             $q = $request->input('q');
 
-            $user = User::where('prenom', 'LIKE', '%' . $q . '%')->orWhere('nom', 'LIKE', '%' . $q . '%')->orWhere('email', 'LIKE', '%' . $q . '%')->orWhere('username', 'LIKE', '%' . $q . '%')->get();
-            if (count($user) > 0)
-                return view('search')->with('users', $user)->with('query', $q);
+            $return = array();
 
-            else return view('search')->with('message', 'Pas de résultats !');
+            $users = User::where('prenom', 'LIKE', '%' . $q . '%')->orWhere('nom', 'LIKE', '%' . $q . '%')->orWhere('email', 'LIKE', '%' . $q . '%')->orWhere('username', 'LIKE', '%' . $q . '%')->get()->toArray();
+            if (count($users) > 0) {
+                $return['users'] = $users;
+            }
+
+            $groups = Group::where('name', 'LIKE', '%' . $q . '%')->get()->toArray();
+            if (count($groups) > 0) {
+                $return['groups'] = $groups;
+            }
+            if (!empty(array_filter($return))) {
+                return view('search')->with($return)->with('query', $q);
+            } else {
+                return view('search');
+            }
         }
     }
 }

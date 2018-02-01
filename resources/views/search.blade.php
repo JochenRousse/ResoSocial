@@ -16,16 +16,16 @@
                 <tbody>
                 @foreach($users as $user)
                     <tr>
-                        <td><a href="{{ route('user.profil', ['id' => $user->id]) }}">{{$user->username}}</a></td>
-                        <td>{{$user->nom}}</td>
-                        <td>{{$user->prenom}}</td>
-                        <td>{{$user->email}}</td>
+                        <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">{{$user['username']}}</a></td>
+                        <td>{{$user['nom']}}</td>
+                        <td>{{$user['prenom']}}</td>
+                        <td>{{$user['email']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         @else
-            <p>{{ $message }}</p>
+            <p>Aucun utilisateur correspondant à votre recherche.</p>
         @endif
 
         @if(isset($groups))
@@ -40,14 +40,14 @@
                 <tbody>
                 @foreach($groups as $group)
                     <tr>
-                        <td><a href="{{-- route('group.page', ['id' => $group->id]) --}}">{{$group->name}}</a></td>
-                        <td>{{$group->admin}}</td>
+                        <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">{{$group['name']}}</a></td>
+                        <td>{{$group['admin_id']}}</td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         @else
-            <p>{{ $message }}</p>
+            <p>Pas de groupe correspondant à votre recherche.</p>
         @endif
 
     </div>
