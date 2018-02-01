@@ -17,12 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::delete('/delete/{id}', 'UserController@destroy')->name('delete');
-
 
 Route::get('user/profil', function() {
     return redirect()->route('user.profil', ['id' => Auth::user()->id]);
 });
+Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
+Route::get('user/{id}/params', 'UserController@params')->name('user.params');
+Route::delete('/user/{id}', 'UserController@destroy')->name('delete');
+Route::post('/search', 'UserController@search')->name('search');
 
 Route::get('user/params', function() {
     return redirect()->route('user.params', ['id' => Auth::user()->id]);
@@ -51,3 +53,17 @@ Route::get('user/{id}/ennchat', 'UserController@ennchat')->name('user.ennchat');
 Route::get('user/{id}/friends', 'UserController@friends')->name('user.friends');
 Route::get('user/{id}/groups', 'UserController@groups')->name('user.groups');
 Route::get('user/{id}/events', 'UserController@events')->name('user.events');
+
+/**
+ * Friend-requests
+ */
+Route::post('friend-requests', 'FriendRequestController@store')->name('friend.requests.store');
+Route::delete('friend-requests', 'FriendRequestController@destroy')->name('friend.requests.delete');
+
+
+/**
+ * Friends
+ */
+Route::get('user/{id}/friends', 'FriendController@index')->name('user.friends');
+Route::post('friends', 'FriendController@create')->name('friend.create');
+Route::delete('friends', 'FriendController@destroy')->name('friend.delete');

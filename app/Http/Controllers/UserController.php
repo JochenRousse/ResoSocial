@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Notifications\Notification;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -20,7 +19,13 @@ class UserController extends Controller
     }
 
     public function index($id){
-        return view('profil');
+        $user = User::find($id);
+        return view('users.index')->with('user', $user);
+    }
+
+    public function params()
+    {
+        return view('params.index');
     }
 
     public function destroy($id)
@@ -65,5 +70,14 @@ class UserController extends Controller
         if(Auth::user()->id==$id) {
             return view('events');
         }
+    }
+
+    public function search(Request $request){
+        $q = $request->input('q');
+
+        $user = User::where('prenom','LIKE','%'.$q.'%')->orWhere('nom', 'LIKE', '%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->orWhere('username', 'LIKE', '%'.$q.'%')->get();
+        if(count($user) > 0)
+            return view('search')->with('users', $user)->with ('query', $q);
+        else return view ('search')->with('message', 'Pas de résultats !');
     }
 }

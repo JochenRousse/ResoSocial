@@ -5,8 +5,16 @@
   padding-left: 0;
   margin-left: $fa-li-width;
   list-style-type: none;
+<<<<<<< HEAD
   > li { position: relative; }
 }
+=======
+  > li {
+    position: relative;
+  }
+}
+
+>>>>>>> jochen
 .#{$fa-css-prefix}-li {
   position: absolute;
   left: -$fa-li-width;

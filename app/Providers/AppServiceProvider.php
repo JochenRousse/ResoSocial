@@ -23,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //Uncomment if you don't wish to cache all users
+        $this->app->bind(
+            'App\Repositories\User\UserRepository',
+            'App\Repositories\User\EloquentUserRepository'
+        );
+
+        $this->app->bind(
+            'App\Repositories\FriendRequest\FriendRequestRepository',
+            'App\Repositories\FriendRequest\EloquentFriendRequestRepository'
+        );
     }
 }
