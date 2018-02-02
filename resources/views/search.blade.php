@@ -42,6 +42,53 @@
                     <tr>
                         <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">{{$group['name']}}</a></td>
                         <td>{{$group['admin_id']}}</td>
+
+                        @if(Auth::user()->isAdminOfGroup($group['_id']))
+                            <td><a href="{{ route('group.delete') }}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('delete-group').submit();">
+                                    Supprimer ce groupe
+                                </a>
+                                <form id="delete-group" action="{{ route('group.delete') }}"
+                                      method="POST"
+                                      style="display: none;">
+                                    <input type="hidden" name="_method" value="delete"/>
+                                    <input type="hidden" name="id" value="{{$group['_id']}}"/>
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        @elseif(Auth::user()->isMemberOfGroup($group['_id']))
+                            <td><a href="{{ route('group.leave') }}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('leave-group').submit();">
+                                    Quitter le groupe
+                                </a>
+                                <form id="leave-group" action="{{ route('group.leave') }}"
+                                      method="POST"
+                                      style="display: none;">
+                                    <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
+                                    <input type="hidden" name="groupId" value="{{$group['_id']}}"/>
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        @else
+                            <td><a href="{{ route('group.join') }}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('join-group').submit();">
+                                    Rejoindre le groupe
+                                </a>
+                                <form id="join-group" action="{{ route('group.join') }}"
+                                      method="POST"
+                                      style="display: none;">
+                                    <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
+                                    <input type="hidden" name="groupId" value="{{$group['_id']}}"/>
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

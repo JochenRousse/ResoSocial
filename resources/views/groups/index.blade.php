@@ -37,6 +37,20 @@
                                 <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">Voir la page du
                                         groupe</a>
                                 </td>
+                                <td><a href="{{ route('group.leave') }}"
+                                       class="btn btn-primary btn-sm"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('leave-group').submit();">
+                                        Quitter le groupe
+                                    </a>
+                                    <form id="leave-group" action="{{ route('group.leave') }}"
+                                          method="POST"
+                                          style="display: none;">
+                                        <input type="hidden" name="userId" value="{{$user->id}}"/>
+                                        <input type="hidden" name="groupId" value="{{$group['_id']}}"/>
+                                        {{ csrf_field() }}
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>

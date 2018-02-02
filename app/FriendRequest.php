@@ -23,20 +23,11 @@ class FriendRequest extends \Jenssegers\Mongodb\Eloquent\Model implements
      */
     protected $fillable = ['id_demandeur', 'declined', 'accepted'];
 
-
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-
-    /**
-     * Send a friend request to a user
-     *
-     *
-     * @attr int $id_demandeur
-     *
-     */
     public static function prepareFriendRequest($id_demandeur)
     {
         $declined = false;

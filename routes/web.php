@@ -27,8 +27,7 @@ Route::get('user/profil', function() {
 Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
 Route::get('user/{id}/params', 'UserController@params')->name('user.params');
 Route::delete('/user/{id}', 'UserController@destroy')->name('delete');
-Route::post('/search', 'UserController@search')->name('search');
-
+Route::match(['get', 'post'], '/search', 'UserController@search')->name('search');
 
 /**
  * Friend-requests
@@ -52,4 +51,6 @@ Route::delete('friends', 'FriendController@destroy')->name('friend.delete');
 Route::get('user/{id}/groups', 'GroupController@index')->name('user.groups');
 Route::get('group/{id}/page', 'GroupController@page')->name('group.page');
 Route::post('group', 'GroupController@create')->name('group.create');
+Route::post('group/join', 'GroupController@join')->name('group.join');
+Route::post('group/leave', 'GroupController@leave')->name('group.leave');
 Route::delete('group', 'GroupController@destroy')->name('group.delete');
