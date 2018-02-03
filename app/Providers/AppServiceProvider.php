@@ -33,5 +33,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\FriendRequest\FriendRequestRepository',
             'App\Repositories\FriendRequest\EloquentFriendRequestRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\Group\GroupRepository',
+            'App\Repositories\Group\EloquentGroupRepository'
+        );
     }
 }

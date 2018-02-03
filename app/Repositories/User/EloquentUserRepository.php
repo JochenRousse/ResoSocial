@@ -1,7 +1,8 @@
-<?php namespace App\Repositories\User;
+<?php
+
+namespace App\Repositories\User;
 
 use App\User;
-use Auth;
 
 class EloquentUserRepository implements UserRepository
 {

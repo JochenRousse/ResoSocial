@@ -18,13 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 
+/**
+ * User
+ */
 Route::get('user/profil', function() {
     return redirect()->route('user.profil', ['id' => Auth::user()->id]);
 });
 Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
 Route::get('user/{id}/params', 'UserController@params')->name('user.params');
 Route::delete('/user/{id}', 'UserController@destroy')->name('delete');
-Route::post('/search', 'UserController@search')->name('search');
+Route::match(['get', 'post'], '/search', 'UserController@search')->name('search');
 
 Route::get('user/params', function() {
     return redirect()->route('user.params', ['id' => Auth::user()->id]);
@@ -58,7 +61,8 @@ Route::get('user/{id}/events', 'UserController@events')->name('user.events');
  * Friend-requests
  */
 Route::post('friend-requests', 'FriendRequestController@store')->name('friend.requests.store');
-Route::delete('friend-requests', 'FriendRequestController@destroy')->name('friend.requests.delete');
+Route::delete('friend-requests/decline', 'FriendRequestController@decline')->name('friend.requests.decline');
+Route::delete('friend-requests/erase', 'FriendRequestController@erase')->name('friend.requests.erase');
 
 
 /**
@@ -67,3 +71,14 @@ Route::delete('friend-requests', 'FriendRequestController@destroy')->name('frien
 Route::get('user/{id}/friends', 'FriendController@index')->name('user.friends');
 Route::post('friends', 'FriendController@create')->name('friend.create');
 Route::delete('friends', 'FriendController@destroy')->name('friend.delete');
+
+
+/**
+ * Groups
+ */
+Route::get('user/{id}/groups', 'GroupController@index')->name('user.groups');
+Route::get('group/{id}/page', 'GroupController@page')->name('group.page');
+Route::post('group', 'GroupController@create')->name('group.create');
+Route::post('group/join', 'GroupController@join')->name('group.join');
+Route::post('group/leave', 'GroupController@leave')->name('group.leave');
+Route::delete('group', 'GroupController@destroy')->name('group.delete');

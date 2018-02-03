@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
@@ -9,7 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class FriendRequest extends \Jenssegers\Mongodb\Eloquent\Model implements
+class Group extends \Jenssegers\Mongodb\Eloquent\Model implements
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
@@ -21,20 +22,6 @@ class FriendRequest extends \Jenssegers\Mongodb\Eloquent\Model implements
      *
      * @var array
      */
-    protected $fillable = ['id_demandeur', 'declined', 'accepted'];
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
-    public static function prepareFriendRequest($id_demandeur)
-    {
-        $declined = false;
-        $accepted = false;
-        $FriendRequest = new static(compact('id_demandeur', 'declined', 'accepted'));
-
-        return $FriendRequest;
-    }
+    protected $fillable = ['name', 'admin_id', 'members'];
 
 }

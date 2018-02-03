@@ -32,7 +32,13 @@ class FriendRequestController extends Controller
         $validator = Validator::make($request->all(), ['userId' => 'required']);
 
         if ($validator->fails()) {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
+
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
         } else {
             $requestedUser = User::find($request->userId);
 
@@ -42,30 +48,76 @@ class FriendRequestController extends Controller
 
             $requestedUser->friendRequests()->save($friendRequest);
 
-            return back()->with('response', 'success')->with('message', 'Friend request submitted');
+            $notification = array(
+                'message' => 'Demande d\'ami envoyée',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification);
         }
     }
 
     /**
-     * Remove a friend request.
+     * Decline a friend request.
      *
      * @param Request $request
      *
      *
      * @return Response
      */
-    public function destroy(Request $request)
+    public function decline(Request $request)
     {
         $validator = Validator::make($request->all(), ['userId' => 'required']);
 
         if ($validator->fails()) {
-            return response()->json(['response' => 'failed', 'message' => 'Something went wrong please try again.']);
+
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
         } else {
-            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->delete();
 
-            $friendRequestCount = Auth::user()->friendRequests()->count();
+            FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->update(['declined' => true]);
 
-            return back()->with('response', 'success')->with('message', 'friend request removed')->with('count', $friendRequestCount);
+            $friendRequestCount = Auth::user()->friendRequests()->where('declined', false)->count();
+
+            $notification = array(
+                'message' => 'Demande d\'ami refusée',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification)->with('count', $friendRequestCount);
+        }
+
+    }
+
+
+    public function erase(Request $request)
+    {
+        $validator = Validator::make($request->all(), ['userId' => 'required']);
+
+        if ($validator->fails()) {
+
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
+        } else {
+
+            FriendRequest::where('id_demandeur', Auth::user()->id)->where('user_id', $request->userId)->delete();
+
+            $friendRequestCount = Auth::user()->friendRequests()->where('declined', false)->count();
+
+            $notification = array(
+                'message' => 'Demande d\'ami effacée',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification)->with('count', $friendRequestCount);
         }
 
     }

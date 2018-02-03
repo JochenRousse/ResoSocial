@@ -29,7 +29,7 @@
                                     class="fa fa-user fa-fw"></i> Amis</a>
                     </li>
                     <li>
-                        <a href="{{-- route('user.groups', ['id' => Auth::user()->id]) --}}"><i
+                        <a href="{{ route('user.groups', ['id' => Auth::user()->id]) }}"><i
                                     class="fa fa-group fa-fw"></i> Groupes</a>
                     </li>
                     <li>

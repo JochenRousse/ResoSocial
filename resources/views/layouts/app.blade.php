@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('node_modules/toastr/build/toastr.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/starter-template.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/css/font-awesome.min.css') }}"/>
 </head>
@@ -71,16 +72,41 @@
 
 <!-- Scripts -->
 <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('node_modules/toastr/build/toastr.min.js') }}"></script>
 <script>
 
     function confirmDelete() {
-        var x = confirm("Are you sure you want to delete?");
+        var x = confirm("Voulez vous vraiment supprimer votre compte?");
         if (x)
             return true;
         else
             return false;
     }
 
+            @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    toastr.options = {
+        "closeButton": true,
+        "positionClass": "toast-bottom-right"
+    };
+    switch (type) {
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    @endif
 </script>
 </body>
 </html>
