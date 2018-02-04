@@ -33,7 +33,7 @@
                                     class="fa fa-group fa-fw"></i> Groupes</a>
                     </li>
                     <li>
-                        <a href="{{-- route('user.events', ['id' => Auth::user()->id]) --}}"><i
+                        <a href="{{ route('user.events', ['id' => Auth::user()->id]) }}"><i
                                     class="fa fa-calendar fa-fw"></i> Evenements</a>
                     </li>
                     <li>

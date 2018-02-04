@@ -82,3 +82,14 @@ Route::post('group', 'GroupController@create')->name('group.create');
 Route::post('group/join', 'GroupController@join')->name('group.join');
 Route::post('group/leave', 'GroupController@leave')->name('group.leave');
 Route::delete('group', 'GroupController@destroy')->name('group.delete');
+
+
+/**
+ * Events
+ */
+Route::get('user/{id}/events', 'EventController@index')->name('user.events');
+Route::get('events/{id}/page', 'EventController@page')->name('events.page');
+Route::post('events', 'EventController@create')->name('events.create');
+Route::post('events/join', 'EventController@join')->name('events.join');
+Route::post('events/leave', 'EventController@leave')->name('events.leave');
+Route::delete('events', 'EventController@destroy')->name('events.delete');
