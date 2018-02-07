@@ -44,7 +44,7 @@ class EventController extends Controller
             'event_name' => 'required',
             'type_event' => 'required',
             'date_event' => 'required',
-            'duration_event' => 'required',
+            'date_end' => 'required',
             'place_event' => 'required',
             'userId' => 'required']);
 
@@ -60,7 +60,7 @@ class EventController extends Controller
                 'name' => $request['event_name'],
                 'type' => $request['type_event'],
                 'date' => $request['date_event'],
-                'duration' => $request['duration_event'],
+                'date_end' => $request['date_end'],
                 'place' => $request['place_event'],
                 'admin_id' => $request['userId'],
                 'members' => array(0 => $request['userId'])]);
@@ -116,7 +116,7 @@ class EventController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('user.profil', ['id' => $request['userId']])->with($notification);
+            return redirect()->route('user.events', ['id' => $request['userId']])->with($notification);
         }
     }
 
