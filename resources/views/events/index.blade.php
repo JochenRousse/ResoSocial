@@ -99,24 +99,30 @@
                         <thead>
                         <tr>
                             <th scope="col">Nom</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Début</th>
+                            <th scope="col">Fin</th>
+                            <th scope="col">Lieu</th>
                             <th scope="col">Lien</th>
-                            <th scope="col"></th>
                         </tr>
                         </thead>
                         @foreach($eventsAdmin as $event)
                             <tbody>
                             <tr>
                                 <td>{{ $event['name'] }}</td>
-                                <td><a href="{{ route('group.page', ['id' => $event['_id']]) }}">Voir la page du
-                                        groupe</a>
+                                <td>{{ $event['type'] }}</td>
+                                <td>{{ $event['date'] }}</td>
+                                <td>{{ $event['date_end'] }}</td>
+                                <td>{{ $event['place'] }}</td>
+                                <td><a href="{{ route('events.page', ['id' => $event['_id']]) }}">Voir la page</a>
                                 </td>
-                                <td><a href="{{ route('group.delete') }}"
+                                <td><a href="{{ route('events.delete') }}"
                                        class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
                                                      document.getElementById('delete-group').submit();">
                                         Supprimer ce groupe
                                     </a>
-                                    <form id="delete-group" action="{{ route('group.delete') }}"
+                                    <form id="delete-group" action="{{ route('events.delete') }}"
                                           method="POST"
                                           style="display: none;">
                                         <input type="hidden" name="_method" value="delete"/>
@@ -131,7 +137,7 @@
                 </div>
             @else
                 <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Vous
-                    n'êtes l'administrateur d'aucun groupe.
+                    n'appartenez à aucun évènement.
                 </div>
             @endif
         </div>
