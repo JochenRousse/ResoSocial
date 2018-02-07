@@ -1,4 +1,11 @@
 @auth
+    <style>
+        body {
+            background-color: {{$user->background_color}};
+            color: {{$user->text_color}};
+        }
+    </style>
+
     <div class="col-md-10">
         <div class="view-container container">
             <h1>{{$user->prenom}} {{$user->nom}}</h1>

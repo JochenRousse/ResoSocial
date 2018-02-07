@@ -73,7 +73,9 @@ class RegisterController extends Controller
             'prenom' => $data['prenom'],
             'ddn' => $data['ddn'],
             'genre' => $data['genre'],
-            'user_ids' => array()
+            'user_ids' => array(),
+            'background_color' => '#fff',
+            'text_color' => '#333'
         ]);
     }
 }

@@ -23,7 +23,7 @@ class User extends Model implements
      *
      * @var array
      */
-    protected $fillable = ['username', 'password', 'nom', 'prenom', 'ddn', 'genre', 'email', 'annee', 'filiere', 'user_ids'];
+    protected $fillable = ['username', 'password', 'nom', 'prenom', 'ddn', 'genre', 'email', 'annee', 'filiere', 'user_ids', 'background_color', 'text_color'];
 
     /**
      * The attributes that should be hidden for arrays.

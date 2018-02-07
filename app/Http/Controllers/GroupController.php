@@ -126,7 +126,7 @@ class GroupController extends Controller
                 'alert-type' => 'success'
             );
 
-            return back()->with($notification);
+            return redirect()->route('user.profil', ['id' => Auth::user()->id])->with($notification);
         }
     }
 }

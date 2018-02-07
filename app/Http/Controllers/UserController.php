@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,11 +28,6 @@ class UserController extends Controller
         return view('users.index')->with('user', $user);
     }
 
-    public function params()
-    {
-        return view('params.index');
-    }
-
     public function destroy($id)
     {
         if (Auth::user()->id == $id) {
@@ -47,7 +43,6 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-
         $validator = Validator::make($request->all(), ['q' => 'required']);
 
         if ($validator->fails()) {
@@ -71,6 +66,7 @@ class UserController extends Controller
             if (count($groups) > 0) {
                 $return['groups'] = $groups;
             }
+
             if (!empty(array_filter($return))) {
                 return view('search')->with($return)->with('query', $q);
             } else {
@@ -78,4 +74,41 @@ class UserController extends Controller
             }
         }
     }
+
+    public function update(Request $request)
+    {
+
+        if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
+            $notification = array(
+                'message' => 'Erreur, le mot de passe entré ne correspond pas',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+        if (strcmp($request->get('current-password'), $request->get('new-password')) == 0) {
+            $notification = array(
+                'message' => 'Erreur, le nouveau mot de passe ne peut pas être le même que votre mot de passe actuel',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
+
+        $validator = Validator::make($request->all(), ['current-password' => 'required',
+            'new-password' => 'required|string|min:6|confirmed']);
+
+
+        $user = Auth::user();
+        $user->password = bcrypt($request->get('new-password'));
+        $user->save();
+
+        $notification = array(
+            'message' => 'Mot de passe modifié',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+    }
+
 }

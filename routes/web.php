@@ -25,8 +25,8 @@ Route::get('user/profil', function() {
     return redirect()->route('user.profil', ['id' => Auth::user()->id]);
 });
 Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
-Route::get('user/{id}/params', 'UserController@params')->name('user.params');
 Route::delete('/user/{id}', 'UserController@destroy')->name('delete');
+Route::put('/user/{id}', 'UserController@update')->name('update');
 Route::match(['get', 'post'], '/search', 'UserController@search')->name('search');
 
 /**
@@ -54,3 +54,12 @@ Route::post('group', 'GroupController@create')->name('group.create');
 Route::post('group/join', 'GroupController@join')->name('group.join');
 Route::post('group/leave', 'GroupController@leave')->name('group.leave');
 Route::delete('group', 'GroupController@destroy')->name('group.delete');
+
+
+/**
+ * Params
+ */
+Route::get('user/{id}/params', 'ParamsController@index')->name('user.params');
+Route::post('params/update', 'ParamsController@update')->name('user.update');
+Route::post('params/preferences1', 'ParamsController@preferences1')->name('user.bg');
+Route::post('params/preferences2', 'ParamsController@preferences2')->name('user.text');

@@ -87,6 +87,8 @@ class FriendController extends Controller
             Auth::user()->finishFriendshipWith($request->userId);
             User::find($request->userId)->finishFriendshipWith(Auth::user()->id);
 
+            FriendRequest::where('user_id', $request->userId)->where('id_demandeur', Auth::user()->id)->delete();
+
             $friendsCount = Auth::user()->friends()->count();
 
             $notification = array(
