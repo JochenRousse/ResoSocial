@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\User;
+use App\FriendRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -32,6 +33,8 @@ class UserController extends Controller
     {
         if (Auth::user()->id == $id) {
             $user = User::find($id);
+            FriendRequest::where('user_id', Auth::user()->id)->delete();
+            FriendRequest::where('id_demandeur', Auth::user()->id)->delete();
             $user->delete();
             $notification = array(
                 'message' => 'Votre compte a été supprimé.',
