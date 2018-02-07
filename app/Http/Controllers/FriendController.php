@@ -81,9 +81,7 @@ class FriendController extends Controller
             );
 
             return back()->with($notification);
-        }
-        else
-        {
+        } else {
             Auth::user()->finishFriendshipWith($request->userId);
             User::find($request->userId)->finishFriendshipWith(Auth::user()->id);
 
