@@ -83,29 +83,29 @@
             return false;
     }
 
-            @if(Session::has('message'))
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    toastr.options = {
-        "closeButton": true,
-        "positionClass": "toast-bottom-right"
-    };
-    switch (type) {
-        case 'info':
-            toastr.info("{{ Session::get('message') }}");
-            break;
+    @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        toastr.options = {
+            "closeButton": true,
+            "positionClass": "toast-bottom-right"
+        };
+        switch (type) {
+            case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
 
-        case 'warning':
-            toastr.warning("{{ Session::get('message') }}");
-            break;
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
 
-        case 'success':
-            toastr.success("{{ Session::get('message') }}");
-            break;
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
 
-        case 'error':
-            toastr.error("{{ Session::get('message') }}");
-            break;
-    }
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
     @endif
 </script>
 </body>
