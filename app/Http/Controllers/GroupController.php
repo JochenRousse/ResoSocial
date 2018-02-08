@@ -103,7 +103,7 @@ class GroupController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('user.profil', ['id' => $request['userId']])->with($notification);
+            return redirect()->route('user.groups', ['id' => $request['userId']])->with($notification);
         }
     }
 
@@ -119,14 +119,14 @@ class GroupController extends Controller
 
             return back()->with($notification);
         } else {
-            Group::where('_id', $request->id)->delete();
+            Group::find($request->id)->delete();
 
             $notification = array(
                 'message' => 'Ce groupe a bien été supprimé',
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('user.profil', ['id' => Auth::user()->id])->with($notification);
+            return redirect()->route('user.groups', ['id' => Auth::user()->id])->with($notification);
         }
     }
 }

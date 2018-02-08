@@ -4,7 +4,7 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="sidebar-search">
-                        <form action="{{ route('search') }}" method="POST" role="search">
+                        <form action="{{ route('search') }}" method="POST" role="search" class="padding-sidebar">
                             <div class="input-group custom-search-form">
                                 {{ csrf_field() }}
                                 <input type="text" class="form-control" name="q" placeholder="Search...">

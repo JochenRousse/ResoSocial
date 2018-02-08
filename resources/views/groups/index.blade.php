@@ -37,17 +37,14 @@
                                 <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">Voir la page du
                                         groupe</a>
                                 </td>
-                                <td><a href="{{ route('group.leave') }}"
-                                       class="btn btn-primary btn-sm"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('leave-group').submit();">
-                                        Quitter le groupe
-                                    </a>
-                                    <form id="leave-group" action="{{ route('group.leave') }}"
-                                          method="POST"
-                                          style="display: none;">
+                                <td>
+                                    <form action="{{ route('group.leave') }}"
+                                          method="POST">
                                         <input type="hidden" name="userId" value="{{$user->id}}"/>
                                         <input type="hidden" name="groupId" value="{{$group['_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Quitter le groupe
+                                        </button>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
@@ -79,17 +76,14 @@
                                 <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">Voir la page du
                                         groupe</a>
                                 </td>
-                                <td><a href="{{ route('group.delete') }}"
-                                       class="btn btn-primary btn-sm"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('delete-group').submit();">
-                                        Supprimer ce groupe
-                                    </a>
-                                    <form id="delete-group" action="{{ route('group.delete') }}"
-                                          method="POST"
-                                          style="display: none;">
+                                <td>
+                                    <form action="{{ route('group.delete') }}"
+                                          method="POST">
                                         <input type="hidden" name="_method" value="delete"/>
                                         <input type="hidden" name="id" value="{{$group['_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Supprimer le groupe
+                                        </button>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>

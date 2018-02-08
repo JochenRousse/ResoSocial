@@ -18,15 +18,12 @@
             <p>Ici la liste de mes posts... + commentaires</p>
             @if ($user->id != Auth::user()->id)
                 @if(Auth::user()->isFriendsWith($user->id))
-                    <a href="{{ route('friend.delete') }}" class="btn btn-primary btn-sm"
-                       onclick="event.preventDefault();
-                                                     document.getElementById('delete-friend').submit();">
-                        Supprimer cet ami
-                    </a>
-                    <form id="delete-friend" action="{{ route('friend.delete') }}" method="POST"
-                          style="display: none;">
+                    <form action="{{ route('friend.delete') }}" method="POST">
                         <input type="hidden" name="_method" value="delete"/>
                         <input type="hidden" name="userId" value="{{$user->id}}"/>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            Supprimer cet ami
+                        </button>
                         {{ csrf_field() }}
                     </form>
                 @else
@@ -34,39 +31,28 @@
                         <button class="btn btn-primary btn-sm" disabled="disabled" type="submit">Demande envoyée
                         </button>
                     @elseif(Auth::user()->receivedFriendRequestFrom($user->id))
-                        <a href="{{ route('friend.create') }}" class="btn btn-primary btn-sm"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('add-friend').submit();">
-                            Accepter la demande d'ami
-                        </a>
-                        <form id="add-friend" action="{{ route('friend.create') }}" method="POST"
-                              style="display: none;">
+                        <form action="{{ route('friend.create') }}" method="POST">
                             <input type="hidden" name="userId" value="{{$user->id}}"/>
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Accepter la demande d'ami
+                            </button>
                             {{ csrf_field() }}
                         </form>
-                        <a href="{{ route('friend.requests.decline') }}"
-                           class="btn btn-primary btn-sm"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('decline-friend-request').submit();">
-                            Décliner la demande d'ami
-                        </a>
-                        <form id="decline-friend-request" action="{{ route('friend.requests.decline') }}"
-                              method="POST"
-                              style="display: none;">
+                        <form action="{{ route('friend.requests.decline') }}"
+                              method="POST">
                             <input type="hidden" name="_method" value="delete"/>
                             <input type="hidden" name="userId" value="{{$user->id}}"/>
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Décliner la demande d'ami
+                            </button>
                             {{ csrf_field() }}
                         </form>
                     @else
-                        <a href="{{ route('friend.requests.store') }}"
-                           class="btn btn-primary btn-sm"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('send-friend-request').submit();">
-                            Ajouter un ami
-                        </a>
-                        <form id="send-friend-request" action="{{ route('friend.requests.store') }}" method="POST"
-                              style="display: none;">
+                        <form action="{{ route('friend.requests.store') }}" method="POST">
                             <input type="hidden" name="userId" value="{{$user->id}}"/>
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Ajouter un ami
+                            </button>
                             {{ csrf_field() }}
                         </form>
                     @endif

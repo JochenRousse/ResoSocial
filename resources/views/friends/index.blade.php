@@ -22,17 +22,14 @@
                                 <td>{{ $friend['nom'] }}</td>
                                 <td><a href="{{ route('user.profil', ['id' => $friend['_id']]) }}">Voir le profil</a>
                                 </td>
-                                <td><a href="{{ route('friend.delete') }}"
-                                       class="btn btn-primary btn-sm"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('delete-friend').submit();">
-                                        Supprimer cet ami
-                                    </a>
-                                    <form id="delete-friend" action="{{ route('friend.delete') }}"
-                                          method="POST"
-                                          style="display: none;">
+                                <td>
+                                    <form action="{{ route('friend.delete') }}"
+                                          method="POST">
                                         <input type="hidden" name="_method" value="delete"/>
                                         <input type="hidden" name="userId" value="{{$friend['_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Supprimer cet ami
+                                        </button>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
@@ -66,29 +63,23 @@
                                 <td>{{ $user['nom'] }}</td>
                                 <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
                                         profil</a></td>
-                                <td><a href="{{ route('friend.create') }}"
-                                       class="btn btn-primary btn-sm"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('add-friend').submit();">
-                                        Accepter
-                                    </a>
-                                    <form id="add-friend" action="{{ route('friend.create') }}" method="POST"
-                                          style="display: none;">
+                                <td>
+                                    <form action="{{ route('friend.create') }}" method="POST">
                                         <input type="hidden" name="userId" value="{{$user['_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Accepter
+                                        </button>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
-                                <td><a href="{{ route('friend.requests.decline') }}"
-                                       class="btn btn-primary btn-sm"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('decline-friend-request').submit();">
-                                        Décliner
-                                    </a>
-                                    <form id="decline-friend-request" action="{{ route('friend.requests.decline') }}"
-                                          method="POST"
-                                          style="display: none;">
+                                <td>
+                                    <form action="{{ route('friend.requests.decline') }}"
+                                          method="POST">
                                         <input type="hidden" name="_method" value="delete"/>
                                         <input type="hidden" name="userId" value="{{$user['_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Décliner
+                                        </button>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
@@ -151,17 +142,14 @@
                                 <td>{{ $user['nom'] }}</td>
                                 <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
                                         profil</a></td>
-                                <td><a href="{{ route('friend.requests.erase') }}"
-                                       class="btn btn-primary btn-sm"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('erase-friend-request').submit();">
-                                        Effacer
-                                    </a>
-                                    <form id="erase-friend-request" action="{{ route('friend.requests.erase') }}"
-                                          method="POST"
-                                          style="display: none;">
+                                <td>
+                                    <form action="{{ route('friend.requests.erase') }}"
+                                          method="POST">
                                         <input type="hidden" name="_method" value="delete"/>
                                         <input type="hidden" name="userId" value="{{$user['_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Effacer
+                                        </button>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
