@@ -37,7 +37,7 @@ class UserController extends Controller
             FriendRequest::where('id_demandeur', Auth::user()->id)->delete();
             $user->delete();
             $notification = array(
-                'message' => 'Votre compte a été supprimé.',
+                'message' => 'Votre compte a bien été supprimé.',
                 'alert-type' => 'success'
             );
             return Redirect::route('login')->with($notification);

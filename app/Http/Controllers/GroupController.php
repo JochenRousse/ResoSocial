@@ -34,8 +34,6 @@ class GroupController extends Controller
 
         foreach ($usersWhoRequested as $user){
             $user['group_id'] = $groupRequestRepository->getIdsThatSentRequestToCurrentUser($user->id);
-            var_dump($requesterIds);
-            exit();
         }
 
         return view('groups.index', compact('groups', 'user', 'groupsAdmin', 'usersWhoRequested'));

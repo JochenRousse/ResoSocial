@@ -82,8 +82,7 @@
                 </div>
             </form>
             <div>
-                <a href="{{ route('delete', ['id' => Auth::user()->id]) }}" class="btn btn-primary"
-                   onclick="event.preventDefault(); if(confirmDelete()){document.getElementById('delete-form').submit();}">
+                <a class="btn btn-primary delete-acc">
                     Supprimer votre compte
                 </a>
             </div>

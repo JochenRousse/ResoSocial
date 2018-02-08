@@ -18,6 +18,15 @@ class User extends Model implements
 {
     use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($user) {
+            $user->friendRequests()->delete();
+            $user->groupRequests()->delete();
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *

@@ -13,6 +13,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}"/>
     <link rel="stylesheet" href="{{ asset('node_modules/toastr/build/toastr.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('node_modules/jquery-confirm/dist/jquery-confirm.min.css') }}"/>
+
     <link rel="stylesheet" href="{{ asset('css/starter-template.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/css/font-awesome.min.css') }}"/>
 </head>
@@ -67,15 +69,50 @@
 <!-- Scripts -->
 <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('node_modules/toastr/build/toastr.min.js') }}"></script>
-<script>
+<script src="{{ asset('node_modules/jquery-confirm/dist/jquery-confirm.min.js') }}"></script>
 
-    function confirmDelete() {
-        var x = confirm("Voulez vous vraiment supprimer votre compte?");
-        if (x)
-            return true;
-        else
-            return false;
-    }
+<script>
+    // confirmation
+    $('a.delete-acc').on('click', function () {
+        $.confirm({
+            title: 'Suppression de compte',
+            content: 'Voulez-vous vraiment supprimer votre compte ?',
+            icon: 'fa fa-question-circle',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            opacity: 0.5,
+            buttons: {
+                'confirm': {
+                    text: 'Oui',
+                    btnClass: 'btn-blue',
+                    action: function () {
+                        $.confirm({
+                            title: 'Attention',
+                            content: 'Cette action est <strong>irréversible</strong>.',
+                            icon: 'fa fa-warning',
+                            animation: 'scale',
+                            closeAnimation: 'zoom',
+                            buttons: {
+                                confirm: {
+                                    text: 'Je comprends',
+                                    btnClass: 'btn-orange',
+                                    action: function () {
+                                        document.getElementById('delete-form').submit();
+                                    }
+                                },
+                                cancel: {
+                                    text: 'Annuler'
+                                }
+                            }
+                        });
+                    }
+                },
+                'cancel': {
+                    text: 'Annuler'
+                }
+            }
+        });
+    });
 
     @if(Session::has('message'))
         var type = "{{ Session::get('alert-type', 'info') }}";
