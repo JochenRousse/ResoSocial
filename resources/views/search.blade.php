@@ -34,14 +34,15 @@
                 <thead>
                 <tr>
                     <th>Nom du groupe</th>
-                    <th>Administrateur</th>
+                    <th>Statut du groupe</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($groups as $group)
                     <tr>
                         <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">{{$group['name']}}</a></td>
-                        <td>{{$group['admin_id']}}</td>
+                        <td>{{$group['statut']}}</td>
 
                         @if(Auth::user()->isAdminOfGroup($group['_id']))
                             <td>
@@ -67,6 +68,27 @@
                                     {{ csrf_field() }}
                                 </form>
                             </td>
+                        @elseif(Auth::user()->isGroupPrivate($group['_id']))
+                            @if( Auth::user()->sentGroupRequestTo($group['_id']))
+                                <td>
+                                    <button class="btn btn-primary btn-sm" disabled="disabled" type="submit">Demande
+                                        envoyée
+                                    </button>
+                                </td>
+                            @else
+                                <td>
+                                    <form action="{{ route('group.requests.store') }}"
+                                          method="POST">
+                                        <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
+                                        <input type="hidden" name="groupId" value="{{$group['_id']}}"/>
+                                        <input type="hidden" name="adminId" value="{{$group['admin_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Demander à rejoindre le groupe
+                                        </button>
+                                        {{ csrf_field() }}
+                                    </form>
+                                </td>
+                            @endif
                         @else
                             <td>
                                 <form action="{{ route('group.join') }}"

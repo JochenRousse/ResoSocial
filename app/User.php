@@ -39,6 +39,11 @@ class User extends Model implements
         return $this->hasMany('App\FriendRequest');
     }
 
+    public function groupRequests()
+    {
+        return $this->hasMany('App\GroupRequest');
+    }
+
     public function friends()
     {
         return $this->belongsToMany('App\User');
@@ -80,5 +85,16 @@ class User extends Model implements
     public function isAdminOfGroup($groupId)
     {
         return Group::where('_id', $groupId)->where('admin_id', $this->id)->get()->toArray();
+    }
+
+    public function isGroupPrivate($groupId)
+    {
+        return Group::where('_id', $groupId)->where('statut', 'ferme')->get()->toArray();
+    }
+
+    public function sentGroupRequestTo($groupId)
+    {
+        $groupRequestedByCurrentUser = GroupRequest::where('id_demandeur', $this->id)->pluck('group_id')->toArray();
+        return in_array($groupId, $groupRequestedByCurrentUser);
     }
 }

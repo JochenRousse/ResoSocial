@@ -15,8 +15,8 @@
                             <th scope="col"></th>
                         </tr>
                         </thead>
+                        <tbody>
                         @foreach($friends as $friend)
-                            <tbody>
                             <tr>
                                 <td>{{ $friend['prenom'] }}</td>
                                 <td>{{ $friend['nom'] }}</td>
@@ -34,8 +34,8 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
-                            </tbody>
+                        @endforeach
+                        </tbody>
                     </table>
                 </div>
             @else
@@ -56,8 +56,8 @@
                             <th scope="col"></th>
                         </tr>
                         </thead>
+                        <tbody>
                         @foreach($usersWhoRequested as $user)
-                            <tbody>
                             <tr>
                                 <td>{{ $user['prenom'] }}</td>
                                 <td>{{ $user['nom'] }}</td>
@@ -84,8 +84,8 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
-                            </tbody>
+                        @endforeach
+                        </tbody>
                     </table>
                 </div>
             @else
@@ -102,20 +102,18 @@
                             <th scope="col">Prénom</th>
                             <th scope="col">Nom</th>
                             <th scope="col">Lien</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
                         </tr>
                         </thead>
+                        <tbody>
                         @foreach($usersPendingRequests as $user)
-                            <tbody>
                             <tr>
                                 <td>{{ $user['prenom'] }}</td>
                                 <td>{{ $user['nom'] }}</td>
                                 <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
                                         profil</a></td>
                             </tr>
-                            @endforeach
-                            </tbody>
+                        @endforeach
+                        </tbody>
                     </table>
                 </div>
             @else
@@ -135,8 +133,8 @@
                             <th scope="col"></th>
                         </tr>
                         </thead>
+                        <tbody>
                         @foreach($usersDeletedRequests as $user)
-                            <tbody>
                             <tr>
                                 <td>{{ $user['prenom'] }}</td>
                                 <td>{{ $user['nom'] }}</td>
@@ -154,8 +152,8 @@
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
-                            </tbody>
+                        @endforeach
+                        </tbody>
                     </table>
                 </div>
             @else

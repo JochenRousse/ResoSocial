@@ -81,14 +81,12 @@ class FriendRequestController extends Controller
 
             FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->update(['declined' => true]);
 
-            $friendRequestCount = Auth::user()->friendRequests()->where('declined', false)->count();
-
             $notification = array(
                 'message' => 'Demande d\'ami refusée',
                 'alert-type' => 'success'
             );
 
-            return back()->with($notification)->with('count', $friendRequestCount);
+            return back()->with($notification);
         }
 
     }
@@ -110,14 +108,12 @@ class FriendRequestController extends Controller
 
             FriendRequest::where('id_demandeur', Auth::user()->id)->where('user_id', $request->userId)->delete();
 
-            $friendRequestCount = Auth::user()->friendRequests()->where('declined', false)->count();
-
             $notification = array(
                 'message' => 'Demande d\'ami effacée',
                 'alert-type' => 'success'
             );
 
-            return back()->with($notification)->with('count', $friendRequestCount);
+            return back()->with($notification);
         }
 
     }

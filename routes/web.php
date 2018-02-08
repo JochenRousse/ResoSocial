@@ -46,6 +46,13 @@ Route::delete('friends', 'FriendController@destroy')->name('friend.delete');
 
 
 /**
+ * Group-requests
+ */
+Route::post('group-requests', 'GroupRequestController@store')->name('group.requests.store');
+Route::delete('group-requests', 'GroupRequestController@decline')->name('group.requests.decline');
+
+
+/**
  * Groups
  */
 Route::get('user/{id}/groups', 'GroupController@index')->name('user.groups');

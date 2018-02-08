@@ -29,6 +29,27 @@
                         {{ csrf_field() }}
                     </form>
                 </td>
+            @elseif(Auth::user()->isGroupPrivate($group->id))
+                @if( Auth::user()->sentGroupRequestTo($group->id))
+                    <td>
+                        <button class="btn btn-primary btn-sm" disabled="disabled" type="submit">Demande
+                            envoyée
+                        </button>
+                    </td>
+                @else
+                    <td>
+                        <form action="{{ route('group.requests.store') }}"
+                              method="POST">
+                            <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
+                            <input type="hidden" name="groupId" value="{{$group->id}}"/>
+                            <input type="hidden" name="adminId" value="{{$group->admin_id}}"/>
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                Demander à rejoindre le groupe
+                            </button>
+                            {{ csrf_field() }}
+                        </form>
+                    </td>
+                @endif
             @else
                 <td>
                     <form action="{{ route('group.join') }}"
