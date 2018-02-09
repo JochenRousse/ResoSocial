@@ -20,6 +20,6 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "jquery-confirm": "^3.3.2",
-    " ": "^2.1.4"
+    "toastr": "^2.1.4"
   }
 }
