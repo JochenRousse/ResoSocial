@@ -19,17 +19,12 @@ class EloquentEventRepository extends Eloquent implements EventRepository
         return Event::where('admin_id', $id)->get()->toArray();
     }
 
-    public function deleteFinishedEvents(){
+    public function closeFinishedEvents(){
         $events = Event::select('*')->get();
-        foreach($events as $event){
-            $res[$event['_id']] = Carbon::createFromFormat('Y-m-d\TH:i', $event['date_end']);
-        }
 
-        if(isset($res)){
-            foreach($res as $id => $dateEnd){
-                if($dateEnd->isPast()){
-                    Event::where('_id', $id)->delete();
-                }
+        foreach($events as $event){
+            if(Carbon::createFromFormat('Y-m-d\TH:i', $event['date_end'])->lt(Carbon::now())){
+                Event::where('_id', $event['_id'])->delete();
             }
         }
     }

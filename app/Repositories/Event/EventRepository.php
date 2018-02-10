@@ -8,5 +8,5 @@ interface EventRepository
 
     public function getEventsAdmin($id);
 
-    public function deleteFinishedEvents();
+    public function closeFinishedEvents();
 }

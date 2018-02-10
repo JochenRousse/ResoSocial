@@ -27,7 +27,7 @@ class EventController extends Controller
         $user = Auth::user();
         $events = $eventRepository->getAllEvents($user->id);
         $eventsAdmin = $eventRepository->getEventsAdmin($user->id);
-        $eventRepository->deleteFinishedEvents();
+        $eventRepository->closeFinishedEvents();
 
         return view('events.index', compact('events', 'user', 'eventsAdmin'));
     }
