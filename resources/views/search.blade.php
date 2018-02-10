@@ -96,6 +96,79 @@
         @else
             <p>Pas de groupe correspondant à votre recherche.</p>
         @endif
+        @if(isset($events))
+            <h2>Évènements correspondants à votre recherche (<b> {{ $query }} </b>)</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nom de l'évènement</th>
+                    <th>Type</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>Lieu</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($events as $event)
+                    <tr>
+                        <td>{{$event['name']}}</td>
+                        <td>{{$event['type']}}</td>
+                        <td>{{$event['date']}}</td>
+                        <td>{{$event['date_end']}}</td>
+                        <td>{{$event['place']}}</td>
+                        @if(Auth::user()->isAdminOfEvent($event['_id']))
+                            <td><a href="{{ route('events.delete') }}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.preventDefault();
+                                document.getElementById('delete-event').submit();">
+                                    Supprimer l'évènement
+                                </a>
+                                <form id="delete-event" action="{{ route('events.delete') }}"
+                                      method="POST"
+                                      style="display: none;">
+                                    <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
+                                    <input type="hidden" name="eventId" value="{{$event['_id']}}"/>
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        @elseif(Auth::user()->isMemberOfEvent($event['_id']))
+                            <td><a href="{{ route('events.leave') }}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('leave-event').submit();">
+                                    Quitter l'évènement
+                                </a>
+                                <form id="leave-event" action="{{ route('events.leave') }}"
+                                      method="POST"
+                                      style="display: none;">
+                                    <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
+                                    <input type="hidden" name="eventId" value="{{$event['_id']}}"/>
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        @else
+                            <td><a href="{{ route('events.join') }}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('join-event').submit();">
+                                    Rejoindre l'évènement
+                                </a>
+                                <form id="join-event" action="{{ route('events.join') }}"
+                                      method="POST"
+                                      style="display: none;">
+                                    <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
+                                    <input type="hidden" name="eventId" value="{{$event['_id']}}"/>
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        @else
+            <p>Aucun utilisateur correspondant à votre recherche.</p>
+        @endif
 
     </div>
 @endsection

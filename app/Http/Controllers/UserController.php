@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\User;
+use App\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -71,6 +72,12 @@ class UserController extends Controller
             if (count($groups) > 0) {
                 $return['groups'] = $groups;
             }
+
+            $events = Event::where('name', 'LIKE', '%' . $q . '%')->orWhere('type', 'LIKE', '%' . $q . '%')->orWhere('place', 'LIKE', '%' . $q . '%')->get()->toArray();
+            if (count($groups) > 0) {
+                $return['events'] = $events;
+            }
+
             if (!empty(array_filter($return))) {
                 return view('search')->with($return)->with('query', $q);
             } else {

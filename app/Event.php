@@ -16,12 +16,13 @@ class Event extends \Jenssegers\Mongodb\Eloquent\Model implements
     CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword, Notifiable;
-
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = ['name', 'type', 'date', 'date_end', 'duration', 'place', 'admin_id', 'members'];
+
 
 }

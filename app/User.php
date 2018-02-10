@@ -81,4 +81,14 @@ class User extends Model implements
     {
         return Group::where('_id', $groupId)->where('admin_id', $this->id)->get()->toArray();
     }
+
+    public function isAdminOfEvent($eventId)
+    {
+        return Event::where('_id', $eventId)->where('admin_id', $this->id)->get()->toArray();
+    }
+
+    public function isMemberOfEvent($eventId)
+    {
+        return Event::where('_id', $eventId)->where('members', $this->id)->where('admin_id', '!=', $this->id)->get()->toArray();
+    }
 }

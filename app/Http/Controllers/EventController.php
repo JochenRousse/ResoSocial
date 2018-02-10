@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class EventController extends Controller
         $user = Auth::user();
         $events = $eventRepository->getAllEvents($user->id);
         $eventsAdmin = $eventRepository->getEventsAdmin($user->id);
+        $eventRepository->deleteFinishedEvents();
 
         return view('events.index', compact('events', 'user', 'eventsAdmin'));
     }
@@ -70,7 +72,8 @@ class EventController extends Controller
                 'alert-type' => 'success'
             );
 
-            return back()->with($notification);
+            return redirect()->route('user.events', ['id' => Auth::user()->id]);
+//            return back()->with($notification);
         }
     }
 
@@ -93,7 +96,7 @@ class EventController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('event.page', ['id' => $request['eventId']])->with($notification);
+            return redirect()->route('events.page', ['id' => $request['eventId']])->with($notification);
         }
     }
 
