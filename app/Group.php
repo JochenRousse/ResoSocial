@@ -10,4 +10,9 @@ class Group extends \Jenssegers\Mongodb\Eloquent\Model {
      * @var array
      */
     protected $fillable = ['name', 'admin_id', 'members', 'statut', 'pending'];
+
+    public function groupRequests()
+    {
+        return $this->hasMany('App\GroupRequest');
+    }
 }

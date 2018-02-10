@@ -15,4 +15,9 @@ class EloquentGroupRepository implements GroupRepository
     {
         return Group::where('admin_id', $id)->get()->toArray();
     }
+
+    public function getIdsMembers($id)
+    {
+        return Group::where('_id', $id)->pluck('members')->first();
+    }
 }

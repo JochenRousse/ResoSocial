@@ -11,16 +11,16 @@ class GroupRequest extends \Jenssegers\Mongodb\Eloquent\Model
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'id_demandeur'];
+    protected $fillable = ['id_demandeur'];
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Group');
     }
 
-    public static function prepareGroupRequest($id_demandeur, $group_id)
+    public static function prepareGroupRequest($id_demandeur)
     {
-        $GroupRequest = new static(compact('id_demandeur', 'group_id'));
+        $GroupRequest = new static(compact('id_demandeur'));
 
         return $GroupRequest;
     }

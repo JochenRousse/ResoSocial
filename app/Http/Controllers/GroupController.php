@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\GroupRequest;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -23,28 +24,26 @@ class GroupController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(GroupRepository $groupRepository, GroupRequestRepository $groupRequestRepository, UserRepository $userRepository)
+    public function index(GroupRepository $groupRepository)
     {
         $user = Auth::user();
         $groups = $groupRepository->getAllGroups($user->id);
         $groupsAdmin = $groupRepository->getGroupsAdmin($user->id);
 
-        $requesterIds = $groupRequestRepository->getIdsThatSentRequestToCurrentUser($user->id);
-        $usersWhoRequested = $userRepository->findManyById($requesterIds);
-
-        foreach ($usersWhoRequested as $user){
-            $user['group_id'] = $groupRequestRepository->getIdsThatSentRequestToCurrentUser($user->id);
-        }
-
-        return view('groups.index', compact('groups', 'user', 'groupsAdmin', 'usersWhoRequested'));
+        return view('groups.index', compact('groups', 'user', 'groupsAdmin'));
     }
 
-    public function page($id)
+    public function page(UserRepository $userRepository, GroupRequestRepository $groupRequestRepository, GroupRepository $groupRepository, $id)
     {
         $group = Group::where('_id', $id)->first();
         $user = Auth::user();
 
-        return view('groups.page', compact('group', 'user'));
+        $requesterIds = $groupRequestRepository->getIdsThatSentRequestToCurrentUser($group->id);
+        $usersWhoRequested = $userRepository->findManyById($requesterIds);
+
+        $members = $userRepository->findManyById($groupRepository->getIdsMembers($group->id));
+
+        return view('groups.page', compact('group', 'user', 'usersWhoRequested', 'members'));
     }
 
     public function create(Request $request)
@@ -85,6 +84,7 @@ class GroupController extends Controller
         } else {
 
             if($request->has('admin')){
+                GroupRequest::where('id_demandeur', $request['userId'])->where('group_id', $request['groupId'])->delete();
                 Group::where('_id', $request['groupId'])->push('members', $request['userId']);
 
                 $notification = array(
