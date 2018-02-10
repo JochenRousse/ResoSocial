@@ -19,6 +19,8 @@
                 <form id="delete-event" action="{{ route('events.delete') }}"
                       method="POST"
                       style="display: none;">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
                     <input type="hidden" name="id" value="{{$event->id}}"/>
                     {{ csrf_field() }}
                 </form>

@@ -125,7 +125,7 @@ class EventController extends Controller
 
     public function destroy(Request $request)
     {
-        $validator = Validator::make($request->all(), ['id' => 'required']);
+        $validator = Validator::make($request->all(), ['id' => 'required', 'userId' => 'required']);
 
         if ($validator->fails()) {
             $notification = array(
@@ -142,7 +142,7 @@ class EventController extends Controller
                 'alert-type' => 'success'
             );
 
-            return back()->with($notification);
+            return redirect()->route('user.events', ['id' => $request['userId']])->with($notification);
         }
     }
 }

@@ -120,7 +120,7 @@
                                        class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
                                                      document.getElementById('delete-group').submit();">
-                                        Supprimer ce groupe
+                                        Supprimer l'évènement
                                     </a>
                                     <form id="delete-group" action="{{ route('events.delete') }}"
                                           method="POST"
