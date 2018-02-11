@@ -7,7 +7,7 @@
 
             <!-- Changer la couleur de fond -->
             <h3>Personnalisation</h3>
-            <form class="form-horizontal" method="POST" action="{{ route('user.bg') }}">
+            <form class="form-horizontal" method="POST" action="{{ route('param.bg') }}">
                 {{ csrf_field() }}
                 <div class="input-group bg_color">
                     <input type="text" class="form-control" placeholder="background color"
@@ -18,7 +18,7 @@
                 </div>
             </form>
             <br/>
-            <form class="form-horizontal" method="POST" action="{{ route('user.text') }}">
+            <form class="form-horizontal" method="POST" action="{{ route('param.text') }}">
                 {{ csrf_field() }}
                 <div class="input-group bg_color">
                     <input type="text" class="form-control" placeholder="text color" value="{{$user->text_color}}"
@@ -31,7 +31,19 @@
 
             <!-- Suppression du compte -->
             <h3>Options du compte</h3>
-            <form class="form-horizontal" method="POST" action="{{ route('update', ['id' => Auth::user()->id]) }}">
+            <div>
+                <a class="btn btn-primary delete-acc">
+                    Supprimer votre compte
+                </a>
+            </div>
+            <form id="delete-form"
+                  action="{{ route('user.delete', ['id' => Auth::user()->id, 'onsubmit' => 'return ConfirmDelete()']) }}"
+                  method="POST" style="display: none;">
+                <input type="hidden" name="_method" value="delete"/>
+                {{ csrf_field() }}
+            </form>
+            <br>
+            <form class="form-horizontal" method="POST" action="{{ route('user.update', ['id' => Auth::user()->id]) }}">
                 {{ csrf_field() }}
                 <input type="hidden" name="_method" value="put"/>
                 <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}">
@@ -80,17 +92,6 @@
                         </button>
                     </div>
                 </div>
-            </form>
-            <div>
-                <a class="btn btn-primary delete-acc">
-                    Supprimer votre compte
-                </a>
-            </div>
-            <form id="delete-form"
-                  action="{{ route('delete', ['id' => Auth::user()->id, 'onsubmit' => 'return ConfirmDelete()']) }}"
-                  method="POST" style="display: none;">
-                <input type="hidden" name="_method" value="delete"/>
-                {{ csrf_field() }}
             </form>
         </div>
     </div>

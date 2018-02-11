@@ -16,11 +16,6 @@ class ParamsController extends Controller
         return view('params.index', compact('user'));
     }
 
-    public function update(Request $request)
-    {
-
-    }
-
     public function preferences1(Request $request)
     {
         $validator = Validator::make($request->all(), ['bg_color' => 'required|string|max:7']);

@@ -25,8 +25,11 @@ Route::get('user/profil', function() {
     return redirect()->route('user.profil', ['id' => Auth::user()->id]);
 });
 Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
-Route::delete('/user/{id}', 'UserController@destroy')->name('delete');
-Route::put('/user/{id}', 'UserController@update')->name('update');
+Route::get('user/{id}/groups', 'GroupController@index')->name('user.groups');
+Route::get('user/{id}/friends', 'FriendController@index')->name('user.friends');
+Route::get('user/{id}/params', 'ParamsController@index')->name('user.params');
+Route::delete('/user/{id}', 'UserController@destroy')->name('user.delete');
+Route::put('/user/{id}', 'UserController@update')->name('user.update');
 Route::match(['get', 'post'], '/search', 'UserController@search')->name('search');
 
 /**
@@ -40,7 +43,6 @@ Route::delete('friend-requests/erase', 'FriendRequestController@erase')->name('f
 /**
  * Friends
  */
-Route::get('user/{id}/friends', 'FriendController@index')->name('user.friends');
 Route::post('friends', 'FriendController@create')->name('friend.create');
 Route::delete('friends', 'FriendController@destroy')->name('friend.delete');
 
@@ -55,7 +57,6 @@ Route::delete('group-requests', 'GroupRequestController@decline')->name('group.r
 /**
  * Groups
  */
-Route::get('user/{id}/groups', 'GroupController@index')->name('user.groups');
 Route::get('group/{id}/page', 'GroupController@page')->name('group.page');
 Route::post('group', 'GroupController@create')->name('group.create');
 Route::post('group/join', 'GroupController@join')->name('group.join');
@@ -66,7 +67,12 @@ Route::delete('group', 'GroupController@destroy')->name('group.delete');
 /**
  * Params
  */
-Route::get('user/{id}/params', 'ParamsController@index')->name('user.params');
-Route::post('params/update', 'ParamsController@update')->name('user.update');
-Route::post('params/preferences1', 'ParamsController@preferences1')->name('user.bg');
-Route::post('params/preferences2', 'ParamsController@preferences2')->name('user.text');
+Route::post('params/preferences1', 'ParamsController@preferences1')->name('param.bg');
+Route::post('params/preferences2', 'ParamsController@preferences2')->name('param.text');
+
+
+/**
+ * Posts
+ */
+Route::post('post', 'PostController@store')->name('post.create');
+Route::post('delete', 'PostController@delete')->name('post.delete');

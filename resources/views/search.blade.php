@@ -8,17 +8,17 @@
                 <thead>
                 <tr>
                     <th>Nom d'utilisateur</th>
-                    <th>Nom</th>
                     <th>Prenom</th>
+                    <th>Nom</th>
                     <th>Email</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($users as $user)
-                    <tr>
-                        <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">{{$user['username']}}</a></td>
-                        <td>{{$user['nom']}}</td>
+                    <tr class='clickable-row clickable' data-href="{{ route('user.profil', ['id' => $user['_id']]) }}">
+                        <td>{{$user['username']}}</td>
                         <td>{{$user['prenom']}}</td>
+                        <td>{{$user['nom']}}</td>
                         <td>{{$user['email']}}</td>
                     </tr>
                 @endforeach
@@ -39,8 +39,8 @@
                 </thead>
                 <tbody>
                 @foreach($groups as $group)
-                    <tr>
-                        <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">{{$group['name']}}</a></td>
+                    <tr class='clickable-row clickable' data-href="{{ route('group.page', ['id' => $group['_id']]) }}">
+                        <td>{{$group['name']}}</td>
                         <td>{{$group['statut']}}</td>
                     </tr>
                 @endforeach

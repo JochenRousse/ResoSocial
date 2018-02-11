@@ -35,17 +35,14 @@
                         <thead>
                         <tr>
                             <th scope="col">Nom</th>
-                            <th scope="col">Lien</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($groups as $group)
-                            <tr>
+                            <tr class='clickable-row clickable'
+                                data-href="{{ route('group.page', ['id' => $group['_id']]) }}">
                                 <td>{{ $group['name'] }}</td>
-                                <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">Voir la page du
-                                        groupe</a>
-                                </td>
                                 <td>
                                     <form action="{{ route('group.leave') }}"
                                           method="POST">
@@ -74,17 +71,14 @@
                         <thead>
                         <tr>
                             <th scope="col">Nom</th>
-                            <th scope="col">Lien</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($groupsAdmin as $group)
-                            <tr>
+                            <tr class='clickable-row clickable'
+                                data-href="{{ route('group.page', ['id' => $group['_id']]) }}">
                                 <td>{{ $group['name'] }}</td>
-                                <td><a href="{{ route('group.page', ['id' => $group['_id']]) }}">Voir la page du
-                                        groupe</a>
-                                </td>
                                 <td>
                                     <form action="{{ route('group.delete') }}"
                                           method="POST">

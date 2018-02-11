@@ -143,9 +143,19 @@
                 "positionClass": "toast-bottom-right",
                 onclick: function () { window.location.href = "/user/"+e.id+"/profil"; }
             };
-            toastr.success(e.prenom + e.nom + ' a accepté votre demande d\'ami !');
+            toastr.success(e.prenom + ' ' + e.nom + ' a accepté votre demande d\'ami !');
         });
 
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        }).hover(function () {
+            old = $(this).css('background-color');
+            $(this).css('background-color','#eeeeee');
+        }, function () {
+            $(this).css('background-color', old);
+        });
+    });
 </script>
 </body>
 </html>

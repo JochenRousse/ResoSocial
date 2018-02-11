@@ -14,9 +14,8 @@
             <p>{{$user->ddn}}</p>
             <p>{{$user->email}}</p>
             <hr/>
-            <h1>Mes posts</h1>
-            <p>Ici la liste de mes posts... + commentaires</p>
             @if ($user->id != Auth::user()->id)
+                <h1>Amitié</h1>
                 @if(Auth::user()->isFriendsWith($user->id))
                     <form action="{{ route('friend.delete') }}" method="POST">
                         <input type="hidden" name="_method" value="delete"/>
@@ -58,6 +57,9 @@
                     @endif
                 @endif
             @endif
+            <h1>Mes posts</h1>
+            <p>Ici la liste de mes posts... + commentaires</p>
+
         </div>
     </div>
 

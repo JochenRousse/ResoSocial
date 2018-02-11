@@ -11,17 +11,15 @@
                         <tr>
                             <th scope="col">Prénom</th>
                             <th scope="col">Nom</th>
-                            <th scope="col">Lien</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($friends as $friend)
-                            <tr>
+                            <tr class='clickable-row clickable'
+                                data-href="{{ route('user.profil', ['id' => $friend['_id']]) }}">
                                 <td>{{ $friend['prenom'] }}</td>
                                 <td>{{ $friend['nom'] }}</td>
-                                <td><a href="{{ route('user.profil', ['id' => $friend['_id']]) }}">Voir le profil</a>
-                                </td>
                                 <td>
                                     <form action="{{ route('friend.delete') }}"
                                           method="POST">
@@ -51,18 +49,16 @@
                         <tr>
                             <th scope="col">Prénom</th>
                             <th scope="col">Nom</th>
-                            <th scope="col">Lien</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($usersWhoRequested as $user)
-                            <tr>
+                            <tr class='clickable-row clickable'
+                                data-href="{{ route('user.profil', ['id' => $user['_id']]) }}">
                                 <td>{{ $user['prenom'] }}</td>
                                 <td>{{ $user['nom'] }}</td>
-                                <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
-                                        profil</a></td>
                                 <td>
                                     <form action="{{ route('friend.create') }}" method="POST">
                                         <input type="hidden" name="userId" value="{{$user['_id']}}"/>
@@ -101,16 +97,14 @@
                         <tr>
                             <th scope="col">Prénom</th>
                             <th scope="col">Nom</th>
-                            <th scope="col">Lien</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($usersPendingRequests as $user)
-                            <tr>
+                            <tr class='clickable-row clickable'
+                                data-href="{{ route('user.profil', ['id' => $user['_id']]) }}">
                                 <td>{{ $user['prenom'] }}</td>
                                 <td>{{ $user['nom'] }}</td>
-                                <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
-                                        profil</a></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -129,18 +123,15 @@
                         <tr>
                             <th scope="col">Nom</th>
                             <th scope="col">Prénom</th>
-                            <th scope="col">Lien</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($usersDeletedRequests as $user)
-                            <tr>
+                            <tr class='clickable-row clickable'
+                                data-href="{{ route('user.profil', ['id' => $user['_id']]) }}">
                                 <td>{{ $user['prenom'] }}</td>
                                 <td>{{ $user['nom'] }}</td>
-                                <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
-                                        profil</a></td>
-                                <td>
                                     <form action="{{ route('friend.requests.erase') }}"
                                           method="POST">
                                         <input type="hidden" name="_method" value="delete"/>

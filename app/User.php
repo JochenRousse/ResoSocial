@@ -48,6 +48,11 @@ class User extends Model implements
         return $this->hasMany('App\FriendRequest');
     }
 
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
     public function friends()
     {
         return $this->belongsToMany('App\User');

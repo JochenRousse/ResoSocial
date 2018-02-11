@@ -25,20 +25,16 @@
                             <tr>
                                 <th scope="col">Prénom</th>
                                 <th scope="col">Nom</th>
-                                <th scope="col">Groupe demandé</th>
-                                <th scope="col">Lien</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($usersWhoRequested as $user)
-                                <tr>
+                                <tr class='clickable-row clickable'
+                                    data-href="{{ route('user.profil', ['id' => $user['_id']]) }}">
                                     <td>{{ $user['prenom'] }}</td>
                                     <td>{{ $user['nom'] }}</td>
-                                    <td>{{ $user['group_name'] }}</td>
-                                    <td><a href="{{ route('user.profil', ['id' => $user['_id']]) }}">Voir le
-                                            profil</a></td>
                                     <td>
                                         <form action="{{ route('group.join') }}" method="POST">
                                             <input type="hidden" name="userId" value="{{$user['_id']}}"/>
@@ -129,7 +125,8 @@
                 </thead>
                 <tbody>
                 @foreach($members as $user)
-                    <tr>
+                    <tr class='clickable-row clickable'
+                        data-href="{{ route('user.profil', ['id' => $user['_id']]) }}">
                         <td>{{ $user['prenom'] }}</td>
                         <td>{{ $user['nom'] }}</td>
                     </tr>
