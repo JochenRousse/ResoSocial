@@ -31,23 +31,11 @@
 
             <!-- Suppression du compte -->
             <h3>Options du compte</h3>
-            <div>
-                <a class="btn btn-primary delete-acc">
-                    Supprimer votre compte
-                </a>
-            </div>
-            <form id="delete-form"
-                  action="{{ route('user.delete', ['id' => Auth::user()->id, 'onsubmit' => 'return ConfirmDelete()']) }}"
-                  method="POST" style="display: none;">
-                <input type="hidden" name="_method" value="delete"/>
-                {{ csrf_field() }}
-            </form>
-            <br>
             <form class="form-horizontal" method="POST" action="{{ route('user.update', ['id' => Auth::user()->id]) }}">
                 {{ csrf_field() }}
                 <input type="hidden" name="_method" value="put"/>
                 <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}">
-                    <label for="new-password" class="col-md-4 control-label">Entrer votre mot de passe</label>
+                    <label for="current-password" class="align-left col-md-3 control-label">Entrer votre mot de passe</label>
 
                     <div class="col-md-6">
                         <input id="current-password" type="password" class="form-control" name="current-password"
@@ -62,7 +50,7 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('new-password') ? ' has-error' : '' }}">
-                    <label for="new-password" class="col-md-4 control-label">Nouveau mot de passe</label>
+                    <label for="new-password" class="align-left col-md-3 control-label">Nouveau mot de passe</label>
 
                     <div class="col-md-6">
                         <input id="new-password" type="password" class="form-control" name="new-password" required>
@@ -76,7 +64,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="new-password-confirm" class="col-md-4 control-label">Confirmer votre nouveau mot de
+                    <label for="new-password-confirm" class="align-left col-md-3 control-label">Confirmer votre nouveau mot de
                         passe</label>
 
                     <div class="col-md-6">
@@ -86,12 +74,24 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-6 col-md-offset-4">
+                    <div class="col-md-6">
                         <button type="submit" class="btn btn-primary">
                             Changer votre mot de passe
                         </button>
                     </div>
                 </div>
+            </form>
+            <br>
+            <div>
+                <a class="btn btn-primary delete-acc">
+                    Supprimer votre compte
+                </a>
+            </div>
+            <form id="delete-form"
+                  action="{{ route('user.delete', ['id' => Auth::user()->id, 'onsubmit' => 'return ConfirmDelete()']) }}"
+                  method="POST" style="display: none;">
+                <input type="hidden" name="_method" value="delete"/>
+                {{ csrf_field() }}
             </form>
         </div>
     </div>

@@ -43,5 +43,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\GroupRequest\GroupRequestRepository',
             'App\Repositories\GroupRequest\EloquentGroupRequestRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\Post\PostRepository',
+            'App\Repositories\Post\EloquentPostRepository'
+        );
     }
 }

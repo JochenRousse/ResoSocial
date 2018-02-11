@@ -26,3 +26,11 @@
 .clickable{
     cursor: pointer;
 }
+
+.align-left{
+    text-align: left !important;
+}
+
+[hidden] {
+    display: none !important;
+}

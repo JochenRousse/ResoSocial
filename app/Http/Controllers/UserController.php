@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\User;
 use App\FriendRequest;
+use App\Repositories\Post\PostRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -23,11 +24,14 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index($id)
+    public function index($id, PostRepository $postRepository)
     {
         $user = User::find($id);
-        return view('users.index')->with('user', $user);
+        $posts = $postRepository->getAllPosts($user->id);
+
+        return view('users.index', compact('user', 'posts'));
     }
+
 
     public function destroy($id)
     {
@@ -71,9 +75,9 @@ class UserController extends Controller
             }
 
             if (!empty(array_filter($return))) {
-                return view('search')->with($return)->with('query', $q);
+                return view('search.index')->with($return)->with('query', $q);
             } else {
-                return view('search');
+                return view('search.index');
             }
         }
     }
