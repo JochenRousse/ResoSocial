@@ -20,12 +20,13 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Request $request){
-        $validator = Validator::make($request->all(), ['type' => 'required']);
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), ['type' => 'required', 'message' => 'required_if:postImage,==,NULL|required_if:postVideo,==,NULL', 'postImage' => 'required_if:message,==,NULL|required_if:postVideo,==,NULL', 'postVideo' => 'required_if:message,==,NULL|required_if:postImage,==,NULL']);
 
         if ($validator->fails()) {
             $notification = array(
-                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'message' => 'Veuillez uploader un fichier.',
                 'alert-type' => 'error'
             );
 
@@ -41,13 +42,14 @@ class PostController extends Controller
                     $post = Post::preparePost($request->type, $goodPath);
                     $user->posts()->save($post);
                 }
-            } elseif ($request->hasFile('postVideo')){
+            } elseif ($request->hasFile('postVideo')) {
                 if ($request->file('postVideo')->isValid()) {
                     $path = $request->postVideo->store('public');
-                    $post = Post::preparePost($request->type, $path);
+                    $goodPath = str_replace('public/', '', $path);
+                    $post = Post::preparePost($request->type, $goodPath);
                     $user->posts()->save($post);
                 }
-            } else{
+            } else {
                 $post = Post::preparePost($request->type, null, $request->message);
                 $user->posts()->save($post);
             }
@@ -60,6 +62,7 @@ class PostController extends Controller
             return back()->with($notification);
         }
     }
+
     public function destroy(Request $request)
     {
         $validator = Validator::make($request->all(), ['id' => 'required']);

@@ -64,6 +64,8 @@
                 <form class="form-horizontal" method="POST" action="{{ route('post.create') }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="type" value="texte"/>
+                    <input type="hidden" name="postImage" value="NULL"/>
+                    <input type="hidden" name="postVideo" value="NULL"/>
                     <div class="form-group{{ $errors->has('text') ? ' has-error' : '' }}">
                         <div class="col-md-6">
                             <textarea id="post-text" class="form-control" name="message" required></textarea>
@@ -85,13 +87,15 @@
                       enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="type" value="image"/>
+                    <input type="hidden" name="message" value="NULL"/>
+                    <input type="hidden" name="postVideo" value="NULL"/>
                     <div class="form-group">
                         <div class="col-lg-6">
                             <div class="input-group">
                                 <label class="input-group-btn">
                                 <span class="btn btn-primary">
                                 Charger une image <input type="file" name="postImage"
-                                                         accept="image/x-png,image/gif,image/jpeg" hidden/>
+                                                         accept="image/x-png,image/gif,image/jpeg,image/*" hidden/>
                                 </span>
                                 </label>
                                 <input type="text" class="form-control" readonly>
@@ -109,6 +113,8 @@
                       enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="type" value="video"/>
+                    <input type="hidden" name="message" value="NULL"/>
+                    <input type="hidden" name="postImage" value="NULL"/>
                     <div class="form-group">
                         <div class="col-lg-6">
                             <div class="input-group">
@@ -122,7 +128,7 @@
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary">
-                                Poster l'image
+                                Poster la vidéo
                             </button>
                         </div>
                     </div>
@@ -136,11 +142,37 @@
                         <div class="posts-list">
                             @foreach($posts as $post)
                                 @if($post['type'] == 'texte')
-                                    <p>{{$post['message']}}</p>
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">Texte</div>
+                                        <div class="panel-body">{{$post['message']}}</div>
+                                    </div>
                                 @elseif($post['type'] == 'image')
-                                    <img src="{{ asset('storage/'.$post->path) }}">
+                                    @php(list($width, $height) = getimagesize(asset('storage/' . $post['path'])))
+                                    @if ($width > $height)
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">Image</div>
+                                            <div class="panel-body">
+                                                <img class="landscape" width="500" src="{{ asset('storage/' . $post['path']) }}">
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">Image</div>
+                                            <div class="panel-body">
+                                                <img class="portrait" height="250" src="{{ asset('storage/' . $post['path']) }}">
+                                            </div>
+                                        </div>
+                                    @endif
                                 @elseif($post['type'] == 'video')
-                                    <video src="{{ asset('storage/app/videos/' . $post->path) }}"></video>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Vidéo</div>
+                                        <div class="panel-body">
+                                            <video width="320" height="240" controls>
+                                                <source src="{{ asset('storage/' . $post['path']) }}">
+                                                Votre navigateur ne supporte pas les balises vidéos
+                                            </video>
+                                        </div>
+                                    </div>
                                 @endif
                             @endforeach
                         </div>
@@ -159,11 +191,37 @@
                 <div class="posts-list">
                     @foreach($posts as $post)
                         @if($post['type'] == 'texte')
-                            <p>{{$post['message']}}</p>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Texte</div>
+                                <div class="panel-body">{{$post['message']}}</div>
+                            </div>
                         @elseif($post['type'] == 'image')
-                            <img src="{{ asset('storage/' . $post['path']) }}">
+                            @php(list($width, $height) = getimagesize(asset('storage/' . $post['path'])))
+                            @if ($width > $height)
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">Image</div>
+                                    <div class="panel-body">
+                                        <img class="landscape" width="500" src="{{ asset('storage/' . $post['path']) }}">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">Image</div>
+                                    <div class="panel-body">
+                                        <img class="portrait" height="250" src="{{ asset('storage/' . $post['path']) }}">
+                                    </div>
+                                </div>
+                            @endif
                         @elseif($post['type'] == 'video')
-                            <video src="{{ asset('storage/app/videos/' . $post['path']) }}"></video>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Video</div>
+                                <div class="panel-body">
+                                    <video width="320" height="240" controls>
+                                        <source src="{{ asset('storage/' . $post['path']) }}">
+                                        Votre navigateur ne supporte pas les balises vidéos
+                                    </video>
+                                </div>
+                            </div>
                         @endif
                     @endforeach
                 </div>
