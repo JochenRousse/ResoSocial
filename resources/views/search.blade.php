@@ -47,10 +47,10 @@
                             <td><a href="{{ route('group.delete') }}"
                                    class="btn btn-primary btn-sm"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('delete-group').submit();">
+                                                     document.getElementById('delete-group-{{$group['_id']}}').submit();">
                                     Supprimer ce groupe
                                 </a>
-                                <form id="delete-group" action="{{ route('group.delete') }}"
+                                <form id="delete-group-{{$group['_id']}}" action="{{ route('group.delete') }}"
                                       method="POST"
                                       style="display: none;">
                                     <input type="hidden" name="_method" value="delete"/>
@@ -62,10 +62,10 @@
                             <td><a href="{{ route('group.leave') }}"
                                    class="btn btn-primary btn-sm"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('leave-group').submit();">
+                                                     document.getElementById('leave-group-{{$group['_id']}}').submit();">
                                     Quitter le groupe
                                 </a>
-                                <form id="leave-group" action="{{ route('group.leave') }}"
+                                <form id="leave-group-{{$group['_id']}}" action="{{ route('group.leave') }}"
                                       method="POST"
                                       style="display: none;">
                                     <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
@@ -77,10 +77,10 @@
                             <td><a href="{{ route('group.join') }}"
                                    class="btn btn-primary btn-sm"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('join-group').submit();">
+                                                     document.getElementById('join-group-{{$group['_id']}}').submit();">
                                     Rejoindre le groupe
                                 </a>
-                                <form id="join-group" action="{{ route('group.join') }}"
+                                <form id="join-group-{{$group['_id']}}" action="{{ route('group.join') }}"
                                       method="POST"
                                       style="display: none;">
                                     <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
@@ -111,7 +111,7 @@
                 <tbody>
                 @foreach($events as $event)
                     <tr>
-                        <td>{{$event['name']}}</td>
+                        <td><a href="{{ route('events.page', ['id' => $event['_id']]) }}">{{$event['name']}}</td>
                         <td>{{$event['type']}}</td>
                         <td>{{$event['date']}}</td>
                         <td>{{$event['date_end']}}</td>
@@ -120,10 +120,10 @@
                             <td><a href="{{ route('events.delete') }}"
                                    class="btn btn-primary btn-sm"
                                    onclick="event.preventDefault();
-                                document.getElementById('delete-event').submit();">
+                                document.getElementById('delete-event-{{$event['_id']}}').submit();">
                                     Supprimer l'évènement
                                 </a>
-                                <form id="delete-event" action="{{ route('events.delete') }}"
+                                <form id="delete-event-{{$event['_id']}}" action="{{ route('events.delete') }}"
                                       method="POST"
                                       style="display: none;">
                                     <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
@@ -135,10 +135,25 @@
                             <td><a href="{{ route('events.leave') }}"
                                    class="btn btn-primary btn-sm"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('leave-event').submit();">
+                                                     document.getElementById('leave-event-{{$event['_id']}}').submit();">
                                     Quitter l'évènement
                                 </a>
-                                <form id="leave-event" action="{{ route('events.leave') }}"
+                                <form id="leave-event-{{$event['_id']}}" action="{{ route('events.leave') }}"
+                                      method="POST"
+                                      style="display: none;">
+                                    <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
+                                    <input type="hidden" name="eventId" value="{{$event['_id']}}"/>
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        @elseif(Auth::user()->isEventOpen($event['_id']))
+                            <td><a href="{{ route('events.join') }}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('join-event-{{$event['_id']}}').submit();">
+                                    Rejoindre l'évènement
+                                </a>
+                                <form id="join-event-{{$event['_id']}}" action="{{ route('events.join') }}"
                                       method="POST"
                                       style="display: none;">
                                     <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
@@ -147,20 +162,7 @@
                                 </form>
                             </td>
                         @else
-                            <td><a href="{{ route('events.join') }}"
-                                   class="btn btn-primary btn-sm"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('join-event').submit();">
-                                    Rejoindre l'évènement
-                                </a>
-                                <form id="join-event" action="{{ route('events.join') }}"
-                                      method="POST"
-                                      style="display: none;">
-                                    <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
-                                    <input type="hidden" name="eventId" value="{{$event['_id']}}"/>
-                                    {{ csrf_field() }}
-                                </form>
-                            </td>
+                            <td></td>
                         @endif
                     </tr>
                 @endforeach

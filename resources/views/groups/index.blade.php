@@ -40,10 +40,10 @@
                                 <td><a href="{{ route('group.leave') }}"
                                        class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('leave-group').submit();">
+                                                     document.getElementById('leave-group-{{$group['_id']}}').submit();">
                                         Quitter le groupe
                                     </a>
-                                    <form id="leave-group" action="{{ route('group.leave') }}"
+                                    <form id="leave-group-{{$group['_id']}}" action="{{ route('group.leave') }}"
                                           method="POST"
                                           style="display: none;">
                                         <input type="hidden" name="userId" value="{{$user->id}}"/>
@@ -82,10 +82,10 @@
                                 <td><a href="{{ route('group.delete') }}"
                                        class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('delete-group').submit();">
+                                                     document.getElementById('delete-group-{{$group['_id']}}').submit();">
                                         Supprimer ce groupe
                                     </a>
-                                    <form id="delete-group" action="{{ route('group.delete') }}"
+                                    <form id="delete-group-{{$group['_id']}}" action="{{ route('group.delete') }}"
                                           method="POST"
                                           style="display: none;">
                                         <input type="hidden" name="_method" value="delete"/>

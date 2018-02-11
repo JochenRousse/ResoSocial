@@ -39,7 +39,7 @@
                         {{ csrf_field() }}
                     </form>
                 </td>
-            @else
+            @elseif(Auth::user()->isEventOpen($event['_id']))
                 <td><a href="{{ route('events.join') }}"
                        class="btn btn-primary btn-sm"
                        onclick="event.preventDefault();
@@ -54,6 +54,15 @@
                         {{ csrf_field() }}
                     </form>
                 </td>
+            @else
+                <td>L'évènement est fermé</td>
+            @endif
+
+            @if(Auth::user()->isMemberOfEvent($event->id) || Auth::user()->isAdminOfEvent($event->id))
+                @if(Auth::user()->isEventOpen($event['_id']))
+                    <h4>Inviter des amis</h4>
+                    Afficher les amis + bouton inviter
+                @endif
             @endif
         </div>
 

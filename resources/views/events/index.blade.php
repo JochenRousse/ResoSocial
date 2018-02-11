@@ -71,10 +71,10 @@
                                 <td><a href="{{ route('events.leave') }}"
                                        class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('leave-group').submit();">
+                                                     document.getElementById('leave-group-{{$event['_id']}}').submit();">
                                         Quitter l'évènement
                                     </a>
-                                    <form id="leave-group" action="{{ route('events.leave') }}"
+                                    <form id="leave-group-{{$event['_id']}}" action="{{ route('events.leave') }}"
                                           method="POST"
                                           style="display: none;">
                                         <input type="hidden" name="userId" value="{{$user->id}}"/>
@@ -119,14 +119,15 @@
                                 <td><a href="{{ route('events.delete') }}"
                                        class="btn btn-primary btn-sm"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('delete-group').submit();">
+                                                     document.getElementById('delete-group-{{$event['_id']}}').submit();">
                                         Supprimer l'évènement
                                     </a>
-                                    <form id="delete-group" action="{{ route('events.delete') }}"
+                                    <form id="delete-group-{{$event['_id']}}" action="{{ route('events.delete') }}"
                                           method="POST"
                                           style="display: none;">
                                         <input type="hidden" name="_method" value="delete"/>
                                         <input type="hidden" name="id" value="{{$event['_id']}}"/>
+                                        <input type="hidden" name="userId" value="{{$user->id}}"/>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>

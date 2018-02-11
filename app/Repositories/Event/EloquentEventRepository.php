@@ -24,7 +24,8 @@ class EloquentEventRepository extends Eloquent implements EventRepository
 
         foreach($events as $event){
             if(Carbon::createFromFormat('Y-m-d\TH:i', $event['date_end'])->lt(Carbon::now())){
-                Event::where('_id', $event['_id'])->delete();
+                $data = array ('close'=>true) ;
+                Event::where('_id', $event['_id'])->update($data , array('upsert' => true));
             }
         }
     }

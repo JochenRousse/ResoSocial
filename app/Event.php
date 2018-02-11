@@ -22,7 +22,7 @@ class Event extends \Jenssegers\Mongodb\Eloquent\Model implements
      *
      * @var array
      */
-    protected $fillable = ['name', 'type', 'date', 'date_end', 'duration', 'place', 'admin_id', 'members'];
+    protected $fillable = ['name', 'type', 'date', 'date_end', 'duration', 'place', 'admin_id', 'members', 'close'];
 
 
 }

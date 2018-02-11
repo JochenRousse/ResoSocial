@@ -65,6 +65,7 @@ class EventController extends Controller
                 'date_end' => $request['date_end'],
                 'place' => $request['place_event'],
                 'admin_id' => $request['userId'],
+                'close' => false,
                 'members' => array(0 => $request['userId'])]);
 
             $notification = array(
