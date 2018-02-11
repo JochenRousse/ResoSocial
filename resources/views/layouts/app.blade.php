@@ -11,12 +11,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('node_modules/toastr/build/toastr.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('node_modules/jquery-confirm/dist/jquery-confirm.min.css') }}"/>
-
+    <link rel="stylesheet" href="{{ asset('dist/app.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/starter-template.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('css/css/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}"/>
 </head>
 <body>
 <div id="app">
@@ -67,9 +64,8 @@
 </div>
 
 <!-- Scripts -->
-<script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ asset('node_modules/toastr/build/toastr.min.js') }}"></script>
-<script src="{{ asset('node_modules/jquery-confirm/dist/jquery-confirm.min.js') }}"></script>
+<script src="{{ asset('dist/app.js') }}"></script>
+
 
 <script>
     // confirmation
@@ -138,6 +134,18 @@
                 break;
         }
     @endif
+
+
+    Echo.channel('user')
+        .listen('FriendRequestAccepted', (e) => {
+            toastr.options = {
+                "closeButton": true,
+                "positionClass": "toast-bottom-right",
+                onclick: function () { window.location.href = "/user/"+e.id+"/profil"; }
+            };
+            toastr.success(e.prenom + e.nom + ' a accepté votre demande d\'ami !');
+        });
+
 </script>
 </body>
 </html>

@@ -151,48 +151,4 @@ class GroupController extends Controller
             return redirect()->route('user.groups', ['id' => Auth::user()->id])->with($notification);
         }
     }
-
-    public function createRequest(Request $request){
-        $validator = Validator::make($request->all(), ['userId' => 'required', 'groupId' => 'required']);
-
-        if ($validator->fails()) {
-            $notification = array(
-                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
-                'alert-type' => 'error'
-            );
-
-            return back()->with($notification);
-        } else {
-            Group::where('_id', $request['groupId'])->push('pending', $request['userId']);
-
-            $notification = array(
-                'message' => 'Vous avez bien demandé à rejoindre le groupe',
-                'alert-type' => 'success'
-            );
-
-            return back()->with($notification);
-        }
-    }
-
-    public function declineRequest(Request $request){
-        $validator = Validator::make($request->all(), ['userId' => 'required', 'groupId' => 'required']);
-
-        if ($validator->fails()) {
-            $notification = array(
-                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
-                'alert-type' => 'error'
-            );
-
-            return back()->with($notification);
-        } else {
-            Group::where('_id', $request['groupId'])->pull('pending', $request['userId']);
-
-            $notification = array(
-                'message' => 'Demande refusée',
-                'alert-type' => 'success'
-            );
-
-            return back()->with($notification);
-        }
-    }
 }

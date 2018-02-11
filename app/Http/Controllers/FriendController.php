@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FriendRequestAccepted;
 use App\FriendRequest;
 use App\User;
 use App\Repositories\User\UserRepository;
@@ -57,6 +58,8 @@ class FriendController extends Controller
             User::find($request->userId)->createFriendShipWith(Auth::user()->id);
 
             FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->update(['accepted' => true]);
+
+            event(new FriendRequestAccepted(Auth::user()));
 
             $notification = array(
                 'message' => 'Demande d\'ami acceptée',

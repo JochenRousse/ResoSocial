@@ -47,7 +47,7 @@ class GroupRequestController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('user.groups', ['id' => $request['userId']])->with($notification);
+            return back()->with($notification);
         }
     }
 
