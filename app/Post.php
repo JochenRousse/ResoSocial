@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+use App\Like;
+
 class Post extends \Jenssegers\Mongodb\Eloquent\Model {
 
     /**
@@ -25,5 +27,4 @@ class Post extends \Jenssegers\Mongodb\Eloquent\Model {
 
         return $FriendRequest;
     }
-
 }

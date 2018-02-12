@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\User;
+use App\Like;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -83,6 +84,43 @@ class PostController extends Controller
             );
 
             return redirect()->route('user.groups', ['id' => Auth::user()->id])->with($notification);
+        }
+    }
+
+    public function like(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), ['postId' => 'required']);
+
+        if ($validator->fails()) {
+            $notification = array(
+                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
+                'alert-type' => 'error'
+            );
+
+            return back()->with($notification);
+        } else {
+            $existing_like = Like::withTrashed()->wherePostId($request->postId)->whereUserId(Auth::id())->first();
+
+            if (is_null($existing_like)) {
+                Like::create([
+                    'post_id' => $request->postId,
+                    'user_id' => Auth::id()
+                ]);
+            } else {
+                if (is_null($existing_like->deleted_at)) {
+                    $existing_like->delete();
+                } else {
+                    $existing_like->restore();
+                }
+            }
+
+            $notification = array(
+                'message' => 'Liked',
+                'alert-type' => 'success'
+            );
+
+            return back()->with($notification);
         }
     }
 }

@@ -132,6 +132,7 @@
                                 data-href="{{ route('user.profil', ['id' => $user['_id']]) }}">
                                 <td>{{ $user['prenom'] }}</td>
                                 <td>{{ $user['nom'] }}</td>
+                                <td>
                                     <form action="{{ route('friend.requests.erase') }}"
                                           method="POST">
                                         <input type="hidden" name="_method" value="delete"/>

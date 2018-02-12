@@ -106,4 +106,17 @@ class User extends Model implements
         $groupRequestedByCurrentUser = GroupRequest::where('id_demandeur', $this->id)->pluck('group_id')->toArray();
         return in_array($groupId, $groupRequestedByCurrentUser);
     }
+
+    public function isLikedByMe($postid, $id)
+    {
+        $post = Post::findOrFail($postid)->first();
+        if (Like::whereUserId($id)->wherePostId($post->id)->exists()){
+            return 'true';
+        }
+        return 'false';
+    }
+
+    public function numberLikes($id){
+        return Like::where('post_id',$id)->count();
+    }
 }

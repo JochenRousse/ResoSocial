@@ -16,15 +16,17 @@ class FriendRequestAccepted implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
+    public $id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $id)
     {
         $this->user = $user;
+        $this->id = $id;
     }
 
     /**
@@ -35,13 +37,15 @@ class FriendRequestAccepted implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('user');
+
     }
 
     public function broadcastWith() {
         return [
             'nom' => $this->user->nom,
             'prenom' => $this->user->prenom,
-            'id' => $this->user->id
+            'id_user' => $this->user->id,
+            'id' => $this->id
         ];
     }
 }

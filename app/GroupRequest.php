@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class GroupRequest extends \Jenssegers\Mongodb\Eloquent\Model
 {
 

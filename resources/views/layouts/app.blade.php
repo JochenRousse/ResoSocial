@@ -68,6 +68,10 @@
 
 
 <script>
+    @auth
+        user_id = <?php echo json_encode(Auth::user()->id); ?>
+    @endauth
+
     // confirmation
     $('a.delete-acc').on('click', function () {
         $.confirm({
@@ -135,15 +139,16 @@
         }
     @endif
 
-
     Echo.channel('user')
         .listen('FriendRequestAccepted', (e) => {
-            toastr.options = {
-                "closeButton": true,
-                "positionClass": "toast-bottom-right",
-                onclick: function () { window.location.href = "/user/"+e.id+"/profil"; }
-            };
-            toastr.success(e.prenom + ' ' + e.nom + ' a accepté votre demande d\'ami !');
+            if(e.id == user_id){
+                toastr.options = {
+                    "closeButton": true,
+                    "positionClass": "toast-bottom-right",
+                    onclick: function () { window.location.href = "/user/"+e.id_user+"/profil"; }
+                };
+                toastr.success(e.prenom + ' ' + e.nom + ' a accepté votre demande d\'ami !');
+            }
         });
 
     jQuery(document).ready(function($) {

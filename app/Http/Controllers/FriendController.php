@@ -59,7 +59,7 @@ class FriendController extends Controller
 
             FriendRequest::where('user_id', Auth::user()->id)->where('id_demandeur', $request->userId)->update(['accepted' => true]);
 
-            event(new FriendRequestAccepted(Auth::user()));
+            event(new FriendRequestAccepted(Auth::user(), $request->userId));
 
             $notification = array(
                 'message' => 'Demande d\'ami acceptée',

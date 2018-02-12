@@ -76,3 +76,5 @@ Route::post('params/preferences2', 'ParamsController@preferences2')->name('param
  */
 Route::post('post', 'PostController@store')->name('post.create');
 Route::post('delete', 'PostController@delete')->name('post.delete');
+Route::get('post/{id}', 'PostController@isLikedByMe')->name('post.liked');
+Route::post('post/like', 'PostController@like')->name('post.like');
