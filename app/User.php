@@ -134,6 +134,14 @@ class User extends Model implements
         return 'false';
     }
 
+    public function isMyPost($postId)
+    {
+        if (Post::where('_id', $postId)->whereUserId($this->id)->exists()){
+            return 'true';
+        }
+        return 'false';
+    }
+
     public function numberLikes($id){
         return Like::where('post_id',$id)->count();
     }

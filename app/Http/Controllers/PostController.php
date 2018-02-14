@@ -64,7 +64,7 @@ class PostController extends Controller
         }
     }
 
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         $validator = Validator::make($request->all(), ['id' => 'required']);
 
@@ -76,14 +76,14 @@ class PostController extends Controller
 
             return back()->with($notification);
         } else {
-            Group::find($request->id)->delete();
+            Post::find($request->id)->delete();
 
             $notification = array(
-                'message' => 'Ce groupe a bien été supprimé',
+                'message' => 'Ce post a bien été supprimé',
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('user.groups', ['id' => Auth::user()->id])->with($notification);
+            return back()->with($notification);
         }
     }
 

@@ -152,9 +152,9 @@
                                         <div class="panel-body">
                                             {{$post['message']}}
                                             <br>
-                                            {{Auth::user()->numberLikes($post['_id'])}} likes
+                                            {{Auth::user()->numberLikes($post['_id'])}} like(s)
                                             <br>
-                                            <form class="form-horizontal" method="POST" action="{{ route('post.like') }}">
+                                            <form class="form-horizontal" method="POST" action="{{ route('post.like') }}" style="display:inline-block;">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="postId" value="{{$post['_id']}}"/>
                                                 @if(Auth::user()->isLikedByMe($post['_id']) == 'true')
@@ -167,6 +167,16 @@
                                                     </button>
                                                 @endif
                                             </form>
+                                            @if(Auth::user()->isMyPost($post['_id']) == 'true')
+                                                <form class="form-horizontal" method="POST" action="{{ route('post.delete') }}" style="display:inline-block;">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="delete"/>
+                                                    <input type="hidden" name="id" value="{{$post['_id']}}"/>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 @elseif($post['type'] == 'image')
@@ -176,6 +186,32 @@
                                             <div class="panel-heading">Image</div>
                                             <div class="panel-body">
                                                 <img class="landscape" width="500" src="{{ asset('storage/' . $post['path']) }}">
+                                                <br>
+                                                {{Auth::user()->numberLikes($post['_id'])}} like(s)
+                                                <br>
+                                                <form class="form-horizontal" method="POST" action="{{ route('post.like') }}" style="display:inline-block;">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="postId" value="{{$post['_id']}}"/>
+                                                    @if(Auth::user()->isLikedByMe($post['_id']) == 'true')
+                                                        <button type="submit" class="btn btn-primary">
+                                                            Unlike
+                                                        </button>
+                                                    @else
+                                                        <button type="submit" class="btn btn-primary">
+                                                            Like
+                                                        </button>
+                                                    @endif
+                                                </form>
+                                                @if(Auth::user()->isMyPost($post['_id']) == 'true')
+                                                    <form class="form-horizontal" method="POST" action="{{ route('post.delete') }}" style="display:inline-block;">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="_method" value="delete"/>
+                                                        <input type="hidden" name="id" value="{{$post['_id']}}"/>
+                                                        <button type="submit" class="btn btn-primary">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     @else
@@ -183,6 +219,32 @@
                                             <div class="panel-heading">Image</div>
                                             <div class="panel-body">
                                                 <img class="portrait" height="250" src="{{ asset('storage/' . $post['path']) }}">
+                                                <br>
+                                                {{Auth::user()->numberLikes($post['_id'])}} like(s)
+                                                <br>
+                                                <form class="form-horizontal" method="POST" action="{{ route('post.like') }}" style="display:inline-block;">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="postId" value="{{$post['_id']}}"/>
+                                                    @if(Auth::user()->isLikedByMe($post['_id']) == 'true')
+                                                        <button type="submit" class="btn btn-primary">
+                                                            Unlike
+                                                        </button>
+                                                    @else
+                                                        <button type="submit" class="btn btn-primary">
+                                                            Like
+                                                        </button>
+                                                    @endif
+                                                </form>
+                                                @if(Auth::user()->isMyPost($post['_id']) == 'true')
+                                                    <form class="form-horizontal" method="POST" action="{{ route('post.delete') }}" style="display:inline-block;">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="_method" value="delete"/>
+                                                        <input type="hidden" name="id" value="{{$post['_id']}}"/>
+                                                        <button type="submit" class="btn btn-primary">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     @endif
@@ -194,6 +256,32 @@
                                                 <source src="{{ asset('storage/' . $post['path']) }}">
                                                 Votre navigateur ne supporte pas les balises vidéos
                                             </video>
+                                            <br>
+                                            {{Auth::user()->numberLikes($post['_id'])}} like(s)
+                                            <br>
+                                            <form class="form-horizontal" method="POST" action="{{ route('post.like') }}" style="display:inline-block;">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="postId" value="{{$post['_id']}}"/>
+                                                @if(Auth::user()->isLikedByMe($post['_id']) == 'true')
+                                                    <button type="submit" class="btn btn-primary">
+                                                        Unlike
+                                                    </button>
+                                                @else
+                                                    <button type="submit" class="btn btn-primary">
+                                                        Like
+                                                    </button>
+                                                @endif
+                                            </form>
+                                            @if(Auth::user()->isMyPost($post['_id']) == 'true')
+                                                <form class="form-horizontal" method="POST" action="{{ route('post.delete') }}" style="display:inline-block;">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="delete"/>
+                                                    <input type="hidden" name="id" value="{{$post['_id']}}"/>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 @endif
