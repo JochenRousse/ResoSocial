@@ -89,7 +89,6 @@ class PostController extends Controller
 
     public function like(Request $request)
     {
-
         $validator = Validator::make($request->all(), ['postId' => 'required']);
 
         if ($validator->fails()) {

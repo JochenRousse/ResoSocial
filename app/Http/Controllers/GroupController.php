@@ -38,7 +38,7 @@ class GroupController extends Controller
         $group = Group::where('_id', $id)->first();
         $user = Auth::user();
 
-        $requesterIds = $groupRequestRepository->getIdsThatSentRequestToCurrentUser($group->id);
+        $requesterIds = $groupRequestRepository->getIdsThatSentRequestToCurrentGroup($group->id);
         $usersWhoRequested = $userRepository->findManyById($requesterIds);
 
         $members = $userRepository->findManyById($groupRepository->getIdsMembers($group->id));

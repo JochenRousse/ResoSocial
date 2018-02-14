@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="view-container container">
-        @if(isset($users))
+        @if(!empty($users))
             <h2>Utilisateurs correspondant à votre recherche (<b> {{ $query }} </b>)</h2>
             <table class="table table-striped">
                 <thead>
@@ -28,7 +28,7 @@
             <p>Aucun utilisateur correspondant à votre recherche.</p>
         @endif
 
-        @if(isset($groups))
+        @if(!empty($groups))
             <h2>Groupes correspondant à votre recherche (<b> {{ $query }} </b>)</h2>
             <table class="table table-striped">
                 <thead>

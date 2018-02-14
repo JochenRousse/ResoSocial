@@ -65,14 +65,12 @@
 
 <!-- Scripts -->
 <script src="{{ asset('dist/app.js') }}"></script>
-
-
 <script>
     @auth
         user_id = <?php echo json_encode(Auth::user()->id); ?>
     @endauth
 
-    // confirmation
+    // confirmation delete account
     $('a.delete-acc').on('click', function () {
         $.confirm({
             title: 'Suppression de compte',
@@ -169,7 +167,6 @@
         });
 
         $(':file').on('fileselect', function(event, numFiles, label) {
-
             var input = $(this).parents('.input-group').find(':text'),
                 log = numFiles > 1 ? numFiles + ' files selected' : label;
 

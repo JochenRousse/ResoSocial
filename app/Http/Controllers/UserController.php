@@ -32,7 +32,6 @@ class UserController extends Controller
         return view('users.index', compact('user', 'posts'));
     }
 
-
     public function destroy($id)
     {
         if (Auth::user()->id == $id) {
@@ -85,7 +84,6 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-
         if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
             $notification = array(
                 'message' => 'Erreur, le mot de passe entré ne correspond pas',
@@ -105,7 +103,6 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), ['current-password' => 'required',
             'new-password' => 'required|string|min:6|confirmed']);
 
-
         $user = Auth::user();
         $user->password = bcrypt($request->get('new-password'));
         $user->save();
@@ -116,7 +113,5 @@ class UserController extends Controller
         );
 
         return redirect()->back()->with($notification);
-
     }
-
 }
