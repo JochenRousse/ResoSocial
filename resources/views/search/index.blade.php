@@ -50,5 +50,27 @@
             <p>Pas de groupe correspondant à votre recherche.</p>
         @endif
 
+        @if(!empty($events))
+            <h2>Évènements correspondant à votre recherche (<b> {{ $query }} </b>)</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($events as $event)
+                    <tr class='clickable-row clickable' data-href="{{ route('event.page', ['id' => $event['_id']]) }}">
+                        <td>{{$event['name']}}</td>
+                        <td>{{$event['date']}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        @else
+            <p>Pas d'évènements correspondant à votre recherche.</p>
+        @endif
+
     </div>
 @endsection

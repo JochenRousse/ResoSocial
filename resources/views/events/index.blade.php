@@ -105,7 +105,7 @@
                         <tbody>
                         @foreach($eventsAdmin as $event)
                             <tr class='clickable-row clickable'
-                                data-href="{{ route('event.delete', ['id' => $event['_id']]) }}">
+                                data-href="{{ route('event.page', ['id' => $event['_id']]) }}">
                                 <td>{{ $event['name'] }}</td>
                                 <td>{{ $event['type'] }}</td>
                                 <td>{{ $event['date'] }}</td>

@@ -76,7 +76,7 @@ class UserController extends Controller
             }
 
             $events = Event::where('name', 'LIKE', '%' . $q . '%')->orWhere('type', 'LIKE', '%' . $q . '%')->orWhere('place', 'LIKE', '%' . $q . '%')->get()->toArray();
-            if (count($groups) > 0) {
+            if (count($events) > 0) {
                 $return['events'] = $events;
             }
 
