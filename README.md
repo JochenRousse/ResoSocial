@@ -12,7 +12,8 @@ Puis il détaillera la liste des FrameWork utilisés.
 
 Vous aurez besoin de télécharger :
  * xampp / lampp 
- * MongoDb (3.6.2)
+ * MongoDb (3.6.2)  
+ 
 Suivit de, une fois xamp/lamp installé :
  * Composer 
  * NodeJs (8.9.4)
@@ -88,7 +89,7 @@ roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
 ```
 6. Aller à la racine du projet, et exécuter la commande pour générer une clé de chiffrement :
 ```
-php php artisan key:generate
+php artisan key:generate
 ```
 7. Dans le fichier database.php situé dans ./config/ et modifier la ligne pour qu'elle corresponde à vos identifiants :
 ```
