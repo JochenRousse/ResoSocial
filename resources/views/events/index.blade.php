@@ -133,6 +133,61 @@
                     n'appartenez à aucun évènement.
                 </div>
             @endif
+            <h1>Les évènements où je suis invité</h1>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Début</th>
+                    <th scope="col">Fin</th>
+                    <th scope="col">Lieu</th>
+                    <th scope="col">Accepter</th>
+                    <th scope="col">Refuser</th>
+                </tr>
+                </thead>
+                @foreach($eventsRequested as $eventRequest)
+                    <tbody>
+                    <tr>
+                        <td>{{ $eventRequest['name'] }}</td>
+                        <td>{{ $eventRequest['type'] }}</td>
+                        <td>{{ $eventRequest['date'] }}</td>
+                        <td>{{ $eventRequest['date_end'] }}</td>
+                        <td>{{ $eventRequest['place'] }}</td>
+                        <td><a href="{{ route('events.join') }}"
+                               class="btn btn-primary btn-sm"
+                               onclick="event.preventDefault();
+                                       document.getElementById('accept-event-{{$eventRequest['_id']}}').submit();">
+                                Accepter
+                            </a>
+                            <form id="accept-event-{{$eventRequest['_id']}}" action="{{ route('events.join') }}"
+                                  method="POST"
+                                  style="display: none;">
+                                <input type="hidden" name="eventId" value="{{$eventRequest['_id']}}"/>
+                                <input type="hidden" name="userId" value="{{$user->id}}"/>
+                                {{ csrf_field() }}
+                            </form>
+                        </td>
+                        <td><a href="{{ route('event.requests.erase') }}"
+                               class="btn btn-primary btn-sm"
+                               onclick="event.preventDefault();
+                                       document.getElementById('refuse-event-{{$eventRequest['_id']}}').submit();">
+                                Refuser
+                            </a>
+                            <form id="refuse-event-{{$eventRequest['_id']}}" action="{{ route('event.requests.erase') }}"
+                                  method="POST"
+                                  style="display: none;">
+                                <input type="hidden" name="_method" value="delete">
+                                <input type="hidden" name="eventId" value="{{$eventRequest['_id']}}"/>
+                                <input type="hidden" name="userId" value="{{$user->id}}"/>
+                                {{ csrf_field() }}
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+            </table>
         </div>
     </div>
 @stop

@@ -54,5 +54,11 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Post\PostRepository',
             'App\Repositories\Post\EloquentPostRepository'
         );
+
+
+        $this->app->bind(
+            'App\Repositories\EventRequest\EventRequestRepository',
+            'App\Repositories\EventRequest\EloquentEventRequestRepository'
+        );
     }
 }

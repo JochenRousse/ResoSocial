@@ -75,6 +75,12 @@ Route::post('event/leave', 'EventController@leave')->name('event.leave');
 Route::delete('event', 'EventController@destroy')->name('event.delete');
 
 /**
+ * Event-requests
+ */
+Route::post('event-requests', 'EventRequestController@store')->name('event.requests.store');
+Route::delete('event-requests/erase', 'EventRequestController@erase')->name('event.requests.erase');
+
+/**
  * Params
  */
 Route::post('params/preferences1', 'ParamsController@preferences1')->name('param.bg');
@@ -87,7 +93,6 @@ Route::post('params/preferences2', 'ParamsController@preferences2')->name('param
 Route::post('post', 'PostController@store')->name('post.create');
 Route::delete('post', 'PostController@delete')->name('post.delete');
 Route::post('post/like', 'PostController@like')->name('post.like');
-
 
 /**
  * Redirection
