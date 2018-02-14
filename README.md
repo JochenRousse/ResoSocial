@@ -4,35 +4,23 @@ Ce projet a été réalisé pour le module PHP de l'ENSSAT, section IMR promo 20
 
 ## Préambule
 
-Ce fichier contient, dans un premier temps les FrameWork utilisés, puis la procédure d'installation (Windows et Linux)
+Ce fichier contient, dans un premier temps les étapes d'installation du projet.
+Puis il détaillera la liste des FrameWork utilisés.
 
 ### Prerequisites
 
-#### Windows
+Vous aurez besoin de télécharger :
+ *xamp 
+ *MongoDb 
+Suivit de, une fois xamp/lamp installé :
+ *Composer 
+ *NodeJs 
 
-Vous aurez besoin d'installer xamp et MongoDb suivit de Composer et NodeJs.
+### Installation
 
-#### Linux
+#### Pour Windows
 
-Vous aurez besoin d'installer lamp et MongoDb suivit de Composer et NodeJs.
-
-### Installing
-
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+*Installer XAMP 
 
 ## Running the tests
 
