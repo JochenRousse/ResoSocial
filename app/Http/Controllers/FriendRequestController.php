@@ -20,13 +20,6 @@ class FriendRequestController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Store a newly created Friend Request.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), ['userId' => 'required']);
@@ -57,14 +50,6 @@ class FriendRequestController extends Controller
         }
     }
 
-    /**
-     * Decline a friend request.
-     *
-     * @param Request $request
-     *
-     *
-     * @return Response
-     */
     public function decline(Request $request)
     {
         $validator = Validator::make($request->all(), ['userId' => 'required']);
@@ -91,7 +76,6 @@ class FriendRequestController extends Controller
 
     }
 
-
     public function erase(Request $request)
     {
         $validator = Validator::make($request->all(), ['userId' => 'required']);
@@ -117,6 +101,4 @@ class FriendRequestController extends Controller
         }
 
     }
-
-
 }
