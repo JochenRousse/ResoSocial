@@ -91,11 +91,11 @@ php php artisan key:generate
 'username' => 'baptiste',
 'password' => 'root',
 ```
-8.1 Maintenant, nous pouvons exécuter les commandes suivantes, dans la racine du projet :  
+8 Maintenant, dans la racine du projet, on exécute la commande :  
 ```
 composer install
 ```
-8.2 Puis on se met dans le dossier public, et on exécute les commandes qui permettent d'installer les paquets JS :
+9. Puis on se met dans le dossier public, et on exécute les commandes :
 ```
 npm install
 npm run dev
