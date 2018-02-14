@@ -85,6 +85,13 @@ Route::post('params/preferences2', 'ParamsController@preferences2')->name('param
  * Posts
  */
 Route::post('post', 'PostController@store')->name('post.create');
-Route::post('delete', 'PostController@delete')->name('post.delete');
-Route::get('post/{id}', 'PostController@isLikedByMe')->name('post.liked');
+Route::delete('post', 'PostController@delete')->name('post.delete');
 Route::post('post/like', 'PostController@like')->name('post.like');
+
+
+/**
+ * Redirection
+ */
+Route::any('{query}', function() {
+    return redirect('/login');
+})->where('query', '.*');
