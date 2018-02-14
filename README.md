@@ -5,31 +5,31 @@ Ce projet a été réalisé pour le module PHP de l'ENSSAT, section IMR promo 20
 ## Préambule
 
 Ce fichier contient, dans un premier temps les étapes d'installation du projet.
-Puis il détaillera la liste des FrameWork utilisés.
+Puis il détaillera la liste des frameworks utilisés.
 
 ## Installation
 ### Pré-requis
 
 Vous aurez besoin de télécharger :
- * xampp / lampp 
+ * Un serveur web (par ex: Xampp ou Lamp)
  * MongoDb (3.6.2)  
  
-Suivit de, une fois xamp/lamp installé :
+Vous aurez ensuite besoin de :
  * Composer 
  * NodeJs (8.9.4)
 
 ### Installation
 #### Pour Windows
 
-1. Installer dans l'ordre sur la machine : XAMPP, MongoDB, Composer, NodeJs.
+1. Installez dans l'ordre sur la machine : XAMPP, MongoDB, Composer, NodeJs.
 2. Suivez les instructions d'installation pour [MongoDB](https://docs.mongodb.com/manual/administration/install-community/).
-3. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxamp_/htdocs/".
+3. Clonez le projet git sur votre machine, dans "_Cheminxampp_/htdocs/".
 
 #### Pour Linux
 
-1. Installer dans l'ordre sur la machine : LAMP, MongoDB, Composer, NodeJs.
+1. Installez dans l'ordre sur la machine : LAMP, MongoDB, Composer, NodeJs.
 2. Suivez les instructions d'installation pour [MongoDB](https://docs.mongodb.com/manual/administration/install-community/).
-3. Télécherger le projet git sur votre machine, et mettez-le dans la racine du serveur web.
+3. Téléchargez le projet git sur votre machine, et mettez-le dans la racine du serveur web.
 
 #### Pour Windows et Linux
 
@@ -70,12 +70,7 @@ PUSHER_APP_KEY=
 PUSHER_APP_SECRET=
 PUSHER_APP_CLUSTER=mt1
 ```
-4. Completer les lignes en remplacent par vos identifiants, qui seront créés par la suite.
-```
-DB_USERNAME=_VotreNom_
-DB_PASSWORD=_VotrePwd_
-```
-5. Exécuter la console MongoDB, et entrer les commandes suivantes :
+4. Exécutez la console MongoDB, et entrez les commandes suivantes :
 ```
 use admin
 
@@ -87,20 +82,25 @@ roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
 }
 )
 ```
-6. Aller à la racine du projet, et exécuter la commande pour générer une clé de chiffrement :
+5. Complétez ces lignes en ajoutant les identifiants que vous venez de créer :
+```
+DB_USERNAME=_VotreNom_
+DB_PASSWORD=_VotrePwd_
+```
+6. Allez à la racine du projet, et exécutez la commande pour générer une clé de chiffrement :
 ```
 php artisan key:generate
 ```
-7. Dans le fichier database.php situé dans ./config/ et modifier la ligne pour qu'elle corresponde à vos identifiants :
+7. Dans le fichier database.php situé dans ./config/ et modifiez la ligne pour qu'elle corresponde à vos identifiants :
 ```
-'username' => 'baptiste',
-'password' => 'root',
+'username' => '_VotreNom_',
+'password' => '_VotrePwd_',
 ```
-8. Maintenant, dans la racine du projet, on exécute la commande :  
+8. Maintenant, dans la racine du projet, exécutez la commande :  
 ```
 composer install
 ```
-9. Puis on se met dans le dossier public, et on exécute les commandes :
+9. Puis exécutez les commandes :
 ```
 npm install
 npm run dev
@@ -113,10 +113,11 @@ npm run dev
 
 ## Dépendances principales
 
-* Composer - Dépendance de Laravel pour la gestion de paquets PHP
-* npm - Dépendance de Laravel pour la gestion de paquets JavaScript
-* [Pusher](https://pusher.com/docs/libraries) - Recevoir des notifications en temps réel
-* [jessengers](https://github.com/jenssegers/laravel-mongodb) - Dépendance de Laravel pour l'utilisation de MongoDB
+* [Composer](https://getcomposer.org/) - Gestionnaire de paquets PHP
+* [NodeJS](https://nodejs.org/en/)
+* [npm](https://www.npmjs.com/) - Gestionnaire de paquets JavaScript
+* [Pusher](https://pusher.com/docs/) - Recevoir des notifications en temps réel
+* [Laravel MongoDB](https://github.com/jenssegers/laravel-mongodb) - Dépendance de Laravel pour l'utilisation de MongoDB
 
 ## Auteurs
 
