@@ -107,14 +107,20 @@ npm run dev
 
 ## Frameworks utilisés
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [laravel](https://laravel.com/) - Et ses packages, permettant la gestion du projet
+* [MongoDB](https://www.mongodb.com/) - Base de donnée
+
+## Dépendances principales
+
+* Composer - Dépendance de Laravel pour la gestion de paquets PHP
+* npm - Dépendance de Laravel pour la gestion de paquets JavaScript
+* [Pusher](https://pusher.com/docs/libraries) - Recevoir des notifications en temps réel
+* [jessengers](https://github.com/jenssegers/laravel-mongodb) - Dépendance de Laravel pour l'utilisation de MongoDB
 
 ## Auteurs
 
-* **Jochen Rousse** - **Johann Carfantan** - **Sylvan Le Deunff** - **Baptiste Prieur**
+**Jochen Rousse** - **Johann Carfantan** - **Sylvan Le Deunff** - **Baptiste Prieur**
 
 ## License
 
-Ce projet est licencié ENSSAT, est destiné l'ENSSAT, pour les élèves de l'ENSSAT.
+Ce projet est licencié, est destiné à l'ENSSAT, pour les élèves de l'ENSSAT.
