@@ -34,6 +34,11 @@ class User extends Model implements
         'password', 'remember_token',
     ];
 
+    public function eventRequests()
+    {
+        return $this->hasMany('App\EventRequest');
+    }
+
     public function friendRequests()
     {
         return $this->hasMany('App\FriendRequest');
@@ -70,6 +75,18 @@ class User extends Model implements
     {
         $friendRequestsReceivedByCurrentUser = FriendRequest::where('user_id', $this->id)->where('declined', false)->pluck('id_demandeur')->toArray();
         return in_array($otherUserId, $friendRequestsReceivedByCurrentUser);
+    }
+
+    public function sentEventRequestTo($otherUserId, $idEvent)
+    {
+        $eventRequestedByCurrentUser = EventRequest::where('user_id', $otherUserId)->where('id_event',$idEvent)->pluck('user_id')->toArray();
+        return in_array($otherUserId, $eventRequestedByCurrentUser);
+    }
+
+    public function receivedEventRequest($otherUserId)
+    {
+        $eventRequestsReceivedByCurrentUser = EventRequest::where('id_user', $this->id)->where('declined', false)->pluck('id_event')->toArray();
+        return in_array($otherUserId, $eventRequestsReceivedByCurrentUser);
     }
 
     public function isMemberOfGroup($groupId)

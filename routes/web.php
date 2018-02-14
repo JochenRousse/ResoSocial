@@ -93,3 +93,10 @@ Route::post('events', 'EventController@create')->name('events.create');
 Route::post('events/join', 'EventController@join')->name('events.join');
 Route::post('events/leave', 'EventController@leave')->name('events.leave');
 Route::delete('events', 'EventController@destroy')->name('events.delete');
+
+
+/**
+ * Event-requests
+ */
+Route::post('event-requests', 'EventRequestController@store')->name('event.requests.store');
+Route::delete('event-requests/erase', 'EventRequestController@erase')->name('event.requests.erase');

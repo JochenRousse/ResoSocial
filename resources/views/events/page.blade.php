@@ -61,9 +61,33 @@
             @if(Auth::user()->isMemberOfEvent($event->id) || Auth::user()->isAdminOfEvent($event->id))
                 @if(Auth::user()->isEventOpen($event['_id']))
                     <h4>Inviter des amis</h4>
-                    Afficher les amis + bouton inviter
+                    @foreach($friendsNotInEvent as $friend)
+                        @if( Auth::user()->sentEventRequestTo($friend['_id'],$event['_id']) )
+                            <button class="btn btn-primary btn-sm" disabled="disabled" type="submit">Inviter {{$friend['nom'] . " " . $friend['prenom']}}
+                            </button>
+                        @else
+                            <td><a href="{{ route('event.requests.store') }}"
+                                   class="btn btn-primary btn-sm"
+                                   onclick="event.preventDefault();
+                                           document.getElementById('invite-event-{{$friend['_id']}}').submit();">
+                                    Inviter {{$friend['nom'] . " " . $friend['prenom']}}
+                                </a>
+                                <form id="invite-event-{{$friend['_id']}}" action="{{ route('event.requests.store') }}"
+                                      method="POST"
+                                      style="display: none;">
+                                    <input type="hidden" name="id_user" value="{{$friend['_id']}}"/>
+                                    <input type="hidden" name="id_event" value="{{$event->id}}"/>
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        @endif
+                    @endforeach
                 @endif
             @endif
+
+
+
+
         </div>
 
     </div>

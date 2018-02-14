@@ -19,6 +19,10 @@ class EloquentEventRepository extends Eloquent implements EventRepository
         return Event::where('admin_id', $id)->get()->toArray();
     }
 
+    public function getEvent($eventId, $userId){
+        return Event::where('members', $userId)->where('_id', $eventId)->first();
+    }
+
     public function closeFinishedEvents(){
         $events = Event::select('*')->get();
 
@@ -28,5 +32,9 @@ class EloquentEventRepository extends Eloquent implements EventRepository
                 Event::where('_id', $event['_id'])->update($data , array('upsert' => true));
             }
         }
+    }
+
+    public function getIdMembers($idEvent){
+        return Event::where('_id',$idEvent)->pluck('members')->first();
     }
 }

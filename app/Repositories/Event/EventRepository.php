@@ -8,5 +8,9 @@ interface EventRepository
 
     public function getEventsAdmin($id);
 
+    public function getEvent($eventId, $userId);
+
     public function closeFinishedEvents();
+
+    public function getIdMembers($idEvent);
 }
