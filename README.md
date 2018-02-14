@@ -21,6 +21,7 @@ Suivit de, une fois xamp/lamp installé :
 #### Pour Windows
 
 1. Installer dans l'ordre sur la machine : XAMPP, MongoDB, Composer, NodeJs.
+2. Suivez les instructions d'installation pour [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 2. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxamp_/htdocs/"
 
 #### Pour Linux
@@ -37,8 +38,7 @@ APP_ENV=local
 APP_KEY=base64:R2Qpwae34Cw5zEepxtBg6dgVjYpL1U6T9jjHnzA6EYM=
 APP_DEBUG=true
 APP_LOG_LEVEL=debug
-APP_URL=http://localhost/
-
+APP_URL=http://localhost/  
 
 DB_CONNECTION=mongodb
 DB_HOST=localhost
@@ -54,13 +54,15 @@ SESSION_LIFETIME=120
 QUEUE_DRIVER=sync
 REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=null
-REDIS_PORT=6379
+REDIS_PORT=6379  
+
 MAIL_DRIVER=smtp
 MAIL_HOST=smtp.mailtrap.io
 MAIL_PORT=2525
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
+MAIL_ENCRYPTION=null  
+
 PUSHER_APP_ID=
 PUSHER_APP_KEY=
 PUSHER_APP_SECRET=
@@ -68,12 +70,13 @@ PUSHER_APP_CLUSTER=mt1
 ```
 4. Completer les lignes en remplacent par vos identifiants, qui seront créés par la suite.
 ```
-DB_USERNAME=baptiste
-DB_PASSWORD=root
+DB_USERNAME=_VotreNom_
+DB_PASSWORD=_VotrePwd_
 ```
-5. Exécuter la console MongoDB, et entrer la commande suivante :
+5. Exécuter la console MongoDB, et entrer les commandes suivantes :
 ```
 use admin
+
 db.createUser(
 {
 user: "baptiste",
@@ -86,12 +89,12 @@ roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
 ```
 php php artisan key:generate
 ```
-7. Dans le fichier database.php situé dans ./config/ et modifier la ligne
+7. Dans le fichier database.php situé dans ./config/ et modifier la ligne pour qu'elle corresponde à vos identifiants :
 ```
 'username' => 'baptiste',
 'password' => 'root',
 ```
-8 Maintenant, dans la racine du projet, on exécute la commande :  
+8. Maintenant, dans la racine du projet, on exécute la commande :  
 ```
 composer install
 ```
