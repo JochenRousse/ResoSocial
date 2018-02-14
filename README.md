@@ -11,7 +11,7 @@ Puis il détaillera la liste des FrameWork utilisés.
 ### Pré-requis
 
 Vous aurez besoin de télécharger :
- * xampp (7.2.1.0) / lampp ()
+ * xampp / lampp 
  * MongoDb (3.6.2)
 Suivit de, une fois xamp/lamp installé :
  * Composer 
