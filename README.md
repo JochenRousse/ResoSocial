@@ -7,21 +7,60 @@ Ce projet a été réalisé pour le module PHP de l'ENSSAT, section IMR promo 20
 Ce fichier contient, dans un premier temps les étapes d'installation du projet.
 Puis il détaillera la liste des FrameWork utilisés.
 
-### Prerequisites
+### Pré-requis
 
 Vous aurez besoin de télécharger :
- *xamp 
- *MongoDb 
+ * xampp (7.2.1.0) / lampp ()
+ * MongoDb (3.6.2)
 Suivit de, une fois xamp/lamp installé :
- *Composer 
- *NodeJs 
+ * Composer 
+ * NodeJs (8.9.4)
 
 ### Installation
 
-#### Pour Windows
+#### Pour Windows et Linux
 
-*Installer XAMP 
-
+1. Installer dans l'ordre sur la machine : XAMPP/LAMPP, MongoDB, Composer, NodeJs.
+2. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxamp_/htdocs/"
+3. Créer dans ce dossier du projet un fichier .env :
+```
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:R2Qpwae34Cw5zEepxtBg6dgVjYpL1U6T9jjHnzA6EYM=
+APP_DEBUG=true
+APP_LOG_LEVEL=debug
+APP_URL=http://localhost/
+DB_CONNECTION=mongodb
+DB_HOST=localhost
+DB_PORT=27017
+DB_DATABASE=reseau_social
+DB_USERNAME=
+DB_PASSWORD=
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+QUEUE_DRIVER=sync
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+PUSHER_APP_CLUSTER=mt1
+```
+4. Completer les lignes en remplacent par vos identifiants, qui seront créés par la suite.
+```
+DB_USERNAME=baptiste
+DB_PASSWORD=root
+```
+5.
 ## Running the tests
 
 Explain how to run the automated tests for this system
