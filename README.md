@@ -7,6 +7,7 @@ Ce projet a été réalisé pour le module PHP de l'ENSSAT, section IMR promo 20
 Ce fichier contient, dans un premier temps les étapes d'installation du projet.
 Puis il détaillera la liste des FrameWork utilisés.
 
+## Installation
 ### Pré-requis
 
 Vous aurez besoin de télécharger :
@@ -17,11 +18,18 @@ Suivit de, une fois xamp/lamp installé :
  * NodeJs (8.9.4)
 
 ### Installation
+#### Pour Windows
+
+1. Installer dans l'ordre sur la machine : XAMPP, MongoDB, Composer, NodeJs.
+2. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxamp_/htdocs/"
+
+#### Pour Linux
+
+1. Installer dans l'ordre sur la machine : LAMPP, MongoDB, Composer, NodeJs.
+2. Télécherger le projet git sur votre machine, 
 
 #### Pour Windows et Linux
 
-1. Installer dans l'ordre sur la machine : XAMPP/LAMPP, MongoDB, Composer, NodeJs.
-2. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxamp_/htdocs/"
 3. Créer dans ce dossier du projet un fichier .env :
 ```
 APP_NAME=Laravel
@@ -60,57 +68,33 @@ PUSHER_APP_CLUSTER=mt1
 DB_USERNAME=baptiste
 DB_PASSWORD=root
 ```
-5.
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+5. Exécuter la console MongoDB, et entrer la commande suivante :
 ```
-Give an example
+use admin
+db.createUser(
+{
+user: "baptiste",
+pwd: "root",
+roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+}
+)
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
+6. Aller à la racine du projet, et exécuter la commande pour générer une clé de chiffrement :
 ```
-Give an example
+php php artisan key:generate
 ```
+7. Dans le fichier database.php situé dans ./config/ et modifier la ligne
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
+## Frameworks utilisés
 
 * [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
+## Auteurs
 
 * **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 ## License
 
-Ce projet est destiné l'ENSSAT, pour les élèves de l'ENSSAT.
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+Ce projet est licencié ENSSAT, est destiné l'ENSSAT, pour les élèves de l'ENSSAT.
