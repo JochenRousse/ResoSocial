@@ -91,12 +91,11 @@ php php artisan key:generate
 'username' => 'baptiste',
 'password' => 'root',
 ```
-8. Maintenant, nous pouvons exécuter les commandes suivantes, dans la racine du projet :
-  i. cette commande permet la mise à jour de tous les framworks utilisés listés dans le point suivant :
+8. Maintenant, nous pouvons exécuter les commandes suivantes, dans la racine du projet :  
 ```
 composer install
 ```
-  ii. On se met dans le dossier public, et on exécute les commandes qui permettent d'installer les paquets JS :
+Puis on se met dans le dossier public, et on exécute les commandes qui permettent d'installer les paquets JS :
 ```
 npm install
 npm run dev
