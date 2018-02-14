@@ -23,5 +23,4 @@ class FriendRequest extends \Jenssegers\Mongodb\Eloquent\Model {
 
         return $FriendRequest;
     }
-
 }
