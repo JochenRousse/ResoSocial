@@ -21,13 +21,14 @@ Suivit de, une fois xamp/lamp installé :
 #### Pour Windows
 
 1. Installer dans l'ordre sur la machine : XAMPP, MongoDB, Composer, NodeJs.
-2. Suivez les instructions d'installation pour [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
-2. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxamp_/htdocs/"
+2. Suivez les instructions d'installation pour [MongoDB](https://docs.mongodb.com/manual/administration/install-community/).
+3. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxamp_/htdocs/".
 
 #### Pour Linux
 
-1. Installer dans l'ordre sur la machine : LAMPP, MongoDB, Composer, NodeJs.
-2. Télécherger le projet git sur votre machine, 
+1. Installer dans l'ordre sur la machine : LAMP, MongoDB, Composer, NodeJs.
+2. Suivez les instructions d'installation pour [MongoDB](https://docs.mongodb.com/manual/administration/install-community/).
+3. Télécherger le projet git sur votre machine, et mettez-le dans la racine du serveur web.
 
 #### Pour Windows et Linux
 
@@ -112,7 +113,7 @@ npm run dev
 
 ## Auteurs
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Jochen Rousse** - **Johann Carfantan** - **Sylvan Le Deunff** - **Baptiste Prieur**
 
 ## License
 
