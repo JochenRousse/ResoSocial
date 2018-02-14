@@ -21,7 +21,7 @@ Suivit de, une fois xamp/lamp installé :
 #### Pour Windows
 
 1. Installer dans l'ordre sur la machine : XAMPP, MongoDB, Composer, NodeJs.
-2. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxamp_/htdocs/"
+2. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxampp_/htdocs/"
 
 #### Pour Linux
 
@@ -37,7 +37,7 @@ APP_ENV=local
 APP_KEY=base64:R2Qpwae34Cw5zEepxtBg6dgVjYpL1U6T9jjHnzA6EYM=
 APP_DEBUG=true
 APP_LOG_LEVEL=debug
-APP_URL=http://localhost/
+APP_URL=http://localhost/\
 DB_CONNECTION=mongodb
 DB_HOST=localhost
 DB_PORT=27017
@@ -58,23 +58,23 @@ MAIL_PORT=2525
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
-PUSHER_APP_ID=
-PUSHER_APP_KEY=
-PUSHER_APP_SECRET=
-PUSHER_APP_CLUSTER=mt1
+PUSHER_APP_ID=472965
+PUSHER_APP_KEY=6ed4d724bc881fe5f6bb
+PUSHER_APP_SECRET=d7becdf6bf1dc9e998f7
+PUSHER_APP_CLUSTER=eu
 ```
 4. Completer les lignes en remplacent par vos identifiants, qui seront créés par la suite.
 ```
-DB_USERNAME=baptiste
-DB_PASSWORD=root
+DB_USERNAME=VOTRE_ID
+DB_PASSWORD=VOTRE_MDP
 ```
 5. Exécuter la console MongoDB, et entrer la commande suivante :
 ```
 use admin
 db.createUser(
 {
-user: "baptiste",
-pwd: "root",
+user: "VOTRE_ID",
+pwd: "VOTRE_MDP",
 roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
 }
 )
