@@ -134,7 +134,7 @@
                 </div>
             @endif
             <h1>Les évènements où je suis invité</h1>
-
+            @if(!empty($eventsRequested))
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -188,6 +188,11 @@
                     @endforeach
                     </tbody>
             </table>
+            @else
+                <div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> Vous
+                    n'avez aucune invitation en attente.
+                </div>
+            @endif
         </div>
     </div>
 @stop

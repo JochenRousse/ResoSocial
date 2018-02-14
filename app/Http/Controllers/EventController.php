@@ -32,7 +32,7 @@ class EventController extends Controller
         $eventsAdmin = $eventRepository->getEventsAdmin($user->id);
         $eventRepository->closeFinishedEvents();
         $idEventsRequested = $eventRequestRepository->getSentRequestToCurrentUser($user->id);
-        $eventsRequested = Event::whereIn('_id',$idEventsRequested)->get();
+        $eventsRequested = Event::whereIn('_id',$idEventsRequested)->get()->toArray();
 
         return view('events.index', compact('events', 'user', 'eventsAdmin', 'eventsRequested'));
     }

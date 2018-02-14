@@ -126,10 +126,9 @@ class User extends Model implements
         return in_array($groupId, $groupRequestedByCurrentUser);
     }
 
-    public function isLikedByMe($postid, $id)
+    public function isLikedByMe($postId)
     {
-        $post = Post::findOrFail($postid)->first();
-        if (Like::whereUserId($id)->wherePostId($post->id)->exists()){
+        if (Like::whereUserId($this->id)->wherePostId($postId)->exists()){
             return 'true';
         }
         return 'false';

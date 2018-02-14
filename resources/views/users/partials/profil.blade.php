@@ -157,8 +157,7 @@
                                             <form class="form-horizontal" method="POST" action="{{ route('post.like') }}">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="postId" value="{{$post['_id']}}"/>
-                                                @php(var_dump(Auth::user()->isLikedByMe($post['_id'], Auth::user()->id)))
-                                                @if(Auth::user()->isLikedByMe($post['_id'], Auth::user()->id) == 'true')
+                                                @if(Auth::user()->isLikedByMe($post['_id']) == 'true')
                                                     <button type="submit" class="btn btn-primary">
                                                         Unlike
                                                     </button>
