@@ -119,4 +119,19 @@ class User extends Model implements
     public function numberLikes($id){
         return Like::where('post_id',$id)->count();
     }
+
+    public function isAdminOfEvent($eventId)
+    {
+        return Event::where('_id', $eventId)->where('admin_id', $this->id)->get()->toArray();
+    }
+
+    public function isMemberOfEvent($eventId)
+    {
+        return Event::where('_id', $eventId)->where('members', $this->id)->where('admin_id', '!=', $this->id)->get()->toArray();
+    }
+
+    public function isEventOpen($eventId)
+    {
+        return Event::where('_id', $eventId)->where('close', false)->get()->toArray();
+    }
 }

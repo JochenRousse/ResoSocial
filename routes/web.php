@@ -28,6 +28,7 @@ Route::get('user/{id}/profil', 'UserController@index')->name('user.profil');
 Route::get('user/{id}/groups', 'GroupController@index')->name('user.groups');
 Route::get('user/{id}/friends', 'FriendController@index')->name('user.friends');
 Route::get('user/{id}/params', 'ParamsController@index')->name('user.params');
+Route::get('user/{id}/events', 'EventController@index')->name('user.events');
 Route::delete('/user/{id}', 'UserController@destroy')->name('user.delete');
 Route::put('/user/{id}', 'UserController@update')->name('user.update');
 Route::match(['get', 'post'], '/search', 'UserController@search')->name('search');
@@ -63,6 +64,15 @@ Route::post('group/join', 'GroupController@join')->name('group.join');
 Route::post('group/leave', 'GroupController@leave')->name('group.leave');
 Route::delete('group', 'GroupController@destroy')->name('group.delete');
 
+
+/**
+ * Events
+ */
+Route::get('events/{id}/page', 'EventController@page')->name('events.page');
+Route::post('events', 'EventController@create')->name('events.create');
+Route::post('events/join', 'EventController@join')->name('events.join');
+Route::post('events/leave', 'EventController@leave')->name('events.leave');
+Route::delete('events', 'EventController@destroy')->name('events.delete');
 
 /**
  * Params

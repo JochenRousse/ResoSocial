@@ -6,6 +6,7 @@ use App\Group;
 use App\User;
 use App\FriendRequest;
 use App\Repositories\Post\PostRepository;
+use App\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -72,6 +73,11 @@ class UserController extends Controller
             $groups = Group::where('name', 'LIKE', '%' . $q . '%')->get()->toArray();
             if (count($groups) > 0) {
                 $return['groups'] = $groups;
+            }
+
+            $events = Event::where('name', 'LIKE', '%' . $q . '%')->orWhere('type', 'LIKE', '%' . $q . '%')->orWhere('place', 'LIKE', '%' . $q . '%')->get()->toArray();
+            if (count($groups) > 0) {
+                $return['events'] = $events;
             }
 
             if (!empty(array_filter($return))) {

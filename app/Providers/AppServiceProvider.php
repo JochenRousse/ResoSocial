@@ -39,6 +39,12 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Group\EloquentGroupRepository'
         );
 
+
+        $this->app->bind(
+            'App\Repositories\Event\EventRepository',
+            'App\Repositories\Event\EloquentEventRepository'
+        );
+
         $this->app->bind(
             'App\Repositories\GroupRequest\GroupRequestRepository',
             'App\Repositories\GroupRequest\EloquentGroupRequestRepository'
