@@ -68,11 +68,11 @@ Route::delete('group', 'GroupController@destroy')->name('group.delete');
 /**
  * Events
  */
-Route::get('events/{id}/page', 'EventController@page')->name('events.page');
-Route::post('events', 'EventController@create')->name('events.create');
-Route::post('events/join', 'EventController@join')->name('events.join');
-Route::post('events/leave', 'EventController@leave')->name('events.leave');
-Route::delete('events', 'EventController@destroy')->name('events.delete');
+Route::get('event/{id}/page', 'EventController@page')->name('event.page');
+Route::post('event', 'EventController@create')->name('event.create');
+Route::post('event/join', 'EventController@join')->name('event.join');
+Route::post('event/leave', 'EventController@leave')->name('event.leave');
+Route::delete('event', 'EventController@destroy')->name('event.delete');
 
 /**
  * Params

@@ -82,7 +82,7 @@ return [
             'driver'   => 'mongodb',
             'host'     => 'localhost',
             'port'     => 27017,
-            'username' => 'localhost',
+            'username' => 'Jochen',
             'password' => 'root',
             'database' => 'reseau_social',
             'options' => array(

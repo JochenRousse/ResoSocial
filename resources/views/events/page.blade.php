@@ -10,13 +10,13 @@
             <h3>Fin :{{$event->date_end}}</h3>
             <h3>Lieu : {{$event->place}}</h3>
             @if(Auth::user()->isAdminOfEvent($event->id))
-                <a href="{{ route('events.delete') }}"
+                <a href="{{ route('event.delete') }}"
                    class="btn btn-primary btn-sm"
                    onclick="event.preventDefault();
                             document.getElementById('delete-event').submit();">
                     Supprimer l'évènement
                 </a>
-                <form id="delete-event" action="{{ route('events.delete') }}"
+                <form id="delete-event" action="{{ route('event.delete') }}"
                       method="POST"
                       style="display: none;">
                     <input type="hidden" name="_method" value="delete"/>
@@ -25,13 +25,13 @@
                     {{ csrf_field() }}
                 </form>
             @elseif(Auth::user()->isMemberOfEvent($event->id))
-                <td><a href="{{ route('events.leave') }}"
+                <td><a href="{{ route('event.leave') }}"
                        class="btn btn-primary btn-sm"
                        onclick="event.preventDefault();
                                                      document.getElementById('leave-event').submit();">
                         Quitter l'évènement
                     </a>
-                    <form id="leave-event" action="{{ route('events.leave') }}"
+                    <form id="leave-event" action="{{ route('event.leave') }}"
                           method="POST"
                           style="display: none;">
                         <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>
@@ -40,13 +40,13 @@
                     </form>
                 </td>
             @elseif(Auth::user()->isEventOpen($event['_id']))
-                <td><a href="{{ route('events.join') }}"
+                <td><a href="{{ route('event.join') }}"
                        class="btn btn-primary btn-sm"
                        onclick="event.preventDefault();
                                                      document.getElementById('join-event').submit();">
                         Rejoindre l'évènement
                     </a>
-                    <form id="join-event" action="{{ route('events.join') }}"
+                    <form id="join-event" action="{{ route('event.join') }}"
                           method="POST"
                           style="display: none;">
                         <input type="hidden" name="userId" value="{{Auth::user()->id}}"/>

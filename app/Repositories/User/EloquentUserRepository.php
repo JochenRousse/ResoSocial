@@ -9,7 +9,7 @@ class EloquentUserRepository implements UserRepository
 	/**
 	 * Fetch many users by id
 	 *
-	 * @param int $id
+	 * @param array $ids
 	 *	
 	 * @return mixed
 	 */

@@ -3,7 +3,7 @@
 @section('content')
     <div class="col-md-10">
         <div class="view-container container">
-            <form class="form-inline" method="POST" action="{{ route('events.create') }}">
+            <form class="form-inline" method="POST" action="{{ route('event.create') }}">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <div class="col-md-6">
@@ -55,30 +55,26 @@
                             <th scope="col">Début</th>
                             <th scope="col">Fin</th>
                             <th scope="col">Lieu</th>
-                            <th scope="col">Lien</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
+                        <tbody>
                         @foreach($events as $event)
-                            <tbody>
-                            <tr>
+                            <tr class='clickable-row clickable'
+                                data-href="{{ route('group.page', ['id' => $event['_id']]) }}">
                                 <td>{{ $event['name'] }}</td>
                                 <td>{{ $event['type'] }}</td>
                                 <td>{{ $event['date'] }}</td>
                                 <td>{{ $event['date_end'] }}</td>
                                 <td>{{ $event['place'] }}</td>
-                                <td><a href="{{ route('events.page', ['id' => $event['_id']]) }}">Voir la page</a>
-                                </td>
-                                <td><a href="{{ route('events.leave') }}"
-                                       class="btn btn-primary btn-sm"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('leave-group-{{$event['_id']}}').submit();">
-                                        Quitter l'évènement
-                                    </a>
-                                    <form id="leave-group-{{$event['_id']}}" action="{{ route('events.leave') }}"
-                                          method="POST"
-                                          style="display: none;">
+                                <td>
+                                    <form action="{{ route('event.leave') }}"
+                                          method="POST">
                                         <input type="hidden" name="userId" value="{{$user->id}}"/>
                                         <input type="hidden" name="eventId" value="{{$event['_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Quitter l'évènement
+                                        </button>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
@@ -103,31 +99,27 @@
                             <th scope="col">Début</th>
                             <th scope="col">Fin</th>
                             <th scope="col">Lieu</th>
-                            <th scope="col">Lien</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
+                        <tbody>
                         @foreach($eventsAdmin as $event)
-                            <tbody>
-                            <tr>
+                            <tr class='clickable-row clickable'
+                                data-href="{{ route('event.page', ['id' => $event['_id']]) }}">
                                 <td>{{ $event['name'] }}</td>
                                 <td>{{ $event['type'] }}</td>
                                 <td>{{ $event['date'] }}</td>
                                 <td>{{ $event['date_end'] }}</td>
                                 <td>{{ $event['place'] }}</td>
-                                <td><a href="{{ route('events.page', ['id' => $event['_id']]) }}">Voir la page</a>
-                                </td>
-                                <td><a href="{{ route('events.delete') }}"
-                                       class="btn btn-primary btn-sm"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('delete-group-{{$event['_id']}}').submit();">
-                                        Supprimer l'évènement
-                                    </a>
-                                    <form id="delete-group-{{$event['_id']}}" action="{{ route('events.delete') }}"
-                                          method="POST"
-                                          style="display: none;">
+                                <td>
+                                    <form action="{{ route('event.delete') }}"
+                                          method="POST">
                                         <input type="hidden" name="_method" value="delete"/>
-                                        <input type="hidden" name="id" value="{{$event['_id']}}"/>
                                         <input type="hidden" name="userId" value="{{$user->id}}"/>
+                                        <input type="hidden" name="eventId" value="{{$event['_id']}}"/>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Quitter l'évènement
+                                        </button>
                                         {{ csrf_field() }}
                                     </form>
                                 </td>
