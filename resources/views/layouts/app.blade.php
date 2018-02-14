@@ -61,6 +61,18 @@
     </nav>
     @include('users.partials.sidebar')
     @yield('content')
+    <div class="container">
+        <div class="row">
+            <hr>
+            <div class="col-lg-12">
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-4">
+                    <p class="muted pull-right">© 2018 ResoSocial. Tous droits réservés</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Scripts -->
