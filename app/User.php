@@ -23,7 +23,6 @@ class User extends Model implements
 
         static::deleting(function($user) {
             $user->friendRequests()->delete();
-            $user->groupRequests()->delete();
         });
     }
 
