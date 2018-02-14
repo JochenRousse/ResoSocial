@@ -105,7 +105,7 @@
                         <tbody>
                         @foreach($eventsAdmin as $event)
                             <tr class='clickable-row clickable'
-                                data-href="{{ route('event.page', ['id' => $event['_id']]) }}">
+                                data-href="{{ route('event.delete', ['id' => $event['_id']]) }}">
                                 <td>{{ $event['name'] }}</td>
                                 <td>{{ $event['type'] }}</td>
                                 <td>{{ $event['date'] }}</td>
@@ -116,9 +116,9 @@
                                           method="POST">
                                         <input type="hidden" name="_method" value="delete"/>
                                         <input type="hidden" name="userId" value="{{$user->id}}"/>
-                                        <input type="hidden" name="eventId" value="{{$event['_id']}}"/>
+                                        <input type="hidden" name="id" value="{{$event['_id']}}"/>
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            Quitter l'évènement
+                                            Supprimer l'évènement
                                         </button>
                                         {{ csrf_field() }}
                                     </form>
