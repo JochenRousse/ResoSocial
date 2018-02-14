@@ -36,7 +36,7 @@ class FriendRequestAccepted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('user');
+        return new Channel('App.User.'.$this->id);
 
     }
 

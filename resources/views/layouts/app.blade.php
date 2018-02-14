@@ -137,16 +137,14 @@
         }
     @endif
 
-    Echo.channel('user')
+    Echo.channel(`App.User.${user_id}`)
         .listen('FriendRequestAccepted', (e) => {
-            if(e.id == user_id){
-                toastr.options = {
-                    "closeButton": true,
-                    "positionClass": "toast-bottom-right",
-                    onclick: function () { window.location.href = "/user/"+e.id_user+"/profil"; }
-                };
-                toastr.success(e.prenom + ' ' + e.nom + ' a accepté votre demande d\'ami !');
-            }
+            toastr.options = {
+                "closeButton": true,
+                "positionClass": "toast-bottom-right",
+                onclick: function () { window.location.href = "/user/"+e.id_user+"/profil"; }
+            };
+            toastr.success(e.prenom + ' ' + e.nom + ' a accepté votre demande d\'ami !');
         });
 
     jQuery(document).ready(function($) {

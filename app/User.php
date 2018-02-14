@@ -23,6 +23,9 @@ class User extends Model implements
 
         static::deleting(function($user) {
             $user->friendRequests()->delete();
+            $user->eventRequests()->delete();
+            Group::where('admin_id', $user->id)->delete();
+            Event::where('admin_id', $user->id)->delete();
         });
     }
 
