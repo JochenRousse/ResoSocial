@@ -38,6 +38,8 @@ APP_KEY=base64:R2Qpwae34Cw5zEepxtBg6dgVjYpL1U6T9jjHnzA6EYM=
 APP_DEBUG=true
 APP_LOG_LEVEL=debug
 APP_URL=http://localhost/
+
+
 DB_CONNECTION=mongodb
 DB_HOST=localhost
 DB_PORT=27017
