@@ -61,7 +61,7 @@
                         <tbody>
                         @foreach($events as $event)
                             <tr class='clickable-row clickable'
-                                data-href="{{ route('group.page', ['id' => $event['_id']]) }}">
+                                data-href="{{ route('event.page', ['id' => $event['_id']]) }}">
                                 <td>{{ $event['name'] }}</td>
                                 <td>{{ $event['type'] }}</td>
                                 <td>{{ $event['date'] }}</td>
@@ -155,13 +155,13 @@
                         <td>{{ $eventRequest['date'] }}</td>
                         <td>{{ $eventRequest['date_end'] }}</td>
                         <td>{{ $eventRequest['place'] }}</td>
-                        <td><a href="{{ route('events.join') }}"
+                        <td><a href="{{ route('event.join') }}"
                                class="btn btn-primary btn-sm"
                                onclick="event.preventDefault();
                                        document.getElementById('accept-event-{{$eventRequest['_id']}}').submit();">
                                 Accepter
                             </a>
-                            <form id="accept-event-{{$eventRequest['_id']}}" action="{{ route('events.join') }}"
+                            <form id="accept-event-{{$eventRequest['_id']}}" action="{{ route('event.join') }}"
                                   method="POST"
                                   style="display: none;">
                                 <input type="hidden" name="eventId" value="{{$eventRequest['_id']}}"/>

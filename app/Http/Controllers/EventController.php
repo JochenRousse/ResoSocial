@@ -110,7 +110,7 @@ class EventController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('events.page', ['id' => $request['eventId']])->with($notification);
+            return redirect()->route('event.page', ['id' => $request['eventId']])->with($notification);
         }
     }
 
@@ -159,28 +159,4 @@ class EventController extends Controller
             return redirect()->route('user.events', ['id' => $request['userId']])->with($notification);
         }
     }
-
-    /*
-    public function invite(Request $request){
-        $validator = Validator::make($request->all(), ['userId' => 'required', 'eventId' => 'required', 'userRequestedId' => 'required']);
-
-        if ($validator->fails()) {
-            $notification = array(
-                'message' => 'Oups, quelque chose s\'est mal passé, veuillez réessayer.',
-                'alert-type' => 'error'
-            );
-
-            return back()->with($notification);
-        } else {
-            //Event::where('_id', $request['eventId'])->pull('members', $request['userId']);
-
-            $notification = array(
-                'message' => 'Vous avez bien quitté l\'évènement',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('user.events', ['id' => $request['userId']])->with($notification);
-        }
-    }
-    */
 }
