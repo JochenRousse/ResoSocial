@@ -49,7 +49,7 @@ DB_DATABASE=reseau_social
 DB_USERNAME=
 DB_PASSWORD=  
 
-BROADCAST_DRIVER=log
+BROADCAST_DRIVER=pusher
 CACHE_DRIVER=file
 SESSION_DRIVER=file
 SESSION_LIFETIME=120
@@ -76,8 +76,8 @@ use admin
 
 db.createUser(
 {
-user: "baptiste",
-pwd: "root",
+user: "_VotreNom_",
+pwd: "_VotrePwd_",
 roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
 }
 )
