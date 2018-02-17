@@ -65,10 +65,10 @@ MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null  
 
-PUSHER_APP_ID=
-PUSHER_APP_KEY=
-PUSHER_APP_SECRET=
-PUSHER_APP_CLUSTER=mt1
+PUSHER_APP_ID=472965
+PUSHER_APP_KEY=6ed4d724bc881fe5f6bb
+PUSHER_APP_SECRET=d7becdf6bf1dc9e998f7
+PUSHER_APP_CLUSTER=eu
 ```
 4. Exécutez la console MongoDB, et entrez les commandes suivantes :
 ```
@@ -91,7 +91,7 @@ DB_PASSWORD=_VotrePwd_
 ```
 php artisan key:generate
 ```
-7. Dans le fichier database.php situé dans ./config/ et modifiez la ligne pour qu'elle corresponde à vos identifiants :
+7. Dans le fichier database.php situé dans ./config/ modifiez la ligne 81 pour qu'elle corresponde à vos identifiants :
 ```
 'username' => '_VotreNom_',
 'password' => '_VotrePwd_',
