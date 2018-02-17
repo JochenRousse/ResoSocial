@@ -5,28 +5,31 @@ Ce projet a été réalisé pour le module PHP de l'ENSSAT, section IMR promo 20
 ## Préambule
 
 Ce fichier contient, dans un premier temps les étapes d'installation du projet.
-Puis il détaillera la liste des FrameWork utilisés.
+Puis il détaillera la liste des frameworks utilisés.
 
 ## Installation
 ### Pré-requis
 
 Vous aurez besoin de télécharger :
- * xampp (7.2.1.0) / lampp ()
- * MongoDb (3.6.2)
-Suivit de, une fois xamp/lamp installé :
+ * Un serveur web (par ex: Xampp ou Lamp)
+ * MongoDb (3.6.2)  
+ 
+Vous aurez ensuite besoin de :
  * Composer 
  * NodeJs (8.9.4)
 
 ### Installation
 #### Pour Windows
 
-1. Installer dans l'ordre sur la machine : XAMPP, MongoDB, Composer, NodeJs.
-2. Télécherger le projet git sur votre machine, et le placer dans "_Cheminxampp_/htdocs/"
+1. Installez dans l'ordre sur la machine : XAMPP, MongoDB, Composer, NodeJs.
+2. Suivez les instructions d'installation pour [MongoDB](https://docs.mongodb.com/manual/administration/install-community/).
+3. Clonez le projet git sur votre machine, dans "_Cheminxampp_/htdocs/".
 
 #### Pour Linux
 
-1. Installer dans l'ordre sur la machine : LAMPP, MongoDB, Composer, NodeJs.
-2. Télécherger le projet git sur votre machine, 
+1. Installez dans l'ordre sur la machine : LAMP, MongoDB, Composer, NodeJs.
+2. Suivez les instructions d'installation pour [MongoDB](https://docs.mongodb.com/manual/administration/install-community/).
+3. Téléchargez le projet git sur votre machine, et mettez-le dans la racine du serveur web.
 
 #### Pour Windows et Linux
 
@@ -37,13 +40,15 @@ APP_ENV=local
 APP_KEY=base64:R2Qpwae34Cw5zEepxtBg6dgVjYpL1U6T9jjHnzA6EYM=
 APP_DEBUG=true
 APP_LOG_LEVEL=debug
-APP_URL=http://localhost/\
+APP_URL=http://localhost/  
+
 DB_CONNECTION=mongodb
 DB_HOST=localhost
 DB_PORT=27017
 DB_DATABASE=reseau_social
 DB_USERNAME=
-DB_PASSWORD=
+DB_PASSWORD=  
+
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file
 SESSION_DRIVER=file
@@ -51,50 +56,73 @@ SESSION_LIFETIME=120
 QUEUE_DRIVER=sync
 REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=null
-REDIS_PORT=6379
+REDIS_PORT=6379  
+
 MAIL_DRIVER=smtp
 MAIL_HOST=smtp.mailtrap.io
 MAIL_PORT=2525
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-PUSHER_APP_ID=472965
-PUSHER_APP_KEY=6ed4d724bc881fe5f6bb
-PUSHER_APP_SECRET=d7becdf6bf1dc9e998f7
-PUSHER_APP_CLUSTER=eu
+MAIL_ENCRYPTION=null  
+
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+PUSHER_APP_CLUSTER=mt1
 ```
-4. Completer les lignes en remplacent par vos identifiants, qui seront créés par la suite.
-```
-DB_USERNAME=VOTRE_ID
-DB_PASSWORD=VOTRE_MDP
-```
-5. Exécuter la console MongoDB, et entrer la commande suivante :
+4. Exécutez la console MongoDB, et entrez les commandes suivantes :
 ```
 use admin
+
 db.createUser(
 {
-user: "VOTRE_ID",
-pwd: "VOTRE_MDP",
+user: "baptiste",
+pwd: "root",
 roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
 }
 )
 ```
-6. Aller à la racine du projet, et exécuter la commande pour générer une clé de chiffrement :
+5. Complétez ces lignes en ajoutant les identifiants que vous venez de créer :
 ```
-php php artisan key:generate
+DB_USERNAME=_VotreNom_
+DB_PASSWORD=_VotrePwd_
 ```
-7. Dans le fichier database.php situé dans ./config/ et modifier la ligne
+6. Allez à la racine du projet, et exécutez la commande pour générer une clé de chiffrement :
+```
+php artisan key:generate
+```
+7. Dans le fichier database.php situé dans ./config/ et modifiez la ligne pour qu'elle corresponde à vos identifiants :
+```
+'username' => '_VotreNom_',
+'password' => '_VotrePwd_',
+```
+8. Maintenant, dans la racine du projet, exécutez la commande :  
+```
+composer install
+```
+9. Puis exécutez les commandes :
+```
+npm install
+npm run dev
+```
 
 ## Frameworks utilisés
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [laravel](https://laravel.com/) - Et ses packages, permettant la gestion du projet
+* [MongoDB](https://www.mongodb.com/) - Base de donnée
+
+## Dépendances principales
+
+* [Composer](https://getcomposer.org/) - Gestionnaire de paquets PHP
+* [NodeJS](https://nodejs.org/en/)
+* [npm](https://www.npmjs.com/) - Gestionnaire de paquets JavaScript
+* [Pusher](https://pusher.com/docs/) - Recevoir des notifications en temps réel
+* [Laravel MongoDB](https://github.com/jenssegers/laravel-mongodb) - Dépendance de Laravel pour l'utilisation de MongoDB
 
 ## Auteurs
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+**Jochen Rousse** - **Johann Carfantan** - **Sylvan Le Deunff** - **Baptiste Prieur**
 
 ## License
 
-Ce projet est licencié ENSSAT, est destiné l'ENSSAT, pour les élèves de l'ENSSAT.
+Ce projet est licencié, est destiné à l'ENSSAT, pour les élèves de l'ENSSAT.
