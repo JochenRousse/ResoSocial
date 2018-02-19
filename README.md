@@ -12,7 +12,7 @@ Puis il détaillera la liste des frameworks utilisés.
 
 Vous aurez besoin de télécharger :
  * Un serveur web (par ex: Xampp ou Lamp)
- * MongoDb (3.6.2)  
+ * MongoDB (3.6.2)  
  
 Vous aurez ensuite besoin de :
  * Composer 
@@ -109,7 +109,7 @@ npm run dev
 ## Frameworks utilisés
 
 * [laravel](https://laravel.com/) - Et ses packages, permettant la gestion du projet
-* [MongoDB](https://www.mongodb.com/) - Base de donnée
+* [MongoDB](https://www.mongodb.com/) - Base de données
 
 ## Dépendances principales
 
